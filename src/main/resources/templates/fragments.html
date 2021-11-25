@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:fragment="head">
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${title} == null ?
     'Activities for Wellness' :
     'Activities for Wellness : ' + ${title}">
@@ -16,30 +18,30 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
-<body class="container">
-    <nav th:fragment="navigation">
-        <h1 th:text="${title} == null ?
-        'Activities for Wellness' :
-        'Activities for Wellness : ' + ${title}">
-        </h1>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/dimension">View Activities by Dimension</a>
-            </li>
-            <!-- TO BE COMPLETED...
-            <li class="nav-item">
-                <a class="nav-link" href="/dimension/add">Add an Activity</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/dimension/delete">Delete an Activity</a>
-            </li>
-            -->
-        </ul>
-
-    </nav>
-
+<body>
+    <header th:fragment="header">
+        <nav>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dimension">View Activities by Dimension</a>
+                </li>
+                <!-- TO BE COMPLETED...
+                <li class="nav-item">
+                    <a class="nav-link" href="/dimension/add">Add an Activity</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dimension/delete">Delete an Activity</a>
+                </li>
+                -->
+            </ul>
+            <h2 class="container" th:text="${title} == null ?
+                    'Activities for Wellness' :
+                    'Activities for Wellness : ' + ${title}">
+            </h2>
+        </nav>
+    </header>
 </body>
 </html>
