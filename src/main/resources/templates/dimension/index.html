@@ -2,11 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-    <header th:replace="fragments :: header"></header>
+    <header th:replace="fragments :: nav"></header>
+    <div th:replace="fragments :: page-title"></div>
+    <div class="content">
         <ul>
             <li th:each="dimension_item : ${dimension}" th:text="${dimension_item}">
                 Error: Cannot display dimension items
             </li>
         </ul>
+    </div>
 </body>
 </html>
