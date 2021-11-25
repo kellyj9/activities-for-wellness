@@ -25,7 +25,7 @@ public class DimensionController {
     public String displayDimensionList(Model model) {
        // add the title of the page to the model
        model.addAttribute("title", "Dimensions of Wellness");
-       // add all dimensions in the table to the model
+       // add all dimensions in the dimensionRepository to the model
        model.addAttribute("dimension", dimensionRepository.findAll());
 
         // temporarily create a dimension list for the purposes of testing the
