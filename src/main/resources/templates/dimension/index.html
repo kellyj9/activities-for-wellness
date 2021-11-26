@@ -6,8 +6,16 @@
     <div th:replace="fragments :: page-title"></div>
     <div class="content">
         <ul>
-            <li th:each="dimension_item : ${dimension}" th:text="${dimension_item}">
-                Error: Cannot display dimension items
+            <li th:each="dimension_item : ${dimension}">
+
+                <td>
+                    <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
+                       th:text="${dimension_item.name}">
+                   </a>
+                </td>
+                <!-- ORIGINAL code
+                <a th:href="'/activity/index'" th:text="${dimension_item}"></a>
+                -->
             </li>
         </ul>
     </div>

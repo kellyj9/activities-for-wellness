@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+    <header th:replace="fragments :: nav"></header>
+    <div th:replace="fragments :: page-title"></div>
+    <div class="content">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Activities for the Dimension</th>
+            </tr>
+            </thead>
+            <tr th:each="activity_item : ${activity}">
+                <td th:text="${activity_item.description}"></td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>
