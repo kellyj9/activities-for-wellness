@@ -10,10 +10,10 @@ public class Dimension extends AbstractEntity {
 
     private String name;
 
-    // mark final so that the list itself cannot be changed;
-    // however, the contents can still be changed
-@OneToMany(mappedBy="dimension")
-private final List<Activity> activity = new ArrayList<>();
+     // mark final so that the list itself cannot be changed;
+     // however, the contents can still be changed
+    @OneToMany(mappedBy="dimension")
+    private final List<Activity> activity = new ArrayList<>();
 
     public Dimension() {}
 
