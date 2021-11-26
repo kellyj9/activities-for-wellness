@@ -33,12 +33,13 @@ public class ActivityController {
 //         temporarily create an activity list for the purposes of testing the
 //         controller and Thymeleaf template
 
-//        Activity activity1 = new Activity ("Activity1 for dimension",
+//        Activity activity1 = new Activity ("Listen to music.",
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity1);
-//        Activity activity2 = new Activity ("Activity2 for dimension",
+//        Activity activity2 = new Activity ("Enjoy a healthy meal.",
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
+
 
 
         // if the query param was null...

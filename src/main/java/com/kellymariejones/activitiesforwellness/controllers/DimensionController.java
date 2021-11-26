@@ -1,6 +1,7 @@
 package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
+import com.kellymariejones.activitiesforwellness.models.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,13 @@ public class DimensionController {
 
 //         temporarily create a dimension list for the purposes of testing the
 //         controller and Thymeleaf template
-//        Dimension dimension = new Dimension ("Physical");
+//        Dimension dimension = new Dimension ("Emotional",
+//        "SAMHSA identifies emotional wellness as an ability to cope effectively" +
+//        "with life and build satisfying relationships with others.");
 //        dimensionRepository.save(dimension);
-//        Dimension dimension2 = new Dimension ("Emotional");
+//        Dimension dimension2 = new Dimension ("Spiritual",
+//        "Spiritual wellness is related to your values and beliefs that help you find" +
+//        "meaning and purpose in your life.");
 //        dimensionRepository.save(dimension2);
 
        // add the title of the page to the model

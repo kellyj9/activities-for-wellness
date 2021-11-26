@@ -5,19 +5,22 @@
     <header th:replace="fragments :: nav"></header>
     <div th:replace="fragments :: page-title"></div>
     <div class="content">
-        <ul>
-            <li th:each="dimension_item : ${dimension}">
-
-                <td>
-                    <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
-                       th:text="${dimension_item.name}">
-                   </a>
-                </td>
-                <!-- ORIGINAL code
-                <a th:href="'/activity/index'" th:text="${dimension_item}"></a>
-                -->
-            </li>
-        </ul>
+        <div th:each="dimension_item : ${dimension}" class="list-group-item">
+                <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
+                   th:text="${dimension_item.name}"
+                   class="list-group-item list-group-item-active">
+               </a>
+                <div th:text="${dimension_item.description}" class="container"></div>
+        </div>
     </div>
+
+    <p class="container references">
+        Reference:
+        <br />
+        <cite>
+        Substance Abuse and Mental Health Services Administration (SAMHSA). (2016, April 28). The Eight Dimensions of Wellness. Retrieved from http://www.samhsa.gov/wellness-initiative/eight-dimensions-wellness
+        </cite>
+    </p>
+
 </body>
 </html>

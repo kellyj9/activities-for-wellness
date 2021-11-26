@@ -19,54 +19,51 @@
             crossorigin="anonymous">
     </script>
 </head>
-
 <body>
+    <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark"
+         aria-label="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Activities for Wellness</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarsExample03"
+                    aria-controls="navbarsExample03"
+                    aria-expanded="true"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-
-            <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark"
-                 aria-label="navbar">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Activities for Wellness</a>
-                    <button class="navbar-toggler" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarsExample03"
-                            aria-controls="navbarsExample03"
-                            aria-expanded="true"
-                            aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="navbar-collapse collapse" id="navbarsExample03">
-                        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="/">
-                                    Home
-                                </a>
-                           </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/dimension">
-                                   Dimensions of Wellness
-                                </a>
-                            </li>
-                            <!-- For later use
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown03"
-                                  data-bs-toggle="dropdown" aria-expanded="false">
-                                   Dropdown
-                               </a>
-                            </li>
-                            -->
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <div th:fragment="page-title" class="page-title">
-                <h5 th:text="${title} == null ?
-                                 'Welcome' :
-                                ${title}">
-                </h5>
+            <div class="navbar-collapse collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">
+                            Home
+                        </a>
+                   </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dimension">
+                           Dimensions of Wellness
+                        </a>
+                    </li>
+                    <!-- For later use
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                           Dropdown
+                       </a>
+                    </li>
+                    -->
+                </ul>
             </div>
+        </div>
+    </nav>
+
+    <div th:fragment="page-title" class="page-title">
+        <h5 th:text="${title} == null ?
+                         'Welcome' :
+                        ${title}">
+        </h5>
+    </div>
 
 </body>
 </html>

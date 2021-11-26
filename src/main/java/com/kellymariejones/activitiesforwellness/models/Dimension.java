@@ -10,6 +10,8 @@ public class Dimension extends AbstractEntity {
 
     private String name;
 
+    private String description;
+
      // mark final so that the list itself cannot be changed;
      // however, the contents can still be changed
     @OneToMany(mappedBy="dimension")
@@ -17,8 +19,9 @@ public class Dimension extends AbstractEntity {
 
     public Dimension() {}
 
-    public Dimension(String name) {
+    public Dimension(String name, String description) {
         this.name = name;
+        this.description = description;
         //this.activity = activity;
     }
 
@@ -28,6 +31,14 @@ public class Dimension extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Activity> getActivity() {
