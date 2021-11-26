@@ -4,19 +4,55 @@
 <body class="container">
     <nav th:replace="fragments :: nav"></nav>
     <div th:replace="fragments :: page-title"></div>
-    <div class="container">
-        <section>
+
+    <div style="float:right; width:auto;
+                    padding-top:0px; padding-right:20px; margin-top:0px;
+                    padding-bottom:20px; ">
+        <img  src="/image/afw01.png" alt="wellness logo">
+    </div>
+
+    <div class="container" style="text-align:left">
+        <h6>
+            Optimize your wellness through a holistic approach to health.
+        </h6>
+        <p>
+            This website allows you to improve your wellness by creating activities lists
+            for each of the dimensions of wellness.
+        </p>
+        <h6>What is Wellness?</h6>
+        <p>
+        "Wellness can be envisioned as not the absence of disease, illness, and stress,
+        but as the presence of a positive purpose in life, satisfying work and play,
+        joyful relationships, a healthy body and living environment, and happiness."
+        [https://mfpcc.samhsa.gov/ENewsArticles/Article12b_2017.aspx,
+        last retreived 11/26/2021]
+        </p>
+        <h6>
+        What are the Dimensions of Wellness?
+        </h6>
+        <p>
         The Substance Abuse and Mental Health Services Administration (SAMHSA) has
         identified eight dimensions of wellness to focus on to optimize health.
         The eight dimensions include: emotional, spiritual, intellectual, physical,
         environmental, financial, occupational, and social.
-        Wellness can be compromised by lack of support, trauma,
-        unhelpful thinking styles, chronic illness/disability, and substance use.
-        The eight dimensions are described in this website and are accompanied by
-        examples and ideas for improving each area.
-        </section>
-        <img src="/image/afw01.png">
+        </p>
+        <p>
+        In which of the dimensions of wellness do you feel strongest?
+        What dimensions would you like to work on?
+        <a th:href="'/dimension/'">Get Started</a>
+        </p>
     </div>
-
+    <div class="container references">
+        References:
+        <br />
+        SAMHSA/CMHS. (2010). Information for general health care providers:
+        What is wellness? [10 X 10 Wellness Campaign Brochure].
+        Rockville, Md.: Author.
+        <br />
+        Substance Abuse and Mental Health Services Administration (SAMHSA).
+        Promoting Wellness for Better Behavioral and Physical Health.
+        (Last retreived, 2021, November 26)
+        https://mfpcc.samhsa.gov/ENewsArticles/Article12b_2017.aspx
+    </div>
 </body>
 </html>
