@@ -1,16 +1,25 @@
 package com.kellymariejones.activitiesforwellness.models;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Dimension extends AbstractEntity {
 
     private String name;
 
+    // mark final so that the list itself cannot be changed;
+    // however, the contents can still be changed
+@OneToMany(mappedBy="dimension")
+private final List<Activity> activity = new ArrayList<>();
+
     public Dimension() {}
 
     public Dimension(String name) {
         this.name = name;
+        //this.activity = activity;
     }
 
     public String getName() {
@@ -20,6 +29,12 @@ public class Dimension extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Activity> getActivity() {
+        return activity;
+    }
+
+    //no setter for activity because it is final
 
     @Override
     public String toString() {

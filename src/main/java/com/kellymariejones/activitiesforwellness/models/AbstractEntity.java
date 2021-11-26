@@ -5,6 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
+// MappedSuperclass annotation ensures the fields in this class are pushed down
+// into the tables for the objects that are extended
 @MappedSuperclass
 public class AbstractEntity {
 
