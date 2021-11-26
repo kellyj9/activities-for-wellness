@@ -8,7 +8,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th th:text="'Activities for the ' + 'Dimension'"></th>
+                <center>
+                    <a th:href="'/activity/create'"
+                       th:text="'Add an Activity - to the ' + ${title} + ' dimension'"
+                       class="add-link">
+                    </a>
+                </center></tr>
+            <tr>
+                <th th:text="'Activities for the ' + ${title} + ' dimension:'"></th>
             </tr>
             </thead>
             <tr th:each="activity_item : ${activity}">

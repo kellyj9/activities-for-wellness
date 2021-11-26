@@ -56,7 +56,9 @@ public class ActivityController {
             }
             // else print the activities for the dimension
             else {
-                  // get the result of the query
+                // get the result of the query
+                // note: may need to add validation to check for missing domain for
+                // domain id
                 model.addAttribute("title",
                         dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", result);
