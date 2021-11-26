@@ -2,10 +2,6 @@ package com.kellymariejones.activitiesforwellness.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Activity extends AbstractEntity{

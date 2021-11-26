@@ -5,3 +5,13 @@ nav {
 .page-title, .content {
     padding: 10px;
 }
+
+.list-group-item a {
+    background-color: #0a7fcd;
+    color: black;
+    font-weight: bold;
+}
+
+.container .references {
+    padding-top: 50px;
+}

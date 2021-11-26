@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("activity")
@@ -34,12 +33,13 @@ public class ActivityController {
 //         temporarily create an activity list for the purposes of testing the
 //         controller and Thymeleaf template
 
-//        Activity activity1 = new Activity ("Activity1 for dimension",
+//        Activity activity1 = new Activity ("Listen to music.",
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity1);
-//        Activity activity2 = new Activity ("Activity2 for dimension",
+//        Activity activity2 = new Activity ("Enjoy a healthy meal.",
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
+
 
 
         // if the query param was null...
@@ -58,8 +58,7 @@ public class ActivityController {
             else {
                   // get the result of the query
                 model.addAttribute("title",
-                        "Activities in dimension: " +
-                                dimensionId);
+                        dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", result);
             }
         }
@@ -67,16 +66,3 @@ public class ActivityController {
     }
 
 }
-
-
-
-        //         temporarily create an activity list for the purposes of testing the
-//         controller and Thymeleaf template
-//        Activity activity = new Activity ("Whatever1");
-//        dimensionRepository.save(activity);
-//        Dimension dimension2 = new Dimension ("Physical");
-//        dimensionRepository.save(dimension2);
-
-//
-//        model.addAttribute("title", "Activities");
-//        model.addAttribute("activity", activityRepository.findAll());
