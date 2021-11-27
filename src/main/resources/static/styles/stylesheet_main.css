@@ -26,6 +26,9 @@ nav {
     padding-top: 50px;
 }
 
+.container .logout {
+    float: right;
+}
 
 table {
     border-collapse: collapse;

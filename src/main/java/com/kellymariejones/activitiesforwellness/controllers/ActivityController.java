@@ -76,7 +76,8 @@ public class ActivityController {
             return("dimension/index");
         }
         else {
-            model.addAttribute("title", "Add an Activity");
+            model.addAttribute("title", "Add an Activity to dimension : " +
+                    dimensionRepository.findById(dimensionId).get().getName());
             model.addAttribute("activity", new Activity());
 
             model.addAttribute("dimension",
@@ -106,7 +107,9 @@ public class ActivityController {
         else {
             // if there are any errors in the Model object...go back to the form
             if (errors.hasErrors()) {
-                model.addAttribute("title", "Add an Activity");
+               // model.addAttribute("title", "Add an Activity");
+                model.addAttribute("title", "Add an Activity to dimension : " +
+                        dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", newActivity);
                 model.addAttribute("dimensionId", dimensionId);
                 return "activity/create";
