@@ -21,14 +21,21 @@ public class AuthenticationFilter implements HandlerInterceptor {
     @Autowired
     AuthenticationController authenticationController;
 
-    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/css", "/");
+    private static final List<String> whitelist = Arrays.asList(
+            "/login", "/register", "/logout", "/styles", "/image");
 
     private static boolean isWhitelisted(String path) {
+        // if the path is the /index.html page, user doesn't need to be logged in
+        if (path.equals("/")) {
+            return true;
+        }
+        // if the path is in the whitelist, user doesn't need to be logged in
         for (String pathRoot : whitelist) {
             if (path.startsWith(pathRoot)) {
                 return true;
             }
         }
+        // otherwise, the user needs to log in
         return false;
     }
 

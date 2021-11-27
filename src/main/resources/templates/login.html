@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-<header th:replace="fragments :: nav"></header>
-    <div th:replace="fragments :: page-title"></div>
+<nav th:replace="fragments :: nav"></nav>
+<div th:replace="fragments :: page-title"></div>
+
     <div class="container">
         <form method="post">
             <div class="form-group">
@@ -19,7 +20,6 @@
                 </label>
                 <p class="error" th:errors="${loginFormDTO.password}"></p>
             </div>
-
             <input type="submit" class="btn btn-primary" value="Log In" />
         </form>
 

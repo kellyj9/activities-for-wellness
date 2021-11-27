@@ -24,15 +24,14 @@
          aria-label="navbar">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Activities for Wellness</a>
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample03"
-                    aria-controls="navbarsExample03"
-                    aria-expanded="true"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarsExample03"
+                        aria-controls="navbarsExample03"
+                        aria-expanded="true"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             <div class="navbar-collapse collapse" id="navbarsExample03">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
@@ -43,6 +42,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dimension">
                            Dimensions of Wellness
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/login}" class="nav-link">
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/logout}" class="nav-link">
+                            Logout
                         </a>
                     </li>
                     <!-- For later use
@@ -58,13 +67,20 @@
         </div>
     </nav>
 
+    <!--
+    <div th:fragment="logout-link">
+        <a th:href="@{/logout}">
+                    Logout
+        </a>
+    </div>
+    -->
+
     <div th:fragment="page-title" class="page-title">
         <h5 th:text="${title} == null ?
                          'Welcome' :
                         ${title}">
         </h5>
     </div>
-
 
 </body>
 </html>
