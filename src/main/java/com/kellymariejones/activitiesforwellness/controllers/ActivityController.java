@@ -3,13 +3,14 @@ package com.kellymariejones.activitiesforwellness.controllers;
 import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
+import com.kellymariejones.activitiesforwellness.models.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -23,6 +24,7 @@ public class ActivityController {
 
     // Autowired annotation specifies that Spring Boot should auto-populate this field
     // feature of Spring Boot - dependency injection / inversion of control
+
     @Autowired
     private DimensionRepository dimensionRepository;
     // findAll, save, findById are part of the DimensionRepository interface
@@ -40,31 +42,94 @@ public class ActivityController {
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
 
-
-
         // if the query param was null...
         if (dimensionId == null) {
             model.addAttribute("title",
                     "An error occurred.");
-            //model.addAttribute("events", activityRepository.findAll());
         } else {
+
+            // get the name of the dimension
+            model.addAttribute("title",
+                    dimensionRepository.findById(dimensionId).get().getName());
+            // note that we should do extra validation for the above method call to check
+            // that the dimension id is found
+
             // gets results of querying for activities by dimensionId
             List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
-            // if no activities found for that dimensionId...
-            if (result.isEmpty()) {
-                model.addAttribute("title", "No Activities Found");
+            model.addAttribute("activity", result);
+            model.addAttribute("dimensionId", dimensionId);
+        }
+        return "activity/index";  // or redirect:
+    }
+
+    @GetMapping("create")
+    public String renderCreateActivityForm(
+                                            Model model,
+                                           @RequestParam(required=true)
+                                            Integer dimensionId) {
+        // if the dimensionId query parameter was null...
+        if (dimensionId==null) {
+            // add the title of the page to the model
+            model.addAttribute("title", "Dimensions of Wellness");
+            // add all dimensions in the dimensionRepository to the model
+            model.addAttribute("dimension", dimensionRepository.findAll());
+            return("dimension/index");
+        }
+        else {
+            model.addAttribute("title", "Add an Activity");
+            model.addAttribute("activity", new Activity());
+
+            model.addAttribute("dimension",
+                    dimensionRepository.findById(dimensionId));
+
+            model.addAttribute("dimensionId", dimensionId);
+        }
+        return "activity/create";
+    }
+
+    @PostMapping("create")
+    public String processCreateActivityForm(
+                                            @ModelAttribute
+                                            @Valid Activity newActivity,
+                                            Errors errors, Model model,
+                                            @RequestParam(required=true) Integer dimensionId) {
+        // Note: Spring Boot will put fields in activity into an Activity object
+        // in the Activity class when model binding occurs
+
+        // if the dimensionId query parameter was null...
+        if (dimensionId == 0) {
+            // add the title of the page to the model
+            model.addAttribute("title", "Dimensions of Wellness");
+            // add all dimensions in the dimensionRepository to the model
+            model.addAttribute("dimension", dimensionRepository.findAll());
+            return("dimension/index");
+        }
+        else {
+            // if there are any errors in the Model object...go back to the form
+            if (errors.hasErrors()) {
+                model.addAttribute("title", "Add an Activity");
+                model.addAttribute("activity", newActivity);
+                model.addAttribute("dimensionId", dimensionId);
+                return "activity/create";
             }
-            // else print the activities for the dimension
             else {
-                // get the result of the query
-                // note: may need to add validation to check for missing domain for
-                // domain id
+                // get the name of the dimension
                 model.addAttribute("title",
                         dimensionRepository.findById(dimensionId).get().getName());
+                // note that we should do extra validation for the above method call to check
+                // that the dimension id is found
+
+                // gets results of querying for activities by dimensionId
+                List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
                 model.addAttribute("activity", result);
+                model.addAttribute("dimensionId", dimensionId);
+
+                newActivity.setDimension(dimensionRepository.findById(dimensionId).get());
+                activityRepository.save(newActivity);
             }
         }
-        return "activity/index";
+        return "redirect:index?dimensionId=" + dimensionId;
     }
+
 
 }

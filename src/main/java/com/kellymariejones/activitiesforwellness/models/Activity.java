@@ -1,16 +1,19 @@
 package com.kellymariejones.activitiesforwellness.models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Activity extends AbstractEntity{
 
+    @Size(min=1, max=400, message="Please enter up to 400 characters.")
     private String description;
 
-    // JPA annotation to set up many-to-one relationship
-    // between Activity and Dimension
-    @ManyToOne // relate one dimension to an event
+    // JPA annotation ManyToOne used to set up many-to-one relationship
+    // between Activity and Dimension, which is why we have a property named
+    // “dimension” in the Activity class
+    @ManyToOne // relate one dimension to an activity
+    //@JoinColumn(name="id", insertable = false, updatable = false)
     private Dimension dimension;
 
     public Activity () {}
@@ -42,6 +45,5 @@ public class Activity extends AbstractEntity{
     public String toString() {
         return description;
     }
-
 
 }

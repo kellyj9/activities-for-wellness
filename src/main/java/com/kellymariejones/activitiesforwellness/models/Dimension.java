@@ -1,6 +1,8 @@
 package com.kellymariejones.activitiesforwellness.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,9 @@ public class Dimension extends AbstractEntity {
 
      // mark final so that the list itself cannot be changed;
      // however, the contents can still be changed
-    @OneToMany(mappedBy="dimension")
+
+    @OneToMany(mappedBy = "dimension")
+    //@JoinColumn(name="dimension_id", referencedColumnName="id")
     private final List<Activity> activity = new ArrayList<>();
 
     public Dimension() {}
@@ -22,7 +26,6 @@ public class Dimension extends AbstractEntity {
     public Dimension(String name, String description) {
         this.name = name;
         this.description = description;
-        //this.activity = activity;
     }
 
     public String getName() {
