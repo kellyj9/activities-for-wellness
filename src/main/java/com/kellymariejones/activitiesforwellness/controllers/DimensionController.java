@@ -1,5 +1,6 @@
 package com.kellymariejones.activitiesforwellness.controllers;
 
+import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class DimensionController {
     private DimensionRepository dimensionRepository;
     // findAll, save, findById are part of the DimensionRepository interface
 
-//    @Autowired
-//    private ActivityRepository activityRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @GetMapping
     public String displayDimensionList(Model model) {
@@ -31,16 +32,16 @@ public class DimensionController {
 //        "with life and build satisfying relationships with others.");
 //        dimensionRepository.save(dimension);
 //        Dimension dimension2 = new Dimension ("Spiritual",
-//        "Spiritual wellness is related to your values and beliefs that help you find" +
+//        "Spiritual wellness is related to your values and beliefs that help you find " +
 //        "meaning and purpose in your life.");
 //        dimensionRepository.save(dimension2);
 
        // add the title of the page to the model
        model.addAttribute("title", "Dimensions of Wellness");
        // add all dimensions in the dimensionRepository to the model
+
        model.addAttribute("dimension", dimensionRepository.findAll());
 
-
-        return "dimension/index";
+       return "dimension/index";
     }
 }

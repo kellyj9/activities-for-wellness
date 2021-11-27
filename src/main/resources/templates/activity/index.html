@@ -8,7 +8,18 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th th:text="'Activities for the ' + 'Dimension'"></th>
+                <center>
+                    <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
+                       th:text="'Add an Activity - to the ' + ${title} + ' dimension'"
+                       class="add-link">
+                    </a>
+                </center>
+            </tr>
+            <tr>
+                <th th:text="${activity.isEmpty()} ?
+                   'No activities found' :
+                    'Activities for the ' + ${title} + ' dimension:'">
+                </th>
             </tr>
             </thead>
             <tr th:each="activity_item : ${activity}">
