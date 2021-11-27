@@ -46,7 +46,8 @@ public class ActivityController {
         if (dimensionId == null) {
             model.addAttribute("title",
                     "An error occurred.");
-        } else {
+        }
+        else {
 
             // get the name of the dimension
             model.addAttribute("title",
@@ -56,8 +57,15 @@ public class ActivityController {
 
             // gets results of querying for activities by dimensionId
             List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
-            model.addAttribute("activity", result);
-            model.addAttribute("dimensionId", dimensionId);
+            if (result.isEmpty()) {
+                model.addAttribute("title", "No Activities Found");
+                model.addAttribute("activity", result);
+                model.addAttribute("dimensionId", dimensionId);
+            }
+            else {
+                model.addAttribute("activity", result);
+                model.addAttribute("dimensionId", dimensionId);
+            }
         }
         return "activity/index";  // or redirect:
     }
