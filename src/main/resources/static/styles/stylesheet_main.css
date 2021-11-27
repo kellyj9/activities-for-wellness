@@ -25,3 +25,16 @@ nav {
 .container .references {
     padding-top: 50px;
 }
+
+
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+table td.shrink {
+    white-space:nowrap
+}
+table td.expand {
+    width: 99%
+}

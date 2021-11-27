@@ -95,9 +95,8 @@ public class ActivityController {
                                             @RequestParam(required=true) Integer dimensionId) {
         // Note: Spring Boot will put fields in activity into an Activity object
         // in the Activity class when model binding occurs
-
-        // if the dimensionId query parameter was null...
-        if (dimensionId == 0) {
+        // if the dimensionId query parameter was missing...
+        if (dimensionId == null) {
             // add the title of the page to the model
             model.addAttribute("title", "Dimensions of Wellness");
             // add all dimensions in the dimensionRepository to the model
@@ -131,5 +130,16 @@ public class ActivityController {
         return "redirect:index?dimensionId=" + dimensionId;
     }
 
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(
+                                        @RequestParam(required=true) Integer activityId,
+                                        @RequestParam(required=true) Integer dimensionId,
+                                         Model model) {
+        if (activityId != null) {
+            activityRepository.deleteById(activityId);
+        }
+        return "redirect:index?dimensionId=" + dimensionId;
+    }
 
 }
