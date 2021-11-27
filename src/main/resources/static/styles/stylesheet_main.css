@@ -2,6 +2,14 @@ nav {
     background-color: #091f6a;
 }
 
+table {
+    table-layout: fixed;
+}
+
+td {
+    word-wrap: break-word;
+}
+
 .main-link {
     font-size: 24px;
     font-weight: bold;
