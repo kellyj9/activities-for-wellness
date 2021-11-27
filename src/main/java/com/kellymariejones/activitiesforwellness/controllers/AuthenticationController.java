@@ -165,5 +165,14 @@ public class AuthenticationController {
         return "redirect:";
     }
 
+    // logs out a user
+    // Invalidates the session associated with the given user.
+    // This removes all data from the session, so that when the user makes a
+    // subsequent request, they will be forced to log in again.
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
 
 }
