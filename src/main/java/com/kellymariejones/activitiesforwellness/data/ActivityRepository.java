@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface ActivityRepository
         extends CrudRepository<Activity, Integer> {
+
         List<Activity> findAllByDimensionId(Integer dimension_id);
+
 }
