@@ -2,14 +2,6 @@ nav {
     background-color: #091f6a;
 }
 
-table {
-    table-layout: fixed;
-}
-
-td {
-    word-wrap: break-word;
-}
-
 .main-link {
     font-size: 24px;
     font-weight: bold;
@@ -32,4 +24,17 @@ td {
 
 .container .references {
     padding-top: 50px;
+}
+
+
+table {
+    border-collapse: collapse;
+    width:100%;
+}
+
+table td.shrink {
+    white-space:nowrap
+}
+table td.expand {
+    width: 99%
 }

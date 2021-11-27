@@ -4,26 +4,26 @@
 <body class="container">
     <header th:replace="fragments :: nav"></header>
     <div th:replace="fragments :: page-title"></div>
-    <div class="content">
+    <div class="container">
+        <center>
+            <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
+               th:text="'Add an Activity - to the ' + ${title} + ' dimension'"
+               class="add-link">
+            </a>
+        </center>
+        <br />
+        <h5 th:text="${activity.isEmpty()} ?
+                       'No activities found' :
+                        'Activities for the ' + ${title} + ' dimension:'"
+                        class="container">
+        </h5>
+
         <table class="table table-striped">
-            <thead>
-            <tr>
-                <center>
-                    <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
-                       th:text="'Add an Activity - to the ' + ${title} + ' dimension'"
-                       class="add-link">
-                    </a>
-                </center>
-            </tr>
-            <tr>
-                <th th:text="${activity.isEmpty()} ?
-                   'No activities found' :
-                    'Activities for the ' + ${title} + ' dimension:'">
-                </th>
-            </tr>
-            </thead>
             <tr th:each="activity_item : ${activity}">
-                <td th:text="${activity_item.description}"></td>
+                <td class="shrink">
+                    Delete this Activity
+                </td>
+                <td th:text="${activity_item.description}" class="expand"></td>
             </tr>
         </table>
     </div>
