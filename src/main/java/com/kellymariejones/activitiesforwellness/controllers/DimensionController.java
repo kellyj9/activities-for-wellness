@@ -51,7 +51,7 @@ public class DimensionController {
                     "to be creative and you find ways to expand your knowledge and skills.");
             Dimension dimension4 = new Dimension ("Physical",
                     "Physical wellness is affected by activities such as exercise, " +
-                            "healthy nutrition, and adequate sleep..");
+                            "healthy nutrition, and adequate sleep.");
             Dimension dimension5 = new Dimension ("Environmental",
             "Environmental wellness is related to the surroundings you occupy.");
             Dimension dimension6 = new Dimension ("Financial",

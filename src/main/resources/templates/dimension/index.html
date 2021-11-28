@@ -14,7 +14,7 @@
         </p>
     </div>
 
-    <div class="content">
+
         <div th:each="dimension_item : ${dimension}" class="list-group-item">
                 <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
                    th:text="${dimension_item.name}"
@@ -22,7 +22,7 @@
                </a>
                 <div th:text="${dimension_item.description}" class="container"></div>
         </div>
-    </div>
+
 
     <div class="container references">
         References:
