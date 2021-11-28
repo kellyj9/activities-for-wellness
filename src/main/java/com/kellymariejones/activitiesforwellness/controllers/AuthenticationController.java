@@ -111,8 +111,8 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        // redirect user to home page
-        return "redirect:";
+        // user is registered and also logged in.  redirect the user to the dimension page
+        return "redirect:dimension";
     }
 
     @GetMapping("/login")
@@ -161,8 +161,8 @@ public class AuthenticationController {
         // password is correct. So we create a new session for the user.
         setUserInSession(request.getSession(), theUser);
 
-        // redirect the user to the home page
-        return "redirect:";
+        // user is logged in.  redirect the user to the dimension page
+        return "redirect:dimension";
     }
 
     // logs out a user
@@ -172,7 +172,7 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:";
     }
 
 }
