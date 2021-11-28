@@ -10,6 +10,7 @@ import java.util.Objects;
 @MappedSuperclass
 public class AbstractEntity {
 
+    // Auto-generate a unique id
     @Id
     @GeneratedValue
     private int id;

@@ -20,7 +20,6 @@ public class User extends AbstractEntity {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @OneToMany(mappedBy = "user")
-    //@JoinColumn(name="dimension_id", referencedColumnName="id")
     private final List<Activity> activity = new ArrayList<>();
 
     public User() {}

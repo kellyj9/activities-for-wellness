@@ -12,11 +12,7 @@ public class Dimension extends AbstractEntity {
 
     private String description;
 
-     // mark final so that the list itself cannot be changed;
-     // however, the contents can still be changed
-
     @OneToMany(mappedBy = "dimension")
-    //@JoinColumn(name="dimension_id", referencedColumnName="id")
     private final List<Activity> activity = new ArrayList<>();
 
     public Dimension() {}
