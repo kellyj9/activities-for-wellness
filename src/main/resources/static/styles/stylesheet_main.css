@@ -22,6 +22,11 @@ nav {
     font-weight: bold;
 }
 
+.dimension-list {
+    margin:auto;
+    width: 90%;
+}
+
 .container .references {
     padding-top: 50px;
     font-size: 12px;
