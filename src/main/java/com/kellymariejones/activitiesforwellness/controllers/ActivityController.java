@@ -2,6 +2,7 @@ package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
+import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class ActivityController {
     @Autowired
     private DimensionRepository dimensionRepository;
     // findAll, save, findById are part of the DimensionRepository interface
+
+    @Autowired
+    private UserRepository userRepository;
+    // findAll, save, findById are part of the DimensionRepository interface
+
 
     @GetMapping("index")
     public String displayActivities(@RequestParam(required=true)
@@ -152,7 +158,7 @@ public class ActivityController {
 
 
     @GetMapping("delete")
-    public String displayDeleteEventForm(
+    public String displayDeleteActivityForm(
                                         @RequestParam(required=true) Integer activityId,
                                         @RequestParam(required=true) Integer dimensionId,
                                          Model model) {
