@@ -19,21 +19,13 @@ import java.util.List;
 public class ActivityController {
 
     @Autowired
-    // specifies that Spring Boot should auto-populate this field
-    // feature of Spring Boot - dependency injection / inversion of control
     private ActivityRepository activityRepository;
-
-    // Autowired annotation specifies that Spring Boot should auto-populate this field
-    // feature of Spring Boot - dependency injection / inversion of control
 
     @Autowired
     private DimensionRepository dimensionRepository;
-    // findAll, save, findById are part of the DimensionRepository interface
 
     @Autowired
     private UserRepository userRepository;
-    // findAll, save, findById are part of the DimensionRepository interface
-
 
     @GetMapping("index")
     public String displayActivities(@RequestParam(required=true)
@@ -48,13 +40,14 @@ public class ActivityController {
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
 
-        // if the query param was null...
+
+        // NEED TO FIX the below query param check
+        // if the query param was missing
         if (dimensionId == null) {
             model.addAttribute("title",
                     "An error occurred.");
         }
         else {
-
             // get the name of the dimension
             String dimensionName =
                     dimensionRepository.findById(dimensionId).get().getName();
@@ -69,15 +62,10 @@ public class ActivityController {
             // gets results of querying for activities by dimensionId
             List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
             if (result.isEmpty()) {
-                //model.addAttribute("title", "No Activities Found");
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
             }
             else {
-
-                // get the name of the dimension
-                //model.addAttribute("title",
-                        //dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
             }
@@ -130,7 +118,6 @@ public class ActivityController {
         else {
             // if there are any errors in the Model object...go back to the form
             if (errors.hasErrors()) {
-               // model.addAttribute("title", "Add an Activity");
                 model.addAttribute("title", "Add an Activity to dimension : " +
                         dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", newActivity);
