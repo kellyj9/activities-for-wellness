@@ -50,19 +50,28 @@ public class ActivityController {
         else {
 
             // get the name of the dimension
+            String dimensionName =
+                    dimensionRepository.findById(dimensionId).get().getName();
+
             model.addAttribute("title",
-                    dimensionRepository.findById(dimensionId).get().getName());
+                    "Add an Activity to the " +
+                    dimensionName +
+                    " Domain");
             // note that we should do extra validation for the above method call to check
             // that the dimension id is found
 
             // gets results of querying for activities by dimensionId
             List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
             if (result.isEmpty()) {
-                model.addAttribute("title", "No Activities Found");
+                //model.addAttribute("title", "No Activities Found");
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
             }
             else {
+
+                // get the name of the dimension
+                //model.addAttribute("title",
+                        //dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
             }
