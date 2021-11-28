@@ -8,14 +8,14 @@
     <div class="container">
         <center>
             <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
-               th:text="'Add an Activity - to the ' + ${title} + ' dimension'"
+               th:text="'Add an Activity'"
                class="add-link">
             </a>
         </center>
         <br />
         <h6 th:text="${activity.isEmpty()} ?
                        'No activities found' :
-                        'Activities for the ' + ${title} + ' dimension:'"
+                        'My list of Activites'"
                         class="container">
         </h6>
 

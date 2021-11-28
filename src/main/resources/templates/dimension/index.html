@@ -3,8 +3,16 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
     <header th:replace="fragments :: nav"></header>
-
     <div th:replace="fragments :: page-title"></div>
+
+    <div class="content">
+        <p>
+            Support your overall health and wellbeing in each dimension of wellness
+            by creating a list of activities.
+            <br /><br />
+            <b>First, select a dimension:</b>
+        </p>
+    </div>
 
     <div class="content">
         <div th:each="dimension_item : ${dimension}" class="list-group-item">
