@@ -37,7 +37,7 @@ public class DimensionController {
             // POPULATES dimension table with data
             // Note:  This is only used for setup of the application.  The records in the
             // dimension table should NEVER get deleted.  Activities are associated
-            // with a dimension_id
+            // with a dimension.  Any records in the activity table should also get deleted!
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
@@ -71,6 +71,8 @@ public class DimensionController {
             dimensionRepository.save(dimension6);
             dimensionRepository.save(dimension7);
             dimensionRepository.save(dimension8);
+
+            activityRepository.deleteAll();
 
             // now refresh the result of the findAll()
             result = dimensionRepository.findAll();
