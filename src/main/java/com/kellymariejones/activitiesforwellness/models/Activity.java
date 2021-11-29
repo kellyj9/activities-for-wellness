@@ -18,10 +18,9 @@ public class Activity extends AbstractEntity{
 
     public Activity () {}
 
-    public Activity(String description, Dimension dimension, User user) {
+    public Activity(String description, Dimension dimension) {
         this.description = description;
         this.dimension = dimension;
-        this.user = user;
     }
 
     public String getDescription() {
