@@ -60,7 +60,7 @@ public class DimensionController {
             Dimension dimension7 = new Dimension ("Occupational",
             "Occupational wellness is a sense of personal satisfaction with the " +
                     "work you choose.");
-            Dimension dimension8 = new Dimension ("Spiritual",
+            Dimension dimension8 = new Dimension ("Social",
             "Social wellness is developing a sense of connectedness " +
                     "and belonging.");
              dimensionRepository.save(dimension1);

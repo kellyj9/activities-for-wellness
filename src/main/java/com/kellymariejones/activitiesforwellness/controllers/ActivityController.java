@@ -4,7 +4,6 @@ import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
-import com.kellymariejones.activitiesforwellness.models.Dimension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
