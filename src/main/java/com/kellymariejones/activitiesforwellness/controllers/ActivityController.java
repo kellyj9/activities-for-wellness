@@ -5,14 +5,18 @@ import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
+import com.kellymariejones.activitiesforwellness.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("activity")
@@ -26,6 +30,25 @@ public class ActivityController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private static final String userSessionKey = "user";
+
+    public User getUserFromSession(HttpSession session) {
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+
+        if (userId == null) {
+            return null;
+        }
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            return null;
+        }
+
+        return user.get();
+    }
+
 
     @GetMapping("index")
     public String displayActivities(@RequestParam(required=true)
@@ -104,7 +127,8 @@ public class ActivityController {
                                             @ModelAttribute
                                             @Valid Activity newActivity,
                                             Errors errors, Model model,
-                                            @RequestParam(required=true) Integer dimensionId) {
+                                            @RequestParam(required=true) Integer dimensionId,
+                                            HttpServletRequest request) {
         // Note: Spring Boot will put fields in activity into an Activity object
         // in the Activity class when model binding occurs
         // if the dimensionId query parameter was missing...
@@ -137,6 +161,10 @@ public class ActivityController {
                 model.addAttribute("dimensionId", dimensionId);
 
                 newActivity.setDimension(dimensionRepository.findById(dimensionId).get());
+
+                // assign user_id to activity
+                User user = getUserFromSession(request.getSession());
+                newActivity.setUser(user);
                 activityRepository.save(newActivity);
             }
         }
