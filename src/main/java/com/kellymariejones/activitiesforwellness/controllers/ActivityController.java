@@ -76,9 +76,7 @@ public class ActivityController {
                     dimensionRepository.findById(dimensionId).get().getName();
 
             model.addAttribute("title",
-                    "Add an Activity to the " +
-                    dimensionName +
-                    " Domain");
+                    dimensionName + " Dimension - Add an Activity");
             // note that we should do extra validation for the above method call to check
             // that the dimension id is found
 
