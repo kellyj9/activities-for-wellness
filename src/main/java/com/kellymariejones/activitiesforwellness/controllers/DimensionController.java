@@ -41,7 +41,7 @@ public class DimensionController {
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
-            "Emotional wellness entails an ability to cope " +
+            "Emotional wellness involves developing an ability to cope " +
                     "effectively with life and managing your emotions in a constructive " +
                     "way.");
             Dimension dimension2 = new Dimension ("Spiritual",
