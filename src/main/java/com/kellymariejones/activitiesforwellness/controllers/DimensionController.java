@@ -41,8 +41,9 @@ public class DimensionController {
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
-            "SAMHSA identifies emotional wellness as an ability to cope " +
-                    "effectively with life and build satisfying relationships with others.");
+            "Emotional wellness entails an ability to cope " +
+                    "effectively with life and managing your emotions in a constructive " +
+                    "way.");
             Dimension dimension2 = new Dimension ("Spiritual",
                     "Spiritual wellness is related to your values and beliefs that " +
                             "help you find meaning and purpose in your life.");
