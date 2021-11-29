@@ -52,7 +52,9 @@ public class ActivityController {
 
     @GetMapping("index")
     public String displayActivities(@RequestParam(required=true)
-                                    Integer dimensionId, Model model) {
+                                    Integer dimensionId,
+                                    Model model,
+                                    HttpServletRequest request) {
 //         temporarily create an activity list for the purposes of testing the
 //         controller and Thymeleaf template
 
@@ -81,7 +83,14 @@ public class ActivityController {
             // that the dimension id is found
 
             // gets results of querying for activities by dimensionId
-            List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
+            //List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
+
+            // get the activities by dimension_id and user_id
+            User user = getUserFromSession(request.getSession());
+            Integer userId = user.getId();
+            List<Activity> result =
+                    activityRepository.findByDimensionIdAndUserId(dimensionId, userId);
+                    
             if (result.isEmpty()) {
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
@@ -153,15 +162,17 @@ public class ActivityController {
                 // note that we should do extra validation for the above method call to check
                 // that the dimension id is found
 
-                // gets results of querying for activities by dimensionId
-                List<Activity> result = activityRepository.findAllByDimensionId(dimensionId);
+
+                // get the user id of the current user
+                User user = getUserFromSession(request.getSession());
+                Integer userId = user.getId();
+                // gets results of querying for activities by dimensionId and user id
+                List<Activity> result = activityRepository.findByDimensionIdAndUserId(dimensionId, userId);
                 model.addAttribute("activity", result);
                 model.addAttribute("dimensionId", dimensionId);
 
                 newActivity.setDimension(dimensionRepository.findById(dimensionId).get());
 
-                // assign user_id to activity
-                User user = getUserFromSession(request.getSession());
                 newActivity.setUser(user);
                 activityRepository.save(newActivity);
             }
@@ -171,7 +182,7 @@ public class ActivityController {
 
 
     @GetMapping("delete")
-    public String displayDeleteActivityForm(
+    public String processDeleteActivity(
                                         @RequestParam(required=true) Integer activityId,
                                         @RequestParam(required=true) Integer dimensionId,
                                          Model model) {
