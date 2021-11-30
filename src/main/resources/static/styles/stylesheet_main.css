@@ -2,6 +2,11 @@ nav {
     background-color: #091f6a;
 }
 
+.p-text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
 .main-link {
     font-size: 24px;
     font-weight: bold;
@@ -12,7 +17,7 @@ nav {
     font-weight: bold;
 }
 
-.page-title, .content {
+.page-title {
     padding: 10px;
 }
 
@@ -22,18 +27,9 @@ nav {
     font-weight: bold;
 }
 
-.dimension-list {
-    margin:auto;
-    width: 90%;
-}
-
-.container .references {
+.references {
     padding-top: 50px;
-    font-size: 12px;
-}
-
-.container .logout {
-    float: right;
+    font-size: 14px;
 }
 
 table {
@@ -42,8 +38,14 @@ table {
 }
 
 table td.shrink {
-    white-space:nowrap
+    white-space:nowrap;
 }
+
 table td.expand {
-    width: 99%
+    width: 99%;
+}
+
+.container .dimension-list {
+    margin:auto;
+    width: 85%;
 }

@@ -2,41 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-    <header th:replace="fragments :: nav"></header>
+    <nav th:replace="fragments :: nav"></nav>
     <div th:replace="fragments :: page-title"></div>
+    <div class="container">
 
-    <div class="content">
-        <p>
+         <p class="p-text">
             Support your overall health and wellbeing in each dimension of wellness
             by creating lists of activities.
-            <br /><br />
+        </p>
+        <p class="p-text">
             <b>First, select a dimension:</b>
         </p>
+
+        <div class="dimension-list">
+            <div th:each="dimension_item : ${dimension}" class="list-group-item">
+                <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
+                   th:text="${dimension_item.name}"
+                   class="list-group-item list-group-item-active">
+                </a>
+                <div th:text="${dimension_item.description}"></div>
+            </div>
+        </div>
+
     </div>
-
-<div class="dimension-list">
-    <div th:each="dimension_item : ${dimension}" class="list-group-item">
-        <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
-           th:text="${dimension_item.name}"
-           class="list-group-item list-group-item-active">
-        </a>
-        <div th:text="${dimension_item.description}" class="container"></div>
-    </div>
-</div>
-
-
-    <div class="container references">
-        References:
-        <br />
-        SAMHSA/CMHS. (2010). Information for general health care providers:
-        What is wellness? [10 X 10 Wellness Campaign Brochure].
-        Rockville, Md.: Author.
-        <br />
-        Substance Abuse and Mental Health Services Administration (SAMHSA).
-        Promoting Wellness for Better Behavioral and Physical Health.
-        (Last retrieved, 2021, November 26)
-        https://mfpcc.samhsa.gov/ENewsArticles/Article12b_2017.aspx
-    </div>
-
 </body>
 </html>
