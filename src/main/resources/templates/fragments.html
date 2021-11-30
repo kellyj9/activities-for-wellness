@@ -20,9 +20,10 @@
     </script>
 </head>
 <body>
+
     <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark"
          aria-label="navbar">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" href="/">Activities for Wellness</a>
                 <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse"
@@ -72,6 +73,27 @@
                          'Welcome' :
                         ${title}">
         </h5>
+    </div>
+
+    <div th:fragment="references-footer" class="references">
+        <p>
+            References:
+        </p>
+        <p class="p-text">
+            SAMHSA/CMHS. (2010).
+            <em>
+                Information for general health care providers: What is wellness?
+            </em>
+            [10 X 10 Wellness Campaign Brochure]. Rockville, Md.: Author.
+        </p>
+        <p class="p-text">
+            Substance Abuse and Mental Health Services Administration (SAMHSA).
+            (n.d.)
+            <em>
+                Promoting Wellness for Better Behavioral and Physical Health.
+            </em>
+            https://mfpcc.samhsa.gov/ENewsArticles/Article12b_2017.aspx
+        </p>
     </div>
 
 </body>

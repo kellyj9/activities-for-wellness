@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
-    <header th:replace="fragments :: nav"></header>
+    <nav th:replace="fragments :: nav"></nav>
     <div th:replace="fragments :: page-title"></div>
-
     <div class="container">
 
         <form method="POST"
@@ -20,12 +19,11 @@
                 </label>
             </div>
             <p class="error" th:errors="${activity.description}"></p>
-
             <div>
                 <input type="submit" value="Add my Activity" class="btn btn-success" />
             </div>
         </form>
-    </div>
 
+    </div>
 </body>
 </html>
