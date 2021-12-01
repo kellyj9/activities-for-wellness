@@ -2,6 +2,19 @@ nav {
     background-color: #091f6a;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td.shrink {
+    white-space: nowrap;
+}
+
+table td.expand {
+    width: 99%;
+}
+
 .p-text {
     text-align: justify;
     text-justify: inter-word;
@@ -27,25 +40,20 @@ nav {
     font-weight: bold;
 }
 
+.dimension-hover :hover {
+    background-color: #b5d5f0;
+}
+
 .references {
     padding-top: 50px;
     font-size: 14px;
 }
 
-table {
-    border-collapse: collapse;
-    width:100%;
-}
-
-table td.shrink {
-    white-space:nowrap;
-}
-
-table td.expand {
-    width: 99%;
-}
-
-.container .dimension-list {
+.dimension-list {
     margin:auto;
     width: 85%;
+}
+
+.error {
+    color: red;
 }

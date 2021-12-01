@@ -76,7 +76,8 @@ public class AuthenticationController {
         }
 
         // Retrieve the user with the given username from the database.
-        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
+        User existingUser =
+                userRepository.findByUsername(registerFormDTO.getUsername());
 
         //  If a user with the given username already exists, register a custom error
         //  with the errors object and return the user to the form.
@@ -99,7 +100,8 @@ public class AuthenticationController {
             // from another file. While we don’t have such a file, this parameter is required.
             //A default message to use if no external error message file is available
             // (as is the case here).
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+            errors.rejectValue("password", "passwords.mismatch",
+                    "Passwords do not match");
             model.addAttribute("title", "Register");
             return "register";
         }
@@ -107,11 +109,13 @@ public class AuthenticationController {
         // NOT already exist, and the rest of the form data is valid.
         // So we create a new user object, store it in the database, and then create a
         // new session for the user.
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        User newUser = new User(registerFormDTO.getUsername(),
+                registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        // user is registered and also logged in.  redirect the user to the dimension page
+        // user is registered and also logged in.
+        // redirect the user to the dimension page
         return "redirect:dimension";
     }
 
@@ -134,7 +138,8 @@ public class AuthenticationController {
         }
 
         // Retrieve the User object with the given password from the database.
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User theUser =
+                userRepository.findByUsername(loginFormDTO.getUsername());
 
         // If no such user exists, register a custom error and return to the form.
         if (theUser == null) {

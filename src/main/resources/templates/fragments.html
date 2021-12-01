@@ -19,12 +19,13 @@
             crossorigin="anonymous">
     </script>
 </head>
+
 <body>
 
     <nav th:fragment="navigation" class="navbar navbar-expand-sm navbar-dark"
          aria-label="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="/">Activities for Wellness</a>
+            <div class="container-fluid">
+            <a th:href="@{/}" class="navbar-brand">Activities for Wellness</a>
                 <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarsExample03"
@@ -36,21 +37,21 @@
             <div class="navbar-collapse collapse" id="navbarsExample03">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">
+                        <a th:href="@{/}" class="nav-link">
                             Home
                         </a>
                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/dimension">
+                        <a th:href="@{/dimension}" class="nav-link">
                            Dimensions of Wellness
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a th:href="@{/login}" class="nav-link">
                             Login
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a th:href="@{/logout}" class="nav-link">
                             Logout
                         </a>
@@ -79,16 +80,26 @@
         <p>
             References:
         </p>
-        <p class="p-text">
+
+        <p>
+            Dunn, H. L. (1961).
+            <em>
+                High-Level Wellness.
+            </em>
+            Arlington, Va.: Beatty Press.
+        </p>
+
+        <p>
             SAMHSA/CMHS. (2010).
             <em>
                 Information for general health care providers: What is wellness?
             </em>
             [10 X 10 Wellness Campaign Brochure]. Rockville, Md.: Author.
         </p>
-        <p class="p-text">
+
+        <p>
             Substance Abuse and Mental Health Services Administration (SAMHSA).
-            (n.d.)
+            (2017).
             <em>
                 Promoting Wellness for Better Behavioral and Physical Health.
             </em>
