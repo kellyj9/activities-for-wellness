@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
-    <nav th:replace="fragments :: nav"></nav>
-    <div th:replace="fragments :: page-title"></div>
-    <div class="container">
+<body>
+<nav th:replace="fragments :: nav"></nav>
+<div th:replace="fragments :: page-title"></div>
+<div class="container">
 
-        <center>
-            <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
-               th:text="'Add an Activity'"
-               class="add-link">
-            </a>
-        </center>
-        <br />
-        <h6 th:text="${activity.isEmpty()} ?
+    <center>
+        <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
+             th:text="'Add an Activity'"
+             class="add-link">
+        </a>
+    </center>
+    <br />
+    <h6 th:text="${activity.isEmpty()} ?
                        'No activities found' :
                         'My list of Activites'"
-                        class="container">
-        </h6>
+                class="container">
+    </h6>
 
-        <table class="table table-striped">
-            <tr th:each="activity_item : ${activity}">
-                <td class="shrink">
-                    <a th:href="'/activity/delete?activityId=' +
+    <table class="table table-striped">
+        <tr th:each="activity_item : ${activity}">
+            <td class="shrink">
+                <a th:href="'/activity/delete?activityId=' +
                     ${activity_item.id} + '&dimensionId=' + ${dimensionId}"
-                       th:text="'Delete'"></a>
-                </td>
-                <td th:text="${activity_item.description}" class="expand"></td>
-            </tr>
-        </table>
+                    th:text="'Delete'"></a>
+            </td>
+            <td th:text="${activity_item.description}" class="expand"></td>
+        </tr>
+    </table>
 
-    </div>
+</div>
 </body>
 </html>

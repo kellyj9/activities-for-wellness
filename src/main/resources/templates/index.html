@@ -1,71 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
-    <nav th:replace="fragments :: nav"></nav>
-    <div th:replace="fragments :: page-title"></div>
-    <div class="container">
+<body>
+<nav th:replace="fragments :: nav"></nav>
+<div th:replace="fragments :: page-title"></div>
+<div class="container">
 
-        <div style="float:right; width:auto;
-                        padding-top:0px; padding-right:20px;
-                        padding-bottom:20px; padding-left: 20px;
-                        margin-top:0px;">
-            <img  src="/image/afw.png" alt="activities for wellness logo"
-                  class="container"/>
-        </div>
-
-        <div class="container">
-            <h6>
-                Optimize your wellness through a holistic approach to health.
-            </h6>
-            <p class="p-text">
-                This website provides a way to create lists of activities to improve your
-                health and wellbeing in eight dimensions of wellness.
-            </p>
-            <h6>
-                What is Wellness?
-            </h6>
-            <p class="p-text" style="margin-left: 40px;">
-                "Wellness can be envisioned as not the absence of disease, illness, and stress,
-                but as the presence of a positive purpose in life, satisfying work and play,
-                joyful relationships, a healthy body and living environment, and happiness."
-                (Substance Abuse and Mental Health Services Administration
-                [SAMHSA], n.d.).
-            </p>
-            <h6>
-                What are the Dimensions of Wellness?
-            </h6>
-            <p class="p-text">
-                The Substance Abuse and Mental Health Services Administration
-                (SAMHSA) has identified eight dimensions of wellness to focus on to
-                optimize health.
-            </p>
-            <p>
-                The eight dimensions of wellness include:
-            </p>
-                <ul>
-                    <li>Emotional</li>
-                    <li>Spiritual</li>
-                    <li>Intellectual</li>
-                    <li>Physical</li>
-                    <li>Environmental</li>
-                    <li>FInancial</li>
-                    <li>Occupational</li>
-                    <li>Social</li>
-                </ul>
-            <p class="p-text">
-                In which of the dimensions of wellness do you feel strongest?
-                What dimensions would you like to work on?
-            </p>
-            <p>
-            <center>
-                <a th:href="'/dimension/'" class="main-link">Get Started</a>
-            </center>
-            </p>
-        </div>
-
-        <div th:replace="fragments :: references-footer"></div>
-
+    <h6>
+        Optimize your wellness through a holistic approach to health.
+    </h6>
+    <div style="float:right;
+                                padding-top:0px; padding-right:2px;
+                                padding-bottom:20px; padding-left: 8px;">
+        <img  src="/image/afw.png" alt="activities for wellness logo"/>
     </div>
+
+    <p class="p-text">
+        This website presents eight dimension of wellness and
+        provides a way for you to create activity lists to improve
+        your health and wellbeing in each dimension.
+    </p>
+    <h6>
+        What is Wellness?
+    </h6>
+    <p>
+        Wellness can be envisioned as:
+    </p>
+
+    <p style="margin-left: 40px;">
+        <cite>
+            "...not the absence of disease, illness, and stress,
+            but as the presence of a positive purpose in life, satisfying work
+            and play, joyful relationships, a healthy body and living
+            environment, and happiness..."
+        </cite>
+        <br>
+        (Dunn, 1961, as cited by
+        the Substance Abuse and Mental Health Services Administration
+        [SAMHSA], 2010).
+    </p>
+    <h6>
+        What are the Dimensions of Wellness?
+    </h6>
+    <p class="p-text">
+        The Substance Abuse and Mental Health Services Administration
+        (SAMHSA, 2017) identifies eight dimensions of wellness to focus on to
+        optimize health.
+    </p>
+    <p>
+        The dimensions of wellness include:
+    </p>
+    <ul>
+        <li>Emotional</li>
+        <li>Spiritual</li>
+        <li>Intellectual</li>
+        <li>Physical</li>
+        <li>Environmental</li>
+        <li>FInancial</li>
+        <li>Occupational</li>
+        <li>Social</li>
+    </ul>
+    <p>
+        In which of the dimensions of wellness do you feel strongest?
+        What dimensions would you like to work on?
+    </p>
+
+    <center>
+        <a th:href="'/dimension/'" class="main-link">Get Started</a>
+    </center>
+
+    <div th:replace="fragments :: references-footer"></div>
+</div>
 </body>
-</html>

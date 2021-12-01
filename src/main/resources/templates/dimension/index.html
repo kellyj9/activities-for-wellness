@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
-    <nav th:replace="fragments :: nav"></nav>
-    <div th:replace="fragments :: page-title"></div>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+<div th:replace="fragments :: page-title"></div>
+<div class="container">
+
     <div class="container">
+    <p>
+        Support your overall health and wellbeing in each dimension of wellness
+        by creating lists of activities.
+    </p>
+    <p class="p-text">
+        <b>First, select a dimension:</b>
+    </p>
+    </div>
 
-         <p class="p-text">
-            Support your overall health and wellbeing in each dimension of wellness
-            by creating lists of activities.
-        </p>
-        <p class="p-text">
-            <b>First, select a dimension:</b>
-        </p>
-
-        <div class="dimension-list">
-            <div th:each="dimension_item : ${dimension}" class="list-group-item">
+    <div class="dimension-list">
+        <div th:each="dimension_item : ${dimension}" class="list-group-item">
+            <div class="dimension-hover">
                 <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
                    th:text="${dimension_item.name}"
-                   class="list-group-item list-group-item-active">
+                   class="list-group-item">
                 </a>
-                <div th:text="${dimension_item.description}"></div>
             </div>
-        </div>
-
+            <div th:text="${dimension_item.description}"></div>
+         </div>
     </div>
+
+</div>
 </body>
 </html>
