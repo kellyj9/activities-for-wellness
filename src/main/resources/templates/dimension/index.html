@@ -7,25 +7,28 @@
 <div class="container">
 
     <div class="container">
-    <p>
-        Support your overall health and wellbeing in each dimension of wellness
-        by creating lists of activities.
-    </p>
-    <p class="p-text">
-        <b>First, select a dimension:</b>
-    </p>
+        <p>
+            Support your overall health and wellbeing in each dimension of wellness
+            by creating lists of activities.
+        </p>
+        <p class="p-text">
+            <b>First, select a dimension:</b>
+        </p>
     </div>
 
     <div class="dimension-list">
         <div th:each="dimension_item : ${dimension}" class="list-group-item">
+
             <div class="dimension-hover">
                 <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
-                   th:text="${dimension_item.name}"
-                   class="list-group-item">
+                      th:text="${dimension_item.name}"
+                      class="list-group-item">
                 </a>
             </div>
+
             <div th:text="${dimension_item.description}"></div>
-         </div>
+
+        </div>
     </div>
 
 </div>
