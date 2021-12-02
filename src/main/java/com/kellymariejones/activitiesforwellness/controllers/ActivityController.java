@@ -54,15 +54,6 @@ public class ActivityController {
     public String displayActivities(@RequestParam Integer dimensionId,
                                     Model model,
                                     HttpServletRequest request) {
-//         temporarily create an activity list for the purposes of testing the
-//         controller and Thymeleaf template
-
-//        Activity activity1 = new Activity ("Listen to music.",
-//                dimensionRepository.findById(dimensionId).get());
-//        activityRepository.save(activity1);
-//        Activity activity2 = new Activity ("Enjoy a healthy meal.",
-//                dimensionRepository.findById(dimensionId).get());
-//        activityRepository.save(activity2);
 
         // if the query param was missing, display the error page
         if (dimensionId == null) {
@@ -136,11 +127,9 @@ public class ActivityController {
 
         // if the dimensionId query parameter was missing...
         if (dimensionId == null) {
-            // add the title of the page to the model
-            model.addAttribute("title", "Dimensions of Wellness");
-            // add all dimensions in the dimensionRepository to the model
-            model.addAttribute("dimension", dimensionRepository.findAll());
-            return("dimension/index");
+            model.addAttribute("title",
+                    "An error occurred.");
+            return "redirect:/error";
         }
         else {
             // if there are any errors...go back to the form
@@ -157,7 +146,7 @@ public class ActivityController {
                 model.addAttribute("title",
                         dimensionRepository.findById(dimensionId).get().getName());
 
-                // get the user id of the current user
+                // get the user from the session
                 User user = getUserFromSession(request.getSession());
                 // get the user's id
                 Integer userId = user.getId();
