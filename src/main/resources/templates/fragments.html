@@ -47,11 +47,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a th:href="@{/login}" class="nav-link">
-                            Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a th:href="@{/logout}" class="nav-link">
                             Logout
                         </a>
@@ -64,6 +59,40 @@
                        </a>
                     </li>
                     -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav th:fragment="navigationLogin" class="navbar navbar-expand-sm navbar-dark"
+         aria-label="navbar">
+        <div class="container-fluid">
+            <a th:href="@{/}" class="navbar-brand">Activities for Wellness</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarsExample03"
+                    aria-controls="navbarsExample03"
+                    aria-expanded="true"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a th:href="@{/}" class="nav-link">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/dimension}" class="nav-link">
+                            Dimensions of Wellness
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/login}" class="nav-link">
+                            Login
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

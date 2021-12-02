@@ -25,7 +25,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
             "/login", "/register", "/logout", "/styles", "/image");
 
     private static boolean isWhitelisted(String path) {
-        // if the path is the /index.html page, user doesn't need to be logged in
+        // if the home page is requested, user doesn't need to be logged in
         if (path.equals("/")) {
             return true;
         }
