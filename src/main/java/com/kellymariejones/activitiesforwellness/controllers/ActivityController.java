@@ -51,8 +51,7 @@ public class ActivityController {
 
 
     @GetMapping("index")
-    public String displayActivities(@RequestParam(required=true)
-                                    Integer dimensionId,
+    public String displayActivities(@RequestParam Integer dimensionId,
                                     Model model,
                                     HttpServletRequest request) {
 //         temporarily create an activity list for the purposes of testing the
@@ -65,12 +64,11 @@ public class ActivityController {
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
 
-
-        // NEED TO FIX the below query param check
-        // if the query param was missing
+        // if the query param was missing, display the error page
         if (dimensionId == null) {
             model.addAttribute("title",
                     "An error occurred.");
+            return "redirect:/error";
         }
         else {
             // get the name of the dimension
