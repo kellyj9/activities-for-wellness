@@ -74,18 +74,20 @@ public class ActivityController {
             Integer userId = user.getId();
             List<Activity> result =
                     activityRepository.findByDimensionIdAndUserId(dimensionId, userId);
+            model.addAttribute("activity", result);
+            model.addAttribute("dimensionId", dimensionId);
 
+            // Now set the title of the page...
+
+            // ...when no activities were found
             if (result.isEmpty()) {
-
-                //Note:
-                // we can change this code below to add a title here
-                // and change activity/index.html
-                model.addAttribute("activity", result);
-                model.addAttribute("dimensionId", dimensionId);
+                model.addAttribute("activity_list_heading",
+                        "No activities found.";
             }
+            // ... when activities were found
             else {
-                model.addAttribute("activity", result);
-                model.addAttribute("dimensionId", dimensionId);
+                model.addAttribute("activity_list_heading",
+                        "My List of Activities.");
             }
         }
         return "activity/index";
