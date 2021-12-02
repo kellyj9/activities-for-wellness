@@ -27,7 +27,7 @@ public class DimensionController {
     @GetMapping
     public String displayDimensionList(Model model) {
 
-
+        // get the list of dimensions
         Iterable<Dimension> result = new ArrayList<>();
         result = dimensionRepository.findAll();
 
