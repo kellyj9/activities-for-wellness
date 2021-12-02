@@ -14,12 +14,12 @@ The purpose of Activities for Wellness is to promote making the right choices fo
   - Provides a brief desciption of the purpose of the application, a definition of "Wellness", and a listing of eight dimensions of wellness.
 
 - User Registration
-  - Users can register for the account by creating a username and password.
+  - Users can register for an account by creating a username and password.
 
-- User Log in / Log out
-  - Users are able to log in to access their activities lists.  
+- User Log In / Log Out
+  - Users are able to log in to access their activities lists.
 
-- View dimensions
+- View Dimensions
   - Upon logging in, a list of eight dimensions of wellness is displayed with a description of each dimension.
 
 - List of Activities
