@@ -20,7 +20,7 @@ The purpose of Activities for Wellness is to promote making the right choices fo
   - Users are able to log in to access their activities lists.  
 
 - View dimensions
-Upon logging in, a list of eight dimensions of wellness is displayed with a description of each dimension.
+  - Upon logging in, a list of eight dimensions of wellness is displayed with a description of each dimension.
 
 - List of Activities
   - After selecting a dimension of wellness, the user can view the list of their own activities that they have created for that dimension.  
