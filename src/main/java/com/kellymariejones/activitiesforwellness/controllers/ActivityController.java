@@ -66,7 +66,7 @@ public class ActivityController {
                     dimensionRepository.findById(dimensionId).get().getName();
 
             model.addAttribute("title",
-                    dimensionName + " Dimension - Add an Activity");
+                    dimensionName + " Dimension - My Activities");
 
             // get the activities by dimension_id and user_id
             User user = getUserFromSession(request.getSession());
