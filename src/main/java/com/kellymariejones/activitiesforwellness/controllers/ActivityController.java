@@ -51,8 +51,7 @@ public class ActivityController {
 
 
     @GetMapping("index")
-    public String displayActivities(@RequestParam(required=true)
-                                    Integer dimensionId,
+    public String displayActivities(@RequestParam Integer dimensionId,
                                     Model model,
                                     HttpServletRequest request) {
 //         temporarily create an activity list for the purposes of testing the
@@ -65,12 +64,11 @@ public class ActivityController {
 //                dimensionRepository.findById(dimensionId).get());
 //        activityRepository.save(activity2);
 
-
-        // NEED TO FIX the below query param check
-        // if the query param was missing
+        // if the query param was missing, display the error page
         if (dimensionId == null) {
             model.addAttribute("title",
                     "An error occurred.");
+            return "redirect:/error";
         }
         else {
             // get the name of the dimension
@@ -106,15 +104,12 @@ public class ActivityController {
     @GetMapping("create")
     public String renderCreateActivityForm(
                                             Model model,
-                                           @RequestParam(required=true)
-                                            Integer dimensionId) {
+                                           @RequestParam Integer dimensionId) {
         // if the dimensionId query parameter was null...
-        if (dimensionId==null) {
-            // add the title of the page to the model
-            model.addAttribute("title", "Dimensions of Wellness");
-            // add all dimensions in the dimensionRepository to the model
-            model.addAttribute("dimension", dimensionRepository.findAll());
-            return("dimension/index");
+        if (dimensionId == null) {
+            model.addAttribute("title",
+                    "An error occurred.");
+            return "redirect:/error";
         }
         else {
             model.addAttribute("title", "Add an Activity to dimension : " +
@@ -159,9 +154,6 @@ public class ActivityController {
                 // get the name of the dimension
                 model.addAttribute("title",
                         dimensionRepository.findById(dimensionId).get().getName());
-                // note that we should do extra validation for the above method call to check
-                // that the dimension id is found
-
 
                 // get the user id of the current user
                 User user = getUserFromSession(request.getSession());
@@ -183,10 +175,19 @@ public class ActivityController {
 
     @GetMapping("delete")
     public String processDeleteActivity(
-                                        @RequestParam(required=true) Integer activityId,
-                                        @RequestParam(required=true) Integer dimensionId,
+                                        @RequestParam Integer activityId,
+                                        @RequestParam Integer dimensionId,
                                          Model model) {
-        if (activityId != null) {
+        if (dimensionId == null || activityId == null) {
+            model.addAttribute("title",
+                    "An error occurred.");
+            return "redirect:/error";
+        }
+        else {
+
+            // Note: need to add validation here that the user is deleting
+            // their own activity
+
             activityRepository.deleteById(activityId);
         }
         return "redirect:index?dimensionId=" + dimensionId;
