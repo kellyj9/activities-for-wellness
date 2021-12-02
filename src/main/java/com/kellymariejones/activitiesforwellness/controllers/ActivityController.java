@@ -174,19 +174,17 @@ public class ActivityController {
                                         @RequestParam Integer dimensionId,
                                          Model model,
                                         HttpServletRequest request) {
-        // if one of the query parameters were null, redirect to the error page
-        if (dimensionId == null || activityId == null) {
-            model.addAttribute("title",
-                    "An error occurred.");
-        }
-        else {  // verify that the user is deleting their own activity
+        // check that both query params are not null
+        if (dimensionId != null && activityId != null) {
+
+         // verify that the user is deleting their own activity
             Optional<Activity> optionalActivity =
                     activityRepository.findById(activityId);
             // make sure the activity exists for the activityId
             if (optionalActivity.isPresent()) {
                 Activity activity = (Activity) optionalActivity.get();
 
-                // check that the user logged is deleting an activity that is in their list
+                // next check that the user logged is deleting an activity that is in their list
                 if (activity.getUser() == getUserFromSession(request.getSession())) {
                     // delete the user's activity
                     activityRepository.deleteById(activityId);
@@ -197,6 +195,8 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, so redirect user to the error page
+        model.addAttribute("title",
+                "An error occurred.");
         return "redirect:/error";
     }
 
