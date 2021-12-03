@@ -42,10 +42,13 @@ public class DimensionController {
         if (!result.iterator().hasNext()) {
             // POPULATES dimension table with data
             // Note:  This is only used for setup of the application.
+            // Caution:
             // Activities are associated with a dimension.
-            // All records in the activity table should also be deleted!
+            // All records in the activity table must also be deleted first!!!
             // Samples are associated with a dimension.
-            // A// records in the sample table should also be deleted!
+            // All records in the sample table must also be deleted first!!!
+            activityRepository.deleteAll();
+            sampleRepository.deleteAll();
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
@@ -81,28 +84,172 @@ public class DimensionController {
             dimensionRepository.save(dimension7);
             dimensionRepository.save(dimension8);
 
-            activityRepository.deleteAll();
-            sampleRepository.deleteAll();
-
             // Next, populate the Sample table with sample activities.  Samples are
             // related to dimensions in a Many to One relationship.
 
+            // Emotional
            Sample sample1 = new Sample(
                         "Write about my feelings and thoughts in a journal.");
-           sample1.setDimension(dimension1);
-                sampleRepository.save(sample1);
+
             Sample sample2 = new Sample(
                     "Try yoga, breathing exercises, or meditation to " +
                             "remain calm and centered.");
+
+            Sample sample3 = new Sample(
+                    "Play some music to suit my mood..");
+
+            // Spiritual
+            Sample sample11 = new Sample(
+                    "Watch or listen to a guided meditation.  " +
+                            "I could search for these on YouTube.");
+
+            Sample sample12 = new Sample(
+                    "Learn about different organizations or groups in " +
+                            "my community and decide which ones are the " +
+                            "best fit for me.");
+
+            Sample sample13 = new Sample(
+                    "Take time to appreciate the beauty of " +
+                            "nature, my life, and my world.");
+
+            // Intellectual
+            Sample sample21 = new Sample(
+                    "Find a new book.  I can become a member at my local " +
+                            "library to access books, other materials,  and events.");
+
+            Sample sample22 = new Sample(
+                    "Look up local college websites and see what classes " +
+                            "or workshops they offer.");
+
+            Sample sample23 = new Sample(
+                    "Watch an inspirational talk on YouTube.  " +
+                            "For example, a 'Ted Talk.'");
+
+            // Physical
+            Sample sample31 = new Sample(
+                    "Join or visit a local gym, YMCA, fitness club, " +
+                            "or neighborhood pool.");
+
+            Sample sample32 = new Sample(
+                    "Do some light stretches.");
+
+            Sample sample33 = new Sample(
+                    "Track my water intake.  Drink eight glasses of water " +
+                            "over the course of the day.");
+
+            // Environmental
+            Sample sample41 = new Sample(
+                    "Clean or organize a section of my home.");
+
+            Sample sample42 = new Sample(
+                    "On my lunch break, take a break to walk around the " +
+                            "block to get exercise and a change of scenery.");
+
+            Sample sample43 = new Sample(
+                    "Get a recycling bin for my home.");
+
+            // Financial
+            Sample sample51 = new Sample(
+                    "Research ways to design a budget that suits me.");
+
+            Sample sample52 = new Sample(
+                    "Make my own coffee to bring with me " +
+                            "on my commute.");
+
+            Sample sample53 = new Sample(
+                    "Check out a thrift store or consignment shop.");
+
+            // Occupational
+            Sample sample61 = new Sample(
+                    "Create or update my resume.");
+
+            Sample sample62 = new Sample(
+                    "Think about where I am in my career and life " +
+                            "and research occupations that will work well within " +
+                            "that framework.");
+
+            Sample sample63 = new Sample(
+                    "Use a day planner or other tracking tool to track " +
+                            "and balance my workload.");
+
+            // Social
+            Sample sample71 = new Sample(
+                    "Volunteer for a cause that I care about.");
+
+            Sample sample72 = new Sample(
+                    "Reach out to a friend or loved one just to see " +
+                            "how they are doing.");
+
+            Sample sample73 = new Sample(
+                    "Make a homemade greeting card or write a " +
+                            "thankful note and give it to someone.");
+
+
+
+            sample1.setDimension(dimension1);
             sample2.setDimension(dimension1);
+            sample3.setDimension(dimension1);
+
+            sample11.setDimension(dimension2);
+            sample12.setDimension(dimension2);
+            sample13.setDimension(dimension2);
+
+            sample21.setDimension(dimension3);
+            sample22.setDimension(dimension3);
+            sample23.setDimension(dimension3);
+
+            sample31.setDimension(dimension4);
+            sample32.setDimension(dimension4);
+            sample33.setDimension(dimension4);
+
+            sample41.setDimension(dimension5);
+            sample42.setDimension(dimension5);
+            sample43.setDimension(dimension5);
+
+            sample51.setDimension(dimension6);
+            sample52.setDimension(dimension6);
+            sample53.setDimension(dimension6);
+
+            sample61.setDimension(dimension7);
+            sample62.setDimension(dimension7);
+            sample63.setDimension(dimension7);
+
+            sample71.setDimension(dimension8);
+            sample72.setDimension(dimension8);
+            sample73.setDimension(dimension8);
+
+
+
+
+
+
+            sampleRepository.save(sample1);
             sampleRepository.save(sample2);
+            sampleRepository.save(sample3);
 
-            Sample sample20 = new Sample(
-                    "Try yoga, breathing exercises, or meditation to " +
-                            "remain calm and centered.");
-            sample20.setDimension(dimension2);
-            sampleRepository.save(sample20);
+            sampleRepository.save(sample21);
+            sampleRepository.save(sample22);
+            sampleRepository.save(sample23);
 
+            sampleRepository.save(sample31);
+            sampleRepository.save(sample32);
+            sampleRepository.save(sample33);
+
+            sampleRepository.save(sample41);
+            sampleRepository.save(sample42);
+            sampleRepository.save(sample43);
+
+            sampleRepository.save(sample51);
+            sampleRepository.save(sample52);
+            sampleRepository.save(sample53);
+
+            sampleRepository.save(sample61);
+            sampleRepository.save(sample62);
+            sampleRepository.save(sample63);
+
+            sampleRepository.save(sample71);
+            sampleRepository.save(sample72);
+            sampleRepository.save(sample73);
 
 
             // now refresh the result of the findAll()
