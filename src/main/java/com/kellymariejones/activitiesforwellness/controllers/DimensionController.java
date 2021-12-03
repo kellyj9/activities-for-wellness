@@ -227,6 +227,10 @@ public class DimensionController {
             sampleRepository.save(sample2);
             sampleRepository.save(sample3);
 
+            sampleRepository.save(sample11);
+            sampleRepository.save(sample12);
+            sampleRepository.save(sample13);
+
             sampleRepository.save(sample21);
             sampleRepository.save(sample22);
             sampleRepository.save(sample23);
