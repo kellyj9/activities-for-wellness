@@ -96,7 +96,7 @@ public class DimensionController {
                             "remain calm and centered.");
 
             Sample sample3 = new Sample(
-                    "Play some music to suit my mood..");
+                    "Play some music to suit my mood.");
 
             // Spiritual
             Sample sample11 = new Sample(
