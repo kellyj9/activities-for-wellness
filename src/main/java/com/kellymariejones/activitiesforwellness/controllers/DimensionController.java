@@ -35,15 +35,17 @@ public class DimensionController {
         Iterable<Dimension> result = new ArrayList<>();
         result = dimensionRepository.findAll();
 
-        // Note: The following code populates the dimension table if it's empty
+        // Note: The following code populates the static dimensions list if empty
+        // and populates the static sample activities list for each dimension
+
         // check if the dimension table is populated
         if (!result.iterator().hasNext()) {
             // POPULATES dimension table with data
             // Note:  This is only used for setup of the application.
             // Activities are associated with a dimension.
-            // Any records in the activity table should also get deleted!
+            // All records in the activity table should also be deleted!
             // Samples are associated with a dimension.
-            // Any records in the sample table should also get deleted!
+            // A// records in the sample table should also be deleted!
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
