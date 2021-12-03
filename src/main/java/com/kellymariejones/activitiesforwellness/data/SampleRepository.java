@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SampleRepository extends CrudRepository<Sample, Integer> {
 
-    List<Sample> findAllByDimensionId(Integer dimension_id);
+    List<Sample> findByDimensionId(Integer dimension_id);
 
 }

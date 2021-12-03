@@ -2,7 +2,9 @@ package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
+import com.kellymariejones.activitiesforwellness.data.SampleRepository;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
+import com.kellymariejones.activitiesforwellness.models.Sample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +21,12 @@ public class DimensionController {
     // feature of Spring Boot - dependency injection / inversion of control
      @Autowired
     private DimensionRepository dimensionRepository;
-    // findAll, save, findById are part of the DimensionRepository interface
 
     @Autowired
     private ActivityRepository activityRepository;
+
+    @Autowired
+    private SampleRepository sampleRepository;
 
     @GetMapping
     public String displayDimensionList(Model model) {
@@ -35,9 +39,11 @@ public class DimensionController {
         // check if the dimension table is populated
         if (!result.iterator().hasNext()) {
             // POPULATES dimension table with data
-            // Note:  This is only used for setup of the application.  The records in the
-            // dimension table should NEVER get deleted.  Activities are associated
-            // with a dimension.  Any records in the activity table should also get deleted!
+            // Note:  This is only used for setup of the application.
+            // Activities are associated with a dimension.
+            // Any records in the activity table should also get deleted!
+            // Samples are associated with a dimension.
+            // Any records in the sample table should also get deleted!
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
@@ -74,6 +80,28 @@ public class DimensionController {
             dimensionRepository.save(dimension8);
 
             activityRepository.deleteAll();
+            sampleRepository.deleteAll();
+
+            // Next, populate the Sample table with sample activities.  Samples are
+            // related to dimensions in a Many to One relationship.
+
+           Sample sample1 = new Sample(
+                        "Write about my feelings and thoughts in a journal.");
+           sample1.setDimension(dimension1);
+                sampleRepository.save(sample1);
+            Sample sample2 = new Sample(
+                    "Try yoga, breathing exercises, or meditation to " +
+                            "remain calm and centered.");
+            sample2.setDimension(dimension1);
+            sampleRepository.save(sample2);
+
+            Sample sample20 = new Sample(
+                    "Try yoga, breathing exercises, or meditation to " +
+                            "remain calm and centered.");
+            sample20.setDimension(dimension2);
+            sampleRepository.save(sample20);
+
+
 
             // now refresh the result of the findAll()
             result = dimensionRepository.findAll();

@@ -2,6 +2,7 @@ package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
+import com.kellymariejones.activitiesforwellness.data.SampleRepository;
 import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
 import com.kellymariejones.activitiesforwellness.models.User;
@@ -29,6 +30,9 @@ public class ActivityController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SampleRepository sampleRepository;
 
     private static final String userSessionKey = "user";
 
@@ -102,7 +106,8 @@ public class ActivityController {
                     "An error occurred.");
             return "redirect:/error";
         }
-        // otherwise, allow the user to add their activity for that dimension
+        // otherwise, display the form for user to add their activity for that dimension
+        // along with displaying the sample activities
         else {
             model.addAttribute("title",
                     "Add an Activity to dimension : " +
@@ -112,6 +117,11 @@ public class ActivityController {
             model.addAttribute("dimension",
                     dimensionRepository.findById(dimensionId));
             model.addAttribute("dimensionId", dimensionId);
+
+            // add list of sample activities
+            model.addAttribute(
+            "sample", sampleRepository.findByDimensionId(dimensionId));
+
         }
         return "activity/create";
     }
@@ -140,6 +150,11 @@ public class ActivityController {
                         dimensionRepository.findById(dimensionId).get().getName());
                 model.addAttribute("activity", newActivity);
                 model.addAttribute("dimensionId", dimensionId);
+
+                // add list of sample activities
+                model.addAttribute(
+                        "sample", sampleRepository.findByDimensionId(dimensionId));
+
                 return "activity/create";
             }
             else {
