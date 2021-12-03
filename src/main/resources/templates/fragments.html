@@ -142,5 +142,18 @@
         </p>
     </div>
 
+    <div th:fragment="sample-activities" class="sample-list">
+        <h6>
+            Don't know what to enter into the form?  Here's a list of ideas:
+        </h6>
+        <table class="table table-striped">
+          <tr th:each="sample_item : ${sample}">
+                <td th:text="${sample_item.description}"></td>
+            </tr>
+        </table>
+    </div>
+
+
+
 </body>
 </html>

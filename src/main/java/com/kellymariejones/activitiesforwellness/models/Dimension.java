@@ -15,6 +15,9 @@ public class Dimension extends AbstractEntity {
     @OneToMany(mappedBy = "dimension")
     private final List<Activity> activity = new ArrayList<>();
 
+    @OneToMany(mappedBy = "dimension")
+    private final List<Sample> sample = new ArrayList<>();
+
     public Dimension() {}
 
     public Dimension(String name, String description) {
@@ -42,7 +45,11 @@ public class Dimension extends AbstractEntity {
         return activity;
     }
 
-    //no setter for activity because it is final
+    public List<Sample> getSample() {
+        return sample;
+    }
+
+    // no setter for activity or sample because they are final
 
     @Override
     public String toString() {
