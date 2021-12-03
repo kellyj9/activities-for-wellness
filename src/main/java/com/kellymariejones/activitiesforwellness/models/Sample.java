@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class Sample extends AbstractEntity {
 
     @Size(min=1, max=400, message=
-            "Sample activity only allows up to 400 characters.")
+            "Sample description only allows up to 400 characters.")
     private String description;
 
     @ManyToOne // relate one dimension to an activity
