@@ -16,9 +16,8 @@ public class Sample extends AbstractEntity {
 
     public Sample () {}
 
-    public Sample(String description, Dimension dimension) {
+    public Sample(String description) {
         this.description = description;
-        this.dimension = dimension;
     }
 
     public String getDescription() {
