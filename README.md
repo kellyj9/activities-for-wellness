@@ -27,6 +27,7 @@ The purpose of Activities for Wellness is to promote making the right choices fo
 
 - Add an Activity
   - Upon clicking a link to Add an Activity, the user is directed to a page where they can create their own new activity for that dimension. 
+  -  A generic list of Sample Activities for a selected dimension is displayed to the user on the Add Activity page to offer suggestions about activities that would be applicable for the selected dimension.
 
 - Delete an Activity
   - The user is able to delete their activity by clicking the associated Delete link in the list of their activities.
@@ -44,8 +45,6 @@ The purpose of Activities for Wellness is to promote making the right choices fo
 ## Future Improvements
 
 - An Edit Activity feature, which could be accessible from the user's activity list page, would allow the user to edit the description of their activity.
-
-- A generic list of Sample Activities for a particular dimension could be displayed to the user from the Add Activity page to offer suggestions about activities that would be applicable for the selected dimension.
 
 - From the generic list of sample activities, there could be a link or button to Add a Sample Activity to the user's own activity list.
 
