@@ -39,6 +39,8 @@ public class DimensionController {
         // and populates the static sample activities list for each dimension
 
         // check if the dimension table is populated
+
+        // START - sample and dimension population
         if (!result.iterator().hasNext()) {
             // POPULATES dimension table with data
             // Note:  This is only used for setup of the application.
@@ -184,8 +186,7 @@ public class DimensionController {
                     "Make a homemade greeting card or write a " +
                             "thankful note and give it to someone.");
 
-
-
+            // associate a dimension with a sample
             sample1.setDimension(dimension1);
             sample2.setDimension(dimension1);
             sample3.setDimension(dimension1);
@@ -218,10 +219,7 @@ public class DimensionController {
             sample72.setDimension(dimension8);
             sample73.setDimension(dimension8);
 
-
-
-
-
+            // save the samples to the repository
 
             sampleRepository.save(sample1);
             sampleRepository.save(sample2);
@@ -258,7 +256,9 @@ public class DimensionController {
 
             // now refresh the result of the findAll()
             result = dimensionRepository.findAll();
-        }
+
+
+        } // END - sample and dimension population
 
         // add the title of the page to the model
         model.addAttribute("title", "Dimensions of Wellness");
