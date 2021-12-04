@@ -17,7 +17,7 @@ The purpose of Activities for Wellness is to promote making the right choices fo
   - Users can register for an account by creating a username and password.
 
 - User Log In / Log Out
-  - Users are able to log in to access their activities lists.
+  - Users are able to log in to access their list of activities.
 
 - View Dimensions
   - Upon logging in, a list of eight dimensions of wellness is displayed with a description of each dimension.
@@ -27,10 +27,13 @@ The purpose of Activities for Wellness is to promote making the right choices fo
 
 - Add an Activity
   - Upon clicking a link to Add an Activity, the user is directed to a page where they can create their own new activity for that dimension. 
-  -  A generic list of Sample Activities for a selected dimension is displayed to the user on the Add Activity page to offer suggestions about activities that would be applicable for the selected dimension.
+  -  A generic list of Sample Activities for a selected dimension is displayed to the user on the Add an Activity page to offer suggestions about activities that would be applicable for the selected dimension.
 
 - Delete an Activity
-  - The user is able to delete their activity by clicking the associated Delete link in the list of their activities.
+  - The user is able to Delete their activity by clicking the associated Delete link in their List of Activities.
+
+- Edit an Activity
+  - The user is able to Edit the description of their activity by clicking the associated Edit link in their List of Activities.  A form to edit the activity description is then displayed.
 
 ## Technologies Used:
 
@@ -39,15 +42,16 @@ The purpose of Activities for Wellness is to promote making the right choices fo
 - Spring Boot
 - Thymeleaf
 - Hibernate
+- Bootstrap
 - HTML
 - CSS
 
 ## Future Improvements
 
-- An Edit Activity feature, which could be accessible from the user's activity list page, would allow the user to edit the description of their activity.
-
-- From the generic list of sample activities, there could be a link or button to Add a Sample Activity to the user's own activity list.
+- From the generic list of sample activities, there could be a link or button to Add a sample activity to the user's own list of activities.
 
 - A page for the user to Print their lists of activities, with an option to select which activities the user would like to include in the printout.
 
 - A Resources page with links to additional information and resources.
+
+- Additional content to further describe the concepts of "Wellness" and the dimensions of wellness.
