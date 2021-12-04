@@ -24,6 +24,11 @@
                     ${activity_item.id} + '&dimensionId=' + ${dimensionId}"
                     th:text="'Delete'"></a>
             </td>
+            <td class="shrink">
+                <a th:href="'/activity/edit?activityId=' +
+                    ${activity_item.id} + '&dimensionId=' + ${dimensionId}"
+                   th:text="'Edit'"></a>
+            </td>
             <td th:text="${activity_item.description}" class="expand"></td>
         </tr>
     </table>
