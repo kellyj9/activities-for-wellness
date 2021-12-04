@@ -36,63 +36,76 @@ public class ActivityController {
 
     private static final String userSessionKey = "user";
 
+    // Looks for data with the key user in the user’s session.
+    // If it finds one, it attempts to retrieve the corresponding User object
+    // from the database. If no user ID is in the session,
+    // or if there is no user with the given ID, null is returned.
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
 
+        // if no user ID is in the session, return null
         if (userId == null) {
             return null;
         }
 
+        // find the user in the repository
         Optional<User> user = userRepository.findById(userId);
 
+        // if no user with that userId, return null
         if (user.isEmpty()) {
             return null;
         }
 
+        // return the user object
         return user.get();
     }
 
-
     @GetMapping("index")
-    public String displayActivities(@RequestParam Integer dimensionId,
+    public String displayActivities(
+                                    @RequestParam(required=true) Integer dimensionId,
                                     Model model,
                                     HttpServletRequest request) {
 
-        // if the query param was missing, display the error page
-        if (dimensionId == null) {
+        // get the name of the selected dimension
+        String dimensionName =
+                dimensionRepository.findById(dimensionId).get().getName();
+
+        // add the page title
+        model.addAttribute("title",
+                dimensionName + " Dimension - My Activities");
+
+        // retrieve the logged-in user's activities list
+
+        User user = getUserFromSession(request.getSession());
+        // if user not found, redirect to error page
+        if (user == null) {
             model.addAttribute("title",
                     "An error occurred.");
             return "redirect:/error";
         }
-        else {
-            // get the name of the dimension
-            String dimensionName =
-                    dimensionRepository.findById(dimensionId).get().getName();
 
-            model.addAttribute("title",
-                    dimensionName + " Dimension - My Activities");
+        // get the user's activities by user_id
+        // and dimenion_id for the selected dimension
+        Integer userId = user.getId();
+        List<Activity> result =
+                activityRepository.findByDimensionIdAndUserId(
+                        dimensionId, userId);
+        model.addAttribute("activity", result);
+        model.addAttribute("dimensionId", dimensionId);
 
-            // get the activities by dimension_id and user_id
-            User user = getUserFromSession(request.getSession());
-            Integer userId = user.getId();
-            List<Activity> result =
-                    activityRepository.findByDimensionIdAndUserId(dimensionId, userId);
-            model.addAttribute("activity", result);
-            model.addAttribute("dimensionId", dimensionId);
+        // set the title of the page
 
-            // Now set the title of the page...
-
-            // ...when no activities were found
-            if (result.isEmpty()) {
-                model.addAttribute("activity_list_heading",
-                        "No activities found.");
-            }
-            // ... when activities were found
-            else {
-                model.addAttribute("activity_list_heading",
-                        "My List of Activities.");
-            }
+        // when activities were not found...
+        if (result.isEmpty()) {
+            model.addAttribute("activity_list_heading",
+                    "No activities found.");
         }
+        // when activities were found...
+        else {
+            model.addAttribute("activity_list_heading",
+                    "My List of Activities.");
+        }
+
         return "activity/index";
     }
 
@@ -100,6 +113,7 @@ public class ActivityController {
     public String renderCreateActivityForm(
                                             Model model,
                                            @RequestParam Integer dimensionId) {
+
         // if the dimensionId query parameter was missing, redirect user to error page
         if (dimensionId == null) {
             model.addAttribute("title",
