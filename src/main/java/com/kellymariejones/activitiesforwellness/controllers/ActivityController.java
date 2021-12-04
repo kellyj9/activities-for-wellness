@@ -60,6 +60,7 @@ public class ActivityController {
         return user.get();
     }
 
+    // Display the user's list of activities for the selected dimension
     @GetMapping("index")
     public String displayActivities(
                                     @RequestParam(required=true) Integer dimensionId,
@@ -135,92 +136,107 @@ public class ActivityController {
         return "activity/create";
     }
 
+    // Process the form for the user to add their activity for the selected
+    // dimension
     @PostMapping("create")
     public String processCreateActivityForm(
-                                            @ModelAttribute
-                                            @Valid Activity newActivity,
-                                            Errors errors, Model model,
-                                            @RequestParam(required=true) Integer dimensionId,
-                                            HttpServletRequest request) {
+                                @ModelAttribute
+                                @Valid Activity newActivity,
+                                Errors errors, Model model,
+                                @RequestParam(required=true) Integer dimensionId,
+                                HttpServletRequest request) {
         // Spring Boot will put fields in newActivity into an Activity object
         // from the Activity class when model binding occurs
 
-        // if the dimensionId query parameter was missing...
-        if (dimensionId == null) {
+        // if there are any errors...go back to the form
+        if (errors.hasErrors()) {
+
             model.addAttribute("title",
-                    "An error occurred.");
-            return "redirect:/error";
+                    "Add an Activity to dimension : " +
+                    dimensionRepository.findById(dimensionId).get().getName());
+            model.addAttribute("activity", newActivity);
+            model.addAttribute("dimensionId", dimensionId);
+
+            // add list of sample activities for the selected dimension to the model
+            model.addAttribute(
+                    "sample",
+                    sampleRepository.findByDimensionId(dimensionId));
+
+            return "activity/create";
         }
         else {
-            // if there are any errors...go back to the form
-            if (errors.hasErrors()) {
+            // get the name of the dimension
+            model.addAttribute("title",
+                    dimensionRepository.findById(dimensionId).get().getName());
+
+            // get the user from the session
+            User user = getUserFromSession(request.getSession());
+
+            // if user not found, redirect to error page
+            if (user == null) {
                 model.addAttribute("title",
-                        "Add an Activity to dimension : " +
-                        dimensionRepository.findById(dimensionId).get().getName());
-                model.addAttribute("activity", newActivity);
-                model.addAttribute("dimensionId", dimensionId);
-
-                // add list of sample activities
-                model.addAttribute(
-                        "sample", sampleRepository.findByDimensionId(dimensionId));
-
-                return "activity/create";
+                        "An error occurred.");
+                return "redirect:/error";
             }
-            else {
-                // get the name of the dimension
-                model.addAttribute("title",
-                        dimensionRepository.findById(dimensionId).get().getName());
 
-                // get the user from the session
-                User user = getUserFromSession(request.getSession());
-                // get the user's id
-                Integer userId = user.getId();
-                // gets results of querying for activities by dimensionId and user id
-                List<Activity> result =
-                        activityRepository.findByDimensionIdAndUserId(dimensionId, userId);
-                model.addAttribute("activity", result);
-                model.addAttribute("dimensionId", dimensionId);
+            // get the user's userId
+            Integer userId = user.getId();
+            // gets results of querying for activities by dimensionId and user id
+            List<Activity> result =
+                    activityRepository.findByDimensionIdAndUserId(
+                            dimensionId, userId);
+            model.addAttribute("activity", result);
+            model.addAttribute("dimensionId", dimensionId);
 
-                // set the dimension of the new activity
-                newActivity.setDimension(dimensionRepository.findById(dimensionId).get());
+            // set the dimension of the new activity
+            newActivity.setDimension(
+                    dimensionRepository.findById(dimensionId).get());
 
-                //set the user for the new activity
-                newActivity.setUser(user);
+            // set the user for the new activity
+            newActivity.setUser(user);
 
-                newActivity.setDescription(newActivity.getDescription().trim());
-                activityRepository.save(newActivity);
-            }
+            // set the desciption that the user entered for the new activity
+            newActivity.setDescription(newActivity.getDescription().trim());
+
+            // save the new activity to the database
+            activityRepository.save(newActivity);
         }
+
+        // go back to the activity list
         return "redirect:index?dimensionId=" + dimensionId;
     }
 
+    // Delete the selected activity from the user's activity list
     @GetMapping("delete")
     public String processDeleteActivity(
-            @RequestParam Integer activityId,
-            @RequestParam Integer dimensionId,
+            @RequestParam(required=true) Integer activityId,
+            @RequestParam(required=true) Integer dimensionId,
             Model model,
             HttpServletRequest request) {
-        // check that both query params are not null
-        if (dimensionId != null && activityId != null) {
 
-            // verify that the user is deleting their own activity
-            Optional<Activity> optionalActivity =
-                    activityRepository.findById(activityId);
-            // make sure the activity exists for the activityId
-            if (optionalActivity.isPresent()) {
-                Activity activity = (Activity) optionalActivity.get();
+        // verify that the user is attempting to delete their own activity
+        // before deleting it
 
-                // next check that the user logged is deleting an activity that is in their list
-                if (activity.getUser() == getUserFromSession(request.getSession())) {
-                    // delete the user's activity
-                    activityRepository.deleteById(activityId);
-                    // redirect user to their activity list
-                    return "redirect:index?dimensionId=" + dimensionId;
-                }
+        // find the activity by activityId
+        Optional<Activity> optionalActivity =
+                activityRepository.findById(activityId);
 
+        // check that the activity exists for the activityId
+        if (optionalActivity.isPresent()) {
+
+            Activity activity = (Activity) optionalActivity.get();
+            // check that the user logged is deleting an activity that is in their own list
+            if (activity.getUser() == getUserFromSession(request.getSession())) {
+
+                // delete the selected activity from the database
+                activityRepository.deleteById(activityId);
+
+                // redirect user to their activity list
+                return "redirect:index?dimensionId=" + dimensionId;
             }
         }
-        // if we get here, the validation didn't pass, so redirect user to the error page
+
+        // if we get here, validation didn't pass, so redirect user to the error page
         model.addAttribute("title",
                 "An error occurred.");
         return "redirect:/error";
@@ -240,6 +256,7 @@ public class ActivityController {
         }
         else {
             // verify that the user is editing their own activity
+
             Optional<Activity> optionalActivity =
                     activityRepository.findById(activityId);
             // make sure the activity exists for the activityId
