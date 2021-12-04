@@ -109,34 +109,29 @@ public class ActivityController {
         return "activity/index";
     }
 
+    //  Render the form for the user to add their activity for the selected
+    // dimension, along with a list of sample activities
     @GetMapping("create")
     public String renderCreateActivityForm(
-                                            Model model,
-                                           @RequestParam Integer dimensionId) {
+                                Model model,
+                                @RequestParam(required=true) Integer dimensionId) {
 
-        // if the dimensionId query parameter was missing, redirect user to error page
-        if (dimensionId == null) {
-            model.addAttribute("title",
-                    "An error occurred.");
-            return "redirect:/error";
-        }
-        // otherwise, display the form for user to add their activity for that dimension
-        // along with displaying the sample activities
-        else {
-            model.addAttribute("title",
-                    "Add an Activity to dimension : " +
-                    dimensionRepository.findById(dimensionId).get().getName());
+        // set the title of the page according to the name of the dimension selected
+        model.addAttribute("title",
+                "Add an Activity to dimension : " +
+                dimensionRepository.findById(dimensionId).get().getName());
 
-            model.addAttribute("activity", new Activity());
-            model.addAttribute("dimension",
-                    dimensionRepository.findById(dimensionId));
-            model.addAttribute("dimensionId", dimensionId);
+        // add a new activity object to the model along with the dimensionId
+        model.addAttribute("activity", new Activity());
+        model.addAttribute("dimension",
+                dimensionRepository.findById(dimensionId));
+        model.addAttribute("dimensionId", dimensionId);
 
-            // add list of sample activities
-            model.addAttribute(
-            "sample", sampleRepository.findByDimensionId(dimensionId));
+        // add the list of sample activities for the selected dimension to the model
+        model.addAttribute(
+        "sample",
+                sampleRepository.findByDimensionId(dimensionId));
 
-        }
         return "activity/create";
     }
 
