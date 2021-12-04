@@ -185,18 +185,14 @@ public class ActivityController {
 
     @GetMapping("delete")
     public String processDeleteActivity(
-                                        @RequestParam Integer activityId,
-                                        @RequestParam Integer dimensionId,
-                                         Model model,
-                                        HttpServletRequest request) {
+            @RequestParam Integer activityId,
+            @RequestParam Integer dimensionId,
+            Model model,
+            HttpServletRequest request) {
         // check that both query params are not null
         if (dimensionId != null && activityId != null) {
-            model.addAttribute("title",
-                    "An error occurred.");
-            return "redirect:/error";
-        }
-        else {
-         // verify that the user is deleting their own activity
+
+            // verify that the user is deleting their own activity
             Optional<Activity> optionalActivity =
                     activityRepository.findById(activityId);
             // make sure the activity exists for the activityId
@@ -219,12 +215,12 @@ public class ActivityController {
         return "redirect:/error";
     }
 
+
     @GetMapping("edit")
     public String renderEditActivityForm(
             Model model,
             @RequestParam Integer dimensionId,
-            @RequestParam Integer activityId,
-            HttpServletRequest request) {
+            @RequestParam Integer activityId) {
         // check if a query params was missing
         if (dimensionId == null && activityId != null) {
             model.addAttribute("title",
@@ -237,19 +233,75 @@ public class ActivityController {
                     activityRepository.findById(activityId);
             // make sure the activity exists for the activityId
             if (optionalActivity.isPresent()) {
-                Activity activity = (Activity) optionalActivity.get();
 
-                // next check that the user logged is editing an activity that is in their list
-                if (activity.getUser() == getUserFromSession(request.getSession())) {
-                    model.addAttribute("activity", activity);
-                    model.addAttribute("dimension",
-                            dimensionRepository.findById(dimensionId));
-                    model.addAttribute("dimensionId", dimensionId);
-                    model.addAttribute(
-                            "title",
-                            "Edit my Activity for dimension : " +
-                                    dimensionRepository.findById(dimensionId).get().getName());
-                    return "activity/edit";
+               // allow the form to be rendered
+                Activity activity = (Activity) optionalActivity.get();
+                model.addAttribute("activity", activity);
+                model.addAttribute("activityId", activityId);
+                model.addAttribute("dimensionId", dimensionId);
+                model.addAttribute(
+                        "title",
+                        "Edit my Activity for dimension : " +
+                                dimensionRepository.findById(dimensionId).get().getName());
+                return "activity/edit";
+            }
+        }
+        // if we get here, the validation didn't pass, so redirect user to the error page
+        model.addAttribute("title",
+                "An error occurred.");
+        return "redirect:/error";
+    }
+
+
+    @PostMapping("edit")
+    public String processEditActivityForm(
+            @ModelAttribute
+            @Valid Activity activity,
+            Errors errors, Model model,
+            @RequestParam Integer activityId,
+            @RequestParam Integer dimensionId,
+            HttpServletRequest request) {
+
+        // if a query parameter was missing...
+        if (dimensionId == null || activityId == null) {
+            model.addAttribute("title",
+                    "An error occurred.");
+            return "redirect:/error";
+        }
+        else {
+            // if there are any errors...go back to the form
+            if (errors.hasErrors()) {
+                model.addAttribute("title",
+                        "Edit my Activity for dimension : " +
+                                dimensionRepository.findById(dimensionId).get().getName());
+                model.addAttribute("activity", activity);
+                model.addAttribute("activityId", activityId);
+                model.addAttribute("dimensionId", dimensionId);
+               // model.addAttribute("dimension",
+                 //       dimensionRepository.findById(dimensionId));
+                return "activity/edit";
+            }
+            else {
+                // get the name of the dimension
+               // model.addAttribute("title",
+              //          dimensionRepository.findById(dimensionId).get().getName());
+
+                // make sure the activity exists for the activityId
+                Optional<Activity> optionalActivity =
+                        activityRepository.findById(activityId);
+
+                 if (optionalActivity.isPresent()) {
+                     Activity activityTmp = (Activity) optionalActivity.get();
+                    // next check that the user logged is editing an activity that is in their list
+                    if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
+
+                        // process the edit
+                        activityTmp.setDescription(activity.getDescription());
+                        activityRepository.save(activityTmp);
+
+                        // redirect user to their activity list
+                        return "redirect:index?dimensionId=" + dimensionId;
+                    }
                 }
             }
         }
@@ -258,5 +310,6 @@ public class ActivityController {
                 "An error occurred.");
         return "redirect:/error";
     }
+
 
 }
