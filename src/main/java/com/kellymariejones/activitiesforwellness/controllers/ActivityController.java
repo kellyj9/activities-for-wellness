@@ -177,6 +177,8 @@ public class ActivityController {
 
                 //set the user for the new activity
                 newActivity.setUser(user);
+
+                newActivity.setDescription(newActivity.getDescription().trim());
                 activityRepository.save(newActivity);
             }
         }
@@ -296,7 +298,7 @@ public class ActivityController {
                     if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
 
                         // process the edit
-                        activityTmp.setDescription(activity.getDescription());
+                        activityTmp.setDescription(activity.getDescription().trim());
                         activityRepository.save(activityTmp);
 
                         // redirect user to their activity list
