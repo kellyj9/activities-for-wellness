@@ -7,10 +7,10 @@
 <div class="container">
 
     <form method="POST" th:action="'edit?activityId=' +
-    ${activity_item.id} + '&dimensionId=' + ${dimensionId}">
+    ${activity.id} + '&dimensionId=' + ${dimensionId}">
 
         <div class="mb-3">
-            <label>Describe your activity:
+            <label>Edit your activity description:
                 <textarea th:field="${activity.description}" rows="6" cols="40"
                           class="form-control">
                 </textarea>
