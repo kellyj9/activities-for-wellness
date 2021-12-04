@@ -63,9 +63,9 @@ public class ActivityController {
     // Display the user's list of activities for the selected dimension
     @GetMapping("index")
     public String displayActivities(
-                                    @RequestParam(required=true) Integer dimensionId,
-                                    Model model,
-                                    HttpServletRequest request) {
+            @RequestParam(required=true) Integer dimensionId,
+            Model model,
+            HttpServletRequest request) {
 
         // get the name of the selected dimension
         String dimensionName =
@@ -114,8 +114,8 @@ public class ActivityController {
     // dimension, along with a list of sample activities
     @GetMapping("create")
     public String renderCreateActivityForm(
-                                Model model,
-                                @RequestParam(required=true) Integer dimensionId) {
+            Model model,
+            @RequestParam(required=true) Integer dimensionId) {
 
         // set the title of the page according to the name of the dimension selected
         model.addAttribute("title",
@@ -140,11 +140,11 @@ public class ActivityController {
     // dimension
     @PostMapping("create")
     public String processCreateActivityForm(
-                                @ModelAttribute
-                                @Valid Activity newActivity,
-                                Errors errors, Model model,
-                                @RequestParam(required=true) Integer dimensionId,
-                                HttpServletRequest request) {
+            @ModelAttribute
+            @Valid Activity newActivity,
+            Errors errors, Model model,
+            @RequestParam(required=true) Integer dimensionId,
+            HttpServletRequest request) {
         // Spring Boot will put fields in newActivity into an Activity object
         // from the Activity class when model binding occurs
 
@@ -246,34 +246,31 @@ public class ActivityController {
     @GetMapping("edit")
     public String renderEditActivityForm(
             Model model,
-            @RequestParam Integer dimensionId,
-            @RequestParam Integer activityId) {
-        // check if a query params was missing
-        if (dimensionId == null && activityId != null) {
-            model.addAttribute("title",
-                    "An error occurred.");
-            return "redirect:/error";
-        }
-        else {
-            // verify that the user is editing their own activity
+            @RequestParam(required=true) Integer dimensionId,
+            @RequestParam(required=true) Integer activityId) {
 
-            Optional<Activity> optionalActivity =
-                    activityRepository.findById(activityId);
-            // make sure the activity exists for the activityId
-            if (optionalActivity.isPresent()) {
+        // make sure the activity exists for the activityId
+        Optional<Activity> optionalActivity =
+                activityRepository.findById(activityId);
+        if (optionalActivity.isPresent()) {
 
-               // allow the form to be rendered
-                Activity activity = (Activity) optionalActivity.get();
-                model.addAttribute("activity", activity);
-                model.addAttribute("activityId", activityId);
-                model.addAttribute("dimensionId", dimensionId);
-                model.addAttribute(
-                        "title",
-                        "Edit my Activity for dimension : " +
-                                dimensionRepository.findById(dimensionId).get().getName());
-                return "activity/edit";
-            }
+           // allow the form to be rendered
+
+            // get the activity from the database
+            Activity activity = (Activity) optionalActivity.get();
+
+            // add the activity, activityId, dimensionId, and  page title to the model
+            model.addAttribute("activity", activity);
+            model.addAttribute("activityId", activityId);
+            model.addAttribute("dimensionId", dimensionId);
+            model.addAttribute(
+                    "title",
+                    "Edit my Activity for dimension : " +
+                            dimensionRepository.findById(dimensionId).get().getName());
+            // render the form
+            return "activity/edit";
         }
+
         // if we get here, the validation didn't pass, so redirect user to the error page
         model.addAttribute("title",
                 "An error occurred.");
@@ -286,50 +283,42 @@ public class ActivityController {
             @ModelAttribute
             @Valid Activity activity,
             Errors errors, Model model,
-            @RequestParam Integer activityId,
-            @RequestParam Integer dimensionId,
+            @RequestParam(required=true) Integer activityId,
+            @RequestParam(required=true) Integer dimensionId,
             HttpServletRequest request) {
 
-        // if a query parameter was missing...
-        if (dimensionId == null || activityId == null) {
+        // if there are any errors...go back to the form
+        if (errors.hasErrors()) {
             model.addAttribute("title",
-                    "An error occurred.");
-            return "redirect:/error";
+                    "Edit my Activity for dimension : " +
+                            dimensionRepository.findById(dimensionId).get().getName());
+            model.addAttribute("activity", activity);
+            model.addAttribute("activityId", activityId);
+            model.addAttribute("dimensionId", dimensionId);
+           // model.addAttribute("dimension",
+             //       dimensionRepository.findById(dimensionId));
+            return "activity/edit";
         }
         else {
-            // if there are any errors...go back to the form
-            if (errors.hasErrors()) {
-                model.addAttribute("title",
-                        "Edit my Activity for dimension : " +
-                                dimensionRepository.findById(dimensionId).get().getName());
-                model.addAttribute("activity", activity);
-                model.addAttribute("activityId", activityId);
-                model.addAttribute("dimensionId", dimensionId);
-               // model.addAttribute("dimension",
-                 //       dimensionRepository.findById(dimensionId));
-                return "activity/edit";
-            }
-            else {
-                // get the name of the dimension
-               // model.addAttribute("title",
-              //          dimensionRepository.findById(dimensionId).get().getName());
+            // get the name of the dimension
+           // model.addAttribute("title",
+          //          dimensionRepository.findById(dimensionId).get().getName());
 
-                // make sure the activity exists for the activityId
-                Optional<Activity> optionalActivity =
-                        activityRepository.findById(activityId);
+            // make sure the activity exists for the activityId
+            Optional<Activity> optionalActivity =
+                    activityRepository.findById(activityId);
 
-                 if (optionalActivity.isPresent()) {
-                     Activity activityTmp = (Activity) optionalActivity.get();
-                    // next check that the user logged is editing an activity that is in their list
-                    if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
+             if (optionalActivity.isPresent()) {
+                 Activity activityTmp = (Activity) optionalActivity.get();
+                // next check that the user logged is editing an activity that is in their list
+                if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
 
-                        // process the edit
-                        activityTmp.setDescription(activity.getDescription().trim());
-                        activityRepository.save(activityTmp);
+                    // process the edit
+                    activityTmp.setDescription(activity.getDescription().trim());
+                    activityRepository.save(activityTmp);
 
-                        // redirect user to their activity list
-                        return "redirect:index?dimensionId=" + dimensionId;
-                    }
+                    // redirect user to their activity list
+                    return "redirect:index?dimensionId=" + dimensionId;
                 }
             }
         }
