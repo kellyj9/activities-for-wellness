@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Activity extends AbstractEntity{
 
-    @NotNull(message="Description of activity must not be blank.")
+    @NotBlank(message="Description of activity must not be blank.")
     @Size(min=1, max=400, message="Please enter up to 400 characters.")
     private String description;
 
