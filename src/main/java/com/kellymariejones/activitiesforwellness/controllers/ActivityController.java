@@ -78,11 +78,11 @@ public class ActivityController {
         // retrieve the logged-in user's activities list
 
         User user = getUserFromSession(request.getSession());
-        // if user not found, redirect to error page
+        // if user not found, return error page
         if (user == null) {
             model.addAttribute("title",
                     "An error occurred.");
-            return "redirect:/error";
+            return "../error";
         }
 
         // get the user's activities by user_id
@@ -171,11 +171,11 @@ public class ActivityController {
             // get the user from the session
             User user = getUserFromSession(request.getSession());
 
-            // if user not found, redirect to error page
+            // if user not found, return error page
             if (user == null) {
                 model.addAttribute("title",
                         "An error occurred.");
-                return "redirect:/error";
+                return "../error";
             }
 
             // get the user's userId
@@ -236,10 +236,10 @@ public class ActivityController {
             }
         }
 
-        // if we get here, validation didn't pass, so redirect user to the error page
+        // if we get here, validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "redirect:/error";
+        return "../error";
     }
 
     //  Render the form for the user to edit their activity for the selected
@@ -272,10 +272,10 @@ public class ActivityController {
             return "activity/edit";
         }
 
-        // if we get here, the validation didn't pass, so redirect user to the error page
+        // if we get here, the validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "redirect:/error";
+        return "../error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -324,9 +324,9 @@ public class ActivityController {
             }
         }
 
-        // if we get here, the validation didn't pass, so redirect user to the error page
+        // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
-        return "redirect:/error";
+        return "../error";
     }
 
 }
