@@ -11,7 +11,8 @@ public class Sample extends AbstractEntity {
             "Sample description only allows up to 400 characters.")
     private String description;
 
-    @ManyToOne // relate one dimension to an activity
+    // many samples to one dimension
+    @ManyToOne
     private Dimension dimension;
 
     public Sample () {}

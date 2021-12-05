@@ -13,10 +13,12 @@ public class Activity extends AbstractEntity{
     @Size(min=1, max=400, message="Please enter up to 400 characters.")
     private String description;
 
-    @ManyToOne // relate one dimension to an activity
+    // many activities to one dimension
+    @ManyToOne
     private Dimension dimension;
 
-    @ManyToOne // relate one user to an activity
+    // many activities to one user
+    @ManyToOne
     private User user;
 
     public Activity () {}
