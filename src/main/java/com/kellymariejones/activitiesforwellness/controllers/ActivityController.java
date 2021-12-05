@@ -235,7 +235,6 @@ public class ActivityController {
                 return "redirect:index?dimensionId=" + dimensionId;
             }
         }
-
         // if we get here, validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
@@ -327,7 +326,6 @@ public class ActivityController {
                 return "redirect:index?dimensionId=" + dimensionId;
             }
         }
-
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
         return "redirect:../error";

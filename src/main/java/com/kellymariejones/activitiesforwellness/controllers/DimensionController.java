@@ -17,8 +17,8 @@ import java.util.ArrayList;
 @RequestMapping("dimension")
 public class DimensionController {
 
-     // Autowired annotation specifies that Spring Boot should auto-populate this field
-    // feature of Spring Boot - dependency injection / inversion of control
+     // Autowired annotation specifies that Spring Boot should
+     // auto-populate this field.
      @Autowired
     private DimensionRepository dimensionRepository;
 
@@ -32,8 +32,7 @@ public class DimensionController {
     public String displayDimensionList(Model model) {
 
         // get the list of dimensions
-        Iterable<Dimension> result = new ArrayList<>();
-        result = dimensionRepository.findAll();
+        Iterable<Dimension> result = dimensionRepository.findAll();
 
         // Note: The following code populates the static dimensions list if empty
         // and populates the static sample activities list for each dimension
@@ -49,8 +48,6 @@ public class DimensionController {
             // All records in the activity table must also be deleted first!!!
             // Samples are associated with a dimension.
             // All records in the sample table must also be deleted first!!!
-            activityRepository.deleteAll();
-            sampleRepository.deleteAll();
 
             // Populate the 8 dimensions
             Dimension dimension1 = new Dimension ("Emotional",
@@ -86,7 +83,7 @@ public class DimensionController {
             dimensionRepository.save(dimension7);
             dimensionRepository.save(dimension8);
 
-            // Next, populate the Sample table with sample activities.  Samples are
+            // Next, populate the activity samples.  Samples are
             // related to dimensions in a Many to One relationship.
 
             // Emotional
@@ -219,7 +216,7 @@ public class DimensionController {
             sample72.setDimension(dimension8);
             sample73.setDimension(dimension8);
 
-            // save the samples to the repository
+            // save the samples
 
             sampleRepository.save(sample1);
             sampleRepository.save(sample2);
@@ -256,7 +253,6 @@ public class DimensionController {
 
             // now refresh the result of the findAll()
             result = dimensionRepository.findAll();
-
 
         } // END - sample and dimension population
 
