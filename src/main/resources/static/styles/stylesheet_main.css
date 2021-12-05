@@ -15,7 +15,11 @@ table td.expand {
     width: 99%;
 }
 
-.p-text {
+mark {
+    background-color:#fffdd0;
+}
+
+.p-justify {
     text-align: justify;
     text-justify: inter-word;
 }
