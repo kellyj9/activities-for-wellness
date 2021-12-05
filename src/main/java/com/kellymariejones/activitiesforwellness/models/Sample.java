@@ -2,11 +2,13 @@ package com.kellymariejones.activitiesforwellness.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Sample extends AbstractEntity {
 
+    @NotBlank(message="Sample description must not be blank.")
     @Size(min=1, max=400, message=
             "Sample description only allows up to 400 characters.")
     private String description;
