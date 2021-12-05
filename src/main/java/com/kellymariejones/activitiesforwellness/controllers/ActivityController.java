@@ -63,7 +63,7 @@ public class ActivityController {
     // Display the user's list of activities for the selected dimension
     @GetMapping("index")
     public String displayActivities(
-            @RequestParam(required=true) Integer dimensionId,
+            @RequestParam(required = true) Integer dimensionId,
             Model model,
             HttpServletRequest request) {
 
@@ -111,16 +111,16 @@ public class ActivityController {
     }
 
     //  Render the form for the user to add their activity for the selected
-    // dimension, along with a list of sample activities
+    // dimension, along with displaying a list of sample activities
     @GetMapping("create")
     public String renderCreateActivityForm(
             Model model,
-            @RequestParam(required=true) Integer dimensionId) {
+            @RequestParam(required = true) Integer dimensionId) {
 
         // set the title of the page according to the name of the dimension selected
         model.addAttribute("title",
                 "Add an Activity to dimension : " +
-                dimensionRepository.findById(dimensionId).get().getName());
+                        dimensionRepository.findById(dimensionId).get().getName());
 
         // add a new activity object to the model along with the dimensionId
         model.addAttribute("activity", new Activity());
@@ -130,7 +130,7 @@ public class ActivityController {
 
         // add the list of sample activities for the selected dimension to the model
         model.addAttribute(
-        "sample",
+                "sample",
                 sampleRepository.findByDimensionId(dimensionId));
 
         return "activity/create";
@@ -143,7 +143,7 @@ public class ActivityController {
             @ModelAttribute
             @Valid Activity newActivity,
             Errors errors, Model model,
-            @RequestParam(required=true) Integer dimensionId,
+            @RequestParam(required = true) Integer dimensionId,
             HttpServletRequest request) {
         // Spring Boot will put fields in newActivity into an Activity object
         // from the Activity class when model binding occurs
@@ -153,7 +153,7 @@ public class ActivityController {
 
             model.addAttribute("title",
                     "Add an Activity to dimension : " +
-                    dimensionRepository.findById(dimensionId).get().getName());
+                            dimensionRepository.findById(dimensionId).get().getName());
             model.addAttribute("activity", newActivity);
             model.addAttribute("dimensionId", dimensionId);
 
@@ -163,8 +163,7 @@ public class ActivityController {
                     sampleRepository.findByDimensionId(dimensionId));
 
             return "activity/create";
-        }
-        else {
+        } else {
             // get the name of the dimension
             model.addAttribute("title",
                     dimensionRepository.findById(dimensionId).get().getName());
@@ -206,11 +205,12 @@ public class ActivityController {
         return "redirect:index?dimensionId=" + dimensionId;
     }
 
-    // Delete the selected activity from the user's activity list
+    // Delete the selected activity from the user's activity list.
+    // Verifies that the user is attempting to delete their own existing activity
     @GetMapping("delete")
     public String processDeleteActivity(
-            @RequestParam(required=true) Integer activityId,
-            @RequestParam(required=true) Integer dimensionId,
+            @RequestParam(required = true) Integer activityId,
+            @RequestParam(required = true) Integer dimensionId,
             Model model,
             HttpServletRequest request) {
 
@@ -242,19 +242,20 @@ public class ActivityController {
         return "redirect:/error";
     }
 
-
+    //  Render the form for the user to edit their activity for the selected
+    // dimension
     @GetMapping("edit")
     public String renderEditActivityForm(
             Model model,
-            @RequestParam(required=true) Integer dimensionId,
-            @RequestParam(required=true) Integer activityId) {
+            @RequestParam(required = true) Integer dimensionId,
+            @RequestParam(required = true) Integer activityId) {
 
         // make sure the activity exists for the activityId
         Optional<Activity> optionalActivity =
                 activityRepository.findById(activityId);
         if (optionalActivity.isPresent()) {
 
-           // allow the form to be rendered
+            // allow the form to be rendered
 
             // get the activity from the database
             Activity activity = (Activity) optionalActivity.get();
@@ -277,14 +278,16 @@ public class ActivityController {
         return "redirect:/error";
     }
 
-
+    // Process the form for the user to edit their activity for the selected
+    // dimension.
+    // Verifies that the user is attempting to edit their own existing activity.
     @PostMapping("edit")
     public String processEditActivityForm(
             @ModelAttribute
             @Valid Activity activity,
             Errors errors, Model model,
-            @RequestParam(required=true) Integer activityId,
-            @RequestParam(required=true) Integer dimensionId,
+            @RequestParam(required = true) Integer activityId,
+            @RequestParam(required = true) Integer dimensionId,
             HttpServletRequest request) {
 
         // if there are any errors...go back to the form
@@ -295,38 +298,35 @@ public class ActivityController {
             model.addAttribute("activity", activity);
             model.addAttribute("activityId", activityId);
             model.addAttribute("dimensionId", dimensionId);
-           // model.addAttribute("dimension",
-             //       dimensionRepository.findById(dimensionId));
             return "activity/edit";
         }
-        else {
-            // get the name of the dimension
-           // model.addAttribute("title",
-          //          dimensionRepository.findById(dimensionId).get().getName());
+        // verify the activity exists for the activityId
+        Optional<Activity> optionalActivity =
+                activityRepository.findById(activityId);
 
-            // make sure the activity exists for the activityId
-            Optional<Activity> optionalActivity =
-                    activityRepository.findById(activityId);
+        // verify the activity exists and the user is trying to edit their own acitivty
 
-             if (optionalActivity.isPresent()) {
-                 Activity activityTmp = (Activity) optionalActivity.get();
-                // next check that the user logged is editing an activity that is in their list
-                if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
+        // if the activity exists...
+        if (optionalActivity.isPresent()) {
+            // get the activity for the database
+            Activity activityTmp = (Activity) optionalActivity.get();
+            // next check that the user logged is editing an activity that is in their list
+            if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
 
-                    // process the edit
-                    activityTmp.setDescription(activity.getDescription().trim());
-                    activityRepository.save(activityTmp);
+                // Set the new description for the activity
+                activityTmp.setDescription(activity.getDescription().trim());
 
-                    // redirect user to their activity list
-                    return "redirect:index?dimensionId=" + dimensionId;
-                }
+                // save the change to the database
+                activityRepository.save(activityTmp);
+
+                // redirect user to their activity list
+                return "redirect:index?dimensionId=" + dimensionId;
             }
         }
+
         // if we get here, the validation didn't pass, so redirect user to the error page
-        model.addAttribute("title",
-                "An error occurred.");
+        model.addAttribute("title", "An error occurred.");
         return "redirect:/error";
     }
-
 
 }
