@@ -6,33 +6,35 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-  <form method="post">
+    <form method="post">
 
-    <div class="mb-3">
-        <label>Username
-          <input class="form-control" th:field="${registerFormDTO.username}" />
-        </label>
-        <p class="error" th:errors="${registerFormDTO.username}"></p>
-    </div>
+        <div class="mb-3">
+            <label>Username
+              <input class="form-control" th:field="${registerFormDTO.username}" />
+            </label>
+            <p class="error"
+                  th:errors="${registerFormDTO.username}"></p>
+        </div>
 
-    <div class="mb-3">
-      <label>Password
-        <input class="form-control" th:field="${registerFormDTO.password}"
-               type="password" />
-      </label>
-      <p class="error" th:errors="${registerFormDTO.password}"></p>
-    </div>
+        <div class="mb-3">
+            <label>Password
+                <input class="form-control"
+                       th:field="${registerFormDTO.password}"
+                   type="password" />
+            </label>
+            <p class="error" th:errors="${registerFormDTO.password}"></p>
+        </div>
 
-      <div class="mb-3">
-      <label>Verify Password
-        <input class="form-control" th:field="${registerFormDTO.verifyPassword}"
-               type="password" />
-      </label>
-      </div>
+        <div class="mb-3">
+            <label>Verify Password
+            <input class="form-control"
+                       th:field="${registerFormDTO.verifyPassword}" type="password" />
+            </label>
+        </div>
 
-    <input type="submit" class="btn btn-primary mb-3" value="Register" />
+        <input type="submit" class="btn btn-primary mb-3" value="Register" />
 
-  </form>
+    </form>
 
 </div>
 </body>

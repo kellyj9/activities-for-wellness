@@ -12,9 +12,11 @@ public class Dimension extends AbstractEntity {
 
     private String description;
 
+    // one dimension to many activities
     @OneToMany(mappedBy = "dimension")
     private final List<Activity> activity = new ArrayList<>();
 
+    // one dimension to many samples
     @OneToMany(mappedBy = "dimension")
     private final List<Sample> sample = new ArrayList<>();
 

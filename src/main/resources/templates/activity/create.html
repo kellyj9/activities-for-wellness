@@ -18,13 +18,14 @@
             <input type="hidden" th:field="${activity.dimension}" />
         </div>
         <p class="error" th:errors="${activity.description}"></p>
+
         <div>
             <input type="submit" value="Add my Activity" class="btn btn-success" />
         </div>
 
-        <div th:replace="fragments :: sample-activities"></div>
-
     </form>
+
+    <div th:replace="fragments :: sample-activities"></div>
 
 </div>
 </body>
