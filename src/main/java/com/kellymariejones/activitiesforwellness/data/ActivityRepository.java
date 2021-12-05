@@ -10,8 +10,6 @@ import java.util.List;
 public interface ActivityRepository
         extends CrudRepository<Activity, Integer> {
 
-        List<Activity> findAllByDimensionId(Integer dimension_id);
-
         List<Activity> findByDimensionIdAndUserId(
                 Integer dimension_id, Integer user_id);
 }
