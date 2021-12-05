@@ -1,6 +1,5 @@
 package com.kellymariejones.activitiesforwellness.controllers;
 
-import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.data.SampleRepository;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
@@ -11,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-
 @Controller
 @RequestMapping("dimension")
 public class DimensionController {
@@ -21,9 +18,6 @@ public class DimensionController {
      // auto-populate this field.
      @Autowired
     private DimensionRepository dimensionRepository;
-
-    @Autowired
-    private ActivityRepository activityRepository;
 
     @Autowired
     private SampleRepository sampleRepository;
@@ -74,6 +68,7 @@ public class DimensionController {
             Dimension dimension8 = new Dimension ("Social",
             "Social wellness is developing a sense of connectedness " +
                     "and belonging.");
+
              dimensionRepository.save(dimension1);
             dimensionRepository.save(dimension2);
              dimensionRepository.save(dimension3);

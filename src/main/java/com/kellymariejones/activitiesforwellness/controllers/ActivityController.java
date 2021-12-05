@@ -328,7 +328,7 @@ public class ActivityController {
         }
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
-        return "redirect:../error";
+        return "../error";
     }
 
 }
