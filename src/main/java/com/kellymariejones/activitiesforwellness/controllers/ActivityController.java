@@ -275,7 +275,7 @@ public class ActivityController {
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "../error";
+        return "redirect:../error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -326,7 +326,7 @@ public class ActivityController {
 
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
-        return "../error";
+        return "redirect:../error";
     }
 
 }
