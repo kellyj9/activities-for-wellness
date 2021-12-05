@@ -69,6 +69,16 @@ public class AuthenticationController {
                                               @Valid RegisterFormDTO registerFormDTO,
                                               Errors errors, HttpServletRequest request,
                                               Model model) {
+
+        // Add a validation error if the username or password contains a space.
+        if (registerFormDTO.getUsername().contains(" ") ||
+                registerFormDTO.getVerifyPassword().contains(" ")) {
+            errors.rejectValue("username", "username.invalidusername",
+                    "Username must not contain spaces.");
+            model.addAttribute("title", "Register");
+            return "register";
+        }
+
         // Return the user to the form if an validation errors occur.
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
