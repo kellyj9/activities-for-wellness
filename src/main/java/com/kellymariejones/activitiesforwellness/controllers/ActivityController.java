@@ -78,11 +78,11 @@ public class ActivityController {
         // retrieve the logged-in user's activities list
 
         User user = getUserFromSession(request.getSession());
-        // if user not found, redirect to error page
+        // if user not found, return error page
         if (user == null) {
             model.addAttribute("title",
                     "An error occurred.");
-            return "redirect:/error";
+            return "../error";
         }
 
         // get the user's activities by user_id
@@ -171,11 +171,11 @@ public class ActivityController {
             // get the user from the session
             User user = getUserFromSession(request.getSession());
 
-            // if user not found, redirect to error page
+            // if user not found, return error page
             if (user == null) {
                 model.addAttribute("title",
                         "An error occurred.");
-                return "redirect:/error";
+                return "../error";
             }
 
             // get the user's userId
@@ -235,11 +235,10 @@ public class ActivityController {
                 return "redirect:index?dimensionId=" + dimensionId;
             }
         }
-
-        // if we get here, validation didn't pass, so redirect user to the error page
+        // if we get here, validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "redirect:/error";
+        return "../error";
     }
 
     //  Render the form for the user to edit their activity for the selected
@@ -248,7 +247,8 @@ public class ActivityController {
     public String renderEditActivityForm(
             Model model,
             @RequestParam(required = true) Integer dimensionId,
-            @RequestParam(required = true) Integer activityId) {
+            @RequestParam(required = true) Integer activityId,
+            HttpServletRequest request) {
 
         // make sure the activity exists for the activityId
         Optional<Activity> optionalActivity =
@@ -260,22 +260,23 @@ public class ActivityController {
             // get the activity from the database
             Activity activity = (Activity) optionalActivity.get();
 
-            // add the activity, activityId, dimensionId, and  page title to the model
-            model.addAttribute("activity", activity);
-            model.addAttribute("activityId", activityId);
-            model.addAttribute("dimensionId", dimensionId);
-            model.addAttribute(
-                    "title",
-                    "Edit my Activity for dimension : " +
-                            dimensionRepository.findById(dimensionId).get().getName());
-            // render the form
-            return "activity/edit";
+            if (activity.getUser() == getUserFromSession(request.getSession())) {
+                // add the activity, activityId, dimensionId, and title to the model
+                model.addAttribute("activity", activity);
+                model.addAttribute("activityId", activityId);
+                model.addAttribute("dimensionId", dimensionId);
+                model.addAttribute(
+                        "title",
+                        "Edit my Activity for dimension : " +
+                        dimensionRepository.findById(dimensionId).get().getName());
+                // render the form
+                return "activity/edit";
+            }
         }
-
-        // if we get here, the validation didn't pass, so redirect user to the error page
+        // if we get here, the validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "redirect:/error";
+        return "../error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -294,7 +295,7 @@ public class ActivityController {
         if (errors.hasErrors()) {
             model.addAttribute("title",
                     "Edit my Activity for dimension : " +
-                            dimensionRepository.findById(dimensionId).get().getName());
+                       dimensionRepository.findById(dimensionId).get().getName());
             model.addAttribute("activity", activity);
             model.addAttribute("activityId", activityId);
             model.addAttribute("dimensionId", dimensionId);
@@ -310,8 +311,10 @@ public class ActivityController {
         if (optionalActivity.isPresent()) {
             // get the activity for the database
             Activity activityTmp = (Activity) optionalActivity.get();
-            // next check that the user logged is editing an activity that is in their list
-            if (activityTmp.getUser() == getUserFromSession(request.getSession())) {
+            // next check that the user logged is editing an activity that
+            // is in their own list
+            if (activityTmp.getUser() ==
+                    getUserFromSession(request.getSession())) {
 
                 // Set the new description for the activity
                 activityTmp.setDescription(activity.getDescription().trim());
@@ -323,10 +326,9 @@ public class ActivityController {
                 return "redirect:index?dimensionId=" + dimensionId;
             }
         }
-
-        // if we get here, the validation didn't pass, so redirect user to the error page
+        // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
-        return "redirect:/error";
+        return "redirect:../error";
     }
 
 }
