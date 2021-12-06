@@ -1,3 +1,9 @@
+body {
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
 nav {
     background-color: #091f6a;
 }
@@ -15,8 +21,27 @@ table td.expand {
     width: 99%;
 }
 
+.img-float {
+    float: right;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+}
+
+.ul-block-group {
+    font-weight: 600;
+    text-align: center;
+}
+
+.li-block-item {
+    display: inline-block;
+    padding: 5px;
+    background-color: #dbf0ee;
+}
+
 mark {
-    background-color:#fffdd0;
+    background-color: #f0f0f0;
 }
 
 .p-justify {
@@ -55,11 +80,15 @@ mark {
 
 .dimension-list {
     margin:auto;
-    width: 85%;
+    width: 90%;
 }
 
 .sample-list {
     padding-top: 25px;
+}
+
+.center {
+    text-align: center;
 }
 
 .error {
