@@ -21,6 +21,10 @@ table td.expand {
     width: 99%;
 }
 
+h5, h6 {
+    font-weight: 600;
+}
+
 .img-float {
     float: right;
     padding-top: 0px;
@@ -29,12 +33,12 @@ table td.expand {
     padding-left: 8px;
 }
 
-.ul-block-group {
-    font-weight: 600;
+.dimension-block {
     text-align: center;
 }
 
-.li-block-item {
+.dimension-block-item {
+    font-weight: bold;
     display: inline-block;
     padding: 5px;
     background-color: #dbf0ee;
@@ -56,7 +60,7 @@ mark {
 
 .add-link {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .page-title {

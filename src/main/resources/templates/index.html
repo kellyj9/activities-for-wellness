@@ -10,7 +10,6 @@
         Optimize your wellness through a holistic approach to health.
     </h6>
 
-
     <img src="/image/afw.png" alt="activities for wellness logo"
          class="img-float" />
 
@@ -27,7 +26,7 @@
         Wellness can be envisioned as:
     </p>
 
-    <p class="p-justify" style="margin-left: 40px;">
+    <p class="p-justify" style="margin-left:40px;">
         <cite>
             <mark>
             "...not the absence of disease, illness, and stress,
@@ -51,25 +50,24 @@
         optimize health (SAMHSA, 2017).
     </p>
 
-    <h6 class="center">
+    <p class="center">
         The dimensions of wellness include:
-    </h6>
+    </p>
 
-    <ul class="ul-block-group">
-        <li class="li-block-item">Emotional</li>
-        <li class="li-block-item">Spiritual</li>
-        <li class="li-block-item">Intellectual</li>
-        <li class="li-block-item">Physical</li>
-        <li class="li-block-item">Environmental</li>
-        <li class="li-block-item">Financial</li>
-        <li class="li-block-item">Occupational</li>
-        <li class="li-block-item">Social</li>
-    </ul>
+    <p class="dimension-block">
+        <th:block th:each="dimension_item : ${dimension}">
+            <span
+                    th:text="${dimension_item.name}"
+                    class="dimension-block-item">
+            </span>
+        </th:block>
+    <div>
 
     <p>
         Through our activities, we can address our needs in each dimension.
         Our activities can be planned according to factors such as our goals,
-        beliefs, values, culture, personality, and life experiences.</p>
+        beliefs, values, culture, personality, and life experiences.
+    </p>
     <h6>
         In which of the dimensions of wellness do you feel strongest?
         Which dimensions would you like to work on?
