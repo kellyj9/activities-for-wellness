@@ -1,9 +1,7 @@
 package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
-import com.kellymariejones.activitiesforwellness.data.SampleRepository;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
-import com.kellymariejones.activitiesforwellness.models.Sample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
