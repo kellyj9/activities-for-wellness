@@ -5,7 +5,7 @@ body {
 }
 
 nav {
-    background-color: #091f6a;
+background-color: #002d96;
 }
 
 table {
@@ -68,23 +68,24 @@ mark {
 }
 
 .list-group-item a {
-    background-color: #b5d5f0;
+    background-color: #e6a08a;
     color: #14183b;
     font-weight: bold;
 }
 
 .dimension-hover :hover {
-    background-color: #e6938a;
+    background-color: #d97c5f;
 }
 
 .dimension-hover {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 25px;
       width: fit-content;
-      background-color: #6d9eed;
 }
 
 .dimension-list {
     margin:auto;
-    width: 90%;
+    width: 95%;
 }
 
 .item-outline {
@@ -92,7 +93,10 @@ mark {
 }
 
 .list-group-item .description {
-    background-color: #e9f3fa;
+    font-weight: 600;
+    color: #14183b;
+    background-color: #d9f7ff;
+    border-top-right-radius: 5px;
 }
 
 .sample-list {

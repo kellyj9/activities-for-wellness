@@ -63,11 +63,8 @@ public class AuthenticationFilter implements HandlerInterceptor {
         // if there is a session present...
         if (session != null) {
 
-            // if there was an error or the login page was requested,
-            // automatically invalidate the session first
-            if (request.getRequestURI().startsWith("/error") ||
-                    request.getRequestURI().startsWith("/login") ||
-                    request.getRequestURI().startsWith("/register")) {
+            // if error page requested, automatically invalidate the session
+            if (request.getRequestURI().startsWith("/error")) {
                 session.invalidate();
             }
             else {
@@ -84,7 +81,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
         // the user is NOT logged in now
 
-        // if there was an error or the user requested the login page, allow it
+        // allow these pages
         if (request.getRequestURI().equals("/error")  ||
                 request.getRequestURI().startsWith("/login") ||
                 request.getRequestURI().startsWith("/register")) {
@@ -93,6 +90,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
         // otherwise, the user needs to log in, redirect to the login page
         response.sendRedirect("/login");
+
         return false;
     }
 
