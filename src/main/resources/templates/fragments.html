@@ -46,7 +46,12 @@
                            Dimensions of Wellness
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${isSessionPresent} != true" class="nav-item">
+                        <a th:href="@{/login}" class="nav-link">
+                            Login
+                        </a>
+                    </li>
+                    <li th:if="${isSessionPresent} == true" class="nav-item">
                         <a th:href="@{/logout}" class="nav-link">
                             Logout
                         </a>
@@ -56,6 +61,7 @@
         </div>
     </nav>
 
+    <!--
     <nav th:fragment="navigationLogin" class="navbar navbar-expand-sm navbar-dark"
          aria-label="navbar">
         <div class="container-fluid">
@@ -95,6 +101,7 @@
             </div>
         </div>
     </nav>
+    -->
 
     <div th:fragment="page-title" class="page-title">
         <h5 th:text="${title} == null ?

@@ -54,9 +54,20 @@ public class AuthenticationController {
     //  Before we can authenticate a user, we must have users in the application,
     //  so we have a registration form first.
     @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
+    public String displayRegistrationForm(Model model, HttpServletRequest request) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
+
+        // set a flag to determine whether to display a login or a logout link
+        boolean isSessionPresent = false;   // assume session not present
+        // get the current session. (and if session not present, don't create a session)
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // session present
+            isSessionPresent = true;
+        }
+        model.addAttribute("isSessionPresent", isSessionPresent);
+
         return "register";
     }
 
@@ -70,19 +81,16 @@ public class AuthenticationController {
                                               Errors errors, HttpServletRequest request,
                                               Model model) {
 
-        // Add a validation error if the username or password contains a space.
-        if (registerFormDTO.getUsername().contains(" ") ||
-                registerFormDTO.getVerifyPassword().contains(" ")) {
+        // Add a validation error if the username contains a space.
+        if (registerFormDTO.getUsername().contains(" "))
+          {
             errors.rejectValue("username", "username.invalidusername",
                     "Username must not contain spaces.");
-            model.addAttribute("title", "Register");
-            return "register";
         }
-
-        // Return the user to the form if an validation errors occur.
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
-            return "register";
+        // Add a validation error if the password contains a space.
+        if (registerFormDTO.getPassword().contains(" ")) {
+            errors.rejectValue("password", "username.invalidpassword",
+                    "Password must not contain spaces.");
         }
 
         // Retrieve the user with the given username from the database.
@@ -94,8 +102,8 @@ public class AuthenticationController {
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists",
                     "A user with that username already exists");
-            model.addAttribute("title", "Register");
-            return "register";
+//            model.addAttribute("title", "Register");
+//            return "register";
         }
 
         // Compare the two passwords submitted. If they do not match,
@@ -112,9 +120,27 @@ public class AuthenticationController {
             // (as is the case here).
             errors.rejectValue("password", "passwords.mismatch",
                     "Passwords do not match");
+//            model.addAttribute("title", "Register");
+//            return "register";
+        }
+
+
+        // Return the user to the form if an validation errors occur.
+        if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
+
+            boolean isSessionPresent = false;   // assume session not present
+            // get the current session. (and if session not present, don't create a session)
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                // session present
+                isSessionPresent = true;
+            }
+            model.addAttribute("isSessionPresent", isSessionPresent);
+
             return "register";
         }
+
         // At this point, we know that a user with the given username does
         // NOT already exist, and the rest of the form data is valid.
         // So we create a new user object, store it in the database, and then create a
@@ -126,13 +152,28 @@ public class AuthenticationController {
 
         // user is registered and also logged in.
         // redirect the user to the dimension page
+
+        model.addAttribute("isSessionPresent", true);
+
         return "redirect:dimension";
     }
 
     @GetMapping("/login")
-    public String displayLoginForm(Model model) {
+    public String displayLoginForm(Model model, HttpServletRequest request) {
+
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
+
+        // set a flag to determine whether to display a login or a logout link
+        boolean isSessionPresent = false;   // assume session not present
+        // get the current session. (and if session not present, don't create a session)
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // session present
+            isSessionPresent = true;
+        }
+        model.addAttribute("isSessionPresent", isSessionPresent);
+
         return "login";
     }
 
@@ -144,6 +185,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
+            //model.addAttribute("isSessionPresent", false);
             return "login";
         }
 
@@ -155,7 +197,8 @@ public class AuthenticationController {
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid",
                     "The given username does not exist");
-            model.addAttribute("title", "Log In");
+            //model.addAttribute("title", "Log In");
+            //model.addAttribute("isSessionPresent", false);
             return "login";
         }
 
@@ -168,13 +211,21 @@ public class AuthenticationController {
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid",
                     "Invalid password");
-            model.addAttribute("title", "Log In");
+//            model.addAttribute("title", "Log In");
             return "login";
+        }
+
+        if (errors.hasErrors()) {
+             model.addAttribute("title", "Log In");
+             //model.addAttribute("isSessionPresent", false);
+             return "login";
         }
 
         // At this point, we know the given user exists and that the submitted
         // password is correct. So we create a new session for the user.
         setUserInSession(request.getSession(), theUser);
+
+        model.addAttribute("isSessionPresent", true);
 
         // user is logged in.  redirect the user to the dimension page
         return "redirect:dimension";
@@ -188,6 +239,13 @@ public class AuthenticationController {
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
         return "redirect:";
+    }
+
+    @GetMapping("/error")
+    public String displayErrorPage(Model model) {
+        model.addAttribute("title", "An Error Occurred");
+        model.addAttribute("isSessionPresent", false);
+        return "error";
     }
 
 }
