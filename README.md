@@ -50,7 +50,7 @@ The purpose of Activities for Wellness is to promote making the right choices fo
 
 - From the generic list of sample activities, there could be a link or button to Add a sample activity to the user's own list of activities.
 
-- A page for the user to Print their lists of activities, with an option to select which activities the user would like to include in the printout.
+- A page for the user to Print their lists of activities, with an option to select which activities the user would like to include.
 
 - A Resources page with links to additional information and resources.
 
