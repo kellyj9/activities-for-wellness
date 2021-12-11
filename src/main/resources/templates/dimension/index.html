@@ -15,7 +15,7 @@
     </p>
 
     <div class="dimension-list">
-        <div th:each="dimension_item : ${dimension}" class="list-group-item">
+        <div th:each="dimension_item : ${dimension}" class="list-group-item item-outline">
 
             <div class="dimension-hover">
                 <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
@@ -24,7 +24,8 @@
                 </a>
             </div>
 
-            <div th:text="${dimension_item.description}" class="list-group-item">
+            <div th:text="${dimension_item.description}"
+                 class="list-group-item description">
             </div>
 
         </div>
