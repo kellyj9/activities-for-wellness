@@ -41,6 +41,11 @@ public class ActivityController {
     // from the database. If no user ID is in the session,
     // or if there is no user with the given ID, null is returned.
     public User getUserFromSession(HttpSession session) {
+        // if no session present, return null
+        if (session == null) {
+            return null;
+        }
+
         Integer userId = (Integer) session.getAttribute(userSessionKey);
 
         // if no user ID is in the session, return null
@@ -56,11 +61,11 @@ public class ActivityController {
             return null;
         }
 
-        // return the user object
+        // return the user
         return user.get();
     }
 
-    // Display the user's list of activities for the selected dimension
+    // display the user's list of activities for the selected dimension
     @GetMapping("index")
     public String displayActivities(
             @RequestParam(required = true) Integer dimensionId,
@@ -78,6 +83,7 @@ public class ActivityController {
         // retrieve the logged-in user's activities list
 
         User user = getUserFromSession(request.getSession(false));
+
         // if user not found, return error page
         if (user == null) {
             model.addAttribute("title",
@@ -86,8 +92,8 @@ public class ActivityController {
             return "error";
         }
 
-        // get the user's activities by user_id
-        // and dimenion_id for the selected dimension
+        // get the user's activities by user id
+        // and by dimenion_id for the selected dimension
         Integer userId = user.getId();
         List<Activity> result =
                 activityRepository.findByDimensionIdAndUserId(
