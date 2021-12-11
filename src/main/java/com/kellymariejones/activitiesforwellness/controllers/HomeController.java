@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class HomeController {
 
@@ -19,7 +22,7 @@ public class HomeController {
     private SampleRepository sampleRepository;
 
     @GetMapping
-    public String getIndex (Model model) {
+    public String getIndex (Model model, HttpServletRequest request) {
         // set the title of the home page
         model.addAttribute("title", "Welcome");
 
@@ -250,7 +253,19 @@ public class HomeController {
         // add all dimensions in the dimensionRepository to the model
         model.addAttribute("dimension", result);
 
+        // set a flag to determine whether to display a login or a logout link
+        boolean isSessionPresent = false;   // assume session not present
+        // get the current session. (and if session not present, don't create a session)
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // session present
+            isSessionPresent = true;
+        }
+        model.addAttribute("isSessionPresent", isSessionPresent);
+
         return "index";
     }
+
+
 
 }

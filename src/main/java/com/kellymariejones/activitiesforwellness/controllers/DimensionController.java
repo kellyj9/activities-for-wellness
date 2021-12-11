@@ -23,9 +23,12 @@ public class DimensionController {
 
         // add the title of the page to the model
         model.addAttribute("title", "Dimensions of Wellness");
+        // set the flag to display the logout link on the nav
+        model.addAttribute("isSessionPresent", true);
 
         // add all dimensions in the dimensionRepository to the model
         model.addAttribute("dimension", result);
+
         return "dimension/index";
     }
 

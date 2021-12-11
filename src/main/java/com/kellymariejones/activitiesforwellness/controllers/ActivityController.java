@@ -77,12 +77,13 @@ public class ActivityController {
 
         // retrieve the logged-in user's activities list
 
-        User user = getUserFromSession(request.getSession());
+        User user = getUserFromSession(request.getSession(false));
         // if user not found, return error page
         if (user == null) {
             model.addAttribute("title",
                     "An error occurred.");
-            return "../error";
+            model.addAttribute("isSessionPresent", false);
+            return "error";
         }
 
         // get the user's activities by user_id
@@ -106,6 +107,9 @@ public class ActivityController {
             model.addAttribute("activity_list_heading",
                     "My List of Activities.");
         }
+
+        // set the flag to display the logout link on the nav
+        model.addAttribute("isSessionPresent", true);
 
         return "activity/index";
     }
@@ -132,6 +136,8 @@ public class ActivityController {
         model.addAttribute(
                 "sample",
                 sampleRepository.findByDimensionId(dimensionId));
+
+        model.addAttribute("isSessionPresent", true);
 
         return "activity/create";
     }
@@ -162,20 +168,23 @@ public class ActivityController {
                     "sample",
                     sampleRepository.findByDimensionId(dimensionId));
 
+            model.addAttribute("isSessionPresent", true);
             return "activity/create";
-        } else {
+        }
+        else {
             // get the name of the dimension
             model.addAttribute("title",
                     dimensionRepository.findById(dimensionId).get().getName());
 
             // get the user from the session
-            User user = getUserFromSession(request.getSession());
+            User user = getUserFromSession(request.getSession(false));
 
             // if user not found, return error page
             if (user == null) {
                 model.addAttribute("title",
                         "An error occurred.");
-                return "../error";
+                model.addAttribute("isSessionPresent", false);
+                return "error";
             }
 
             // get the user's userId
@@ -226,7 +235,7 @@ public class ActivityController {
 
             Activity activity = (Activity) optionalActivity.get();
             // check that the user logged is deleting an activity that is in their own list
-            if (activity.getUser() == getUserFromSession(request.getSession())) {
+            if (activity.getUser() == getUserFromSession(request.getSession(false))) {
 
                 // delete the selected activity from the database
                 activityRepository.deleteById(activityId);
@@ -236,9 +245,9 @@ public class ActivityController {
             }
         }
         // if we get here, validation didn't pass, return error page
-        model.addAttribute("title",
-                "An error occurred.");
-        return "../error";
+//        model.addAttribute("title",
+//                "An error occurred.");
+        return "error";
     }
 
     //  Render the form for the user to edit their activity for the selected
@@ -260,7 +269,7 @@ public class ActivityController {
             // get the activity from the database
             Activity activity = (Activity) optionalActivity.get();
 
-            if (activity.getUser() == getUserFromSession(request.getSession())) {
+            if (activity.getUser() == getUserFromSession(request.getSession(false))) {
                 // add the activity, activityId, dimensionId, and title to the model
                 model.addAttribute("activity", activity);
                 model.addAttribute("activityId", activityId);
@@ -269,14 +278,16 @@ public class ActivityController {
                         "title",
                         "Edit my Activity for dimension : " +
                         dimensionRepository.findById(dimensionId).get().getName());
-                // render the form
+
+                // set the flag to display the logout link on the nav
+                model.addAttribute("isSessionPresent", true);
                 return "activity/edit";
             }
         }
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title",
                 "An error occurred.");
-        return "../error";
+        return "error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -299,6 +310,9 @@ public class ActivityController {
             model.addAttribute("activity", activity);
             model.addAttribute("activityId", activityId);
             model.addAttribute("dimensionId", dimensionId);
+            model.addAttribute("title",
+                    "An error occurred.");
+            model.addAttribute("isSessionPresent", true);
             return "activity/edit";
         }
         // verify the activity exists for the activityId
@@ -314,7 +328,7 @@ public class ActivityController {
             // next check that the user logged is editing an activity that
             // is in their own list
             if (activityTmp.getUser() ==
-                    getUserFromSession(request.getSession())) {
+                    getUserFromSession(request.getSession(false))) {
 
                 // Set the new description for the activity
                 activityTmp.setDescription(activity.getDescription().trim());
@@ -328,7 +342,7 @@ public class ActivityController {
         }
         // if we get here, the validation didn't pass, return error page
         model.addAttribute("title", "An error occurred.");
-        return "../error";
+        return "error";
     }
 
 }
