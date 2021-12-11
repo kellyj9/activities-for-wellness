@@ -41,7 +41,7 @@ h5, h6 {
     font-weight: bold;
     display: inline-block;
     padding: 5px;
-    background-color: #dbf0ee;
+    background-color: #e9f3fa;
 }
 
 mark {
@@ -68,18 +68,18 @@ mark {
 }
 
 .list-group-item a {
-    background-color: #0a7fcd;
-    color: black;
+    background-color: #b5d5f0;
+    color: #14183b;
     font-weight: bold;
 }
 
 .dimension-hover :hover {
-    background-color: #b5d5f0;
+    background-color: #e6938a;
 }
 
-.references {
-    padding-top: 50px;
-    font-size: 14px;
+.dimension-hover {
+      width: fit-content;
+      background-color: #6d9eed;
 }
 
 .dimension-list {
@@ -87,8 +87,21 @@ mark {
     width: 90%;
 }
 
+.item-outline {
+    border: none;
+}
+
+.list-group-item .description {
+    background-color: #e9f3fa;
+}
+
 .sample-list {
     padding-top: 25px;
+}
+
+.references {
+    padding-top: 50px;
+    font-size: 14px;
 }
 
 .center {
