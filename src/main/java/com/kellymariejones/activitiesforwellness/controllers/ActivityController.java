@@ -65,12 +65,16 @@ public class ActivityController {
         return user.get();
     }
 
-    // display the user's list of activities for the selected dimension
+    // Displays the user's list of activities for the selected dimension
     @GetMapping("index")
     public String displayActivities(
-            @RequestParam(required = true) Integer dimensionId,
+            @RequestParam Integer dimensionId,
             Model model,
             HttpServletRequest request) {
+
+        if (dimensionId == null) {
+            return "redirect:../error";
+        }
 
         // get the name of the selected dimension
         String dimensionName =
@@ -86,10 +90,10 @@ public class ActivityController {
 
         // if user not found, return error page
         if (user == null) {
-            model.addAttribute("title",
-                    "An error occurred.");
-            model.addAttribute("isSessionPresent", false);
-            return "error";
+//            model.addAttribute("title",
+//                    "An error occurred.");
+//            model.addAttribute("isSessionPresent", false);
+            return "redirect:../error";
         }
 
         // get the user's activities by user id
@@ -108,7 +112,7 @@ public class ActivityController {
             model.addAttribute("activity_list_heading",
                     "No activities found.");
         }
-        // when activities were found...
+        // activities were found...
         else {
             model.addAttribute("activity_list_heading",
                     "My List of Activities.");
@@ -120,12 +124,16 @@ public class ActivityController {
         return "activity/index";
     }
 
-    //  Render the form for the user to add their activity for the selected
+    //  Display the form for the user to add their activity for the selected
     // dimension, along with displaying a list of sample activities
     @GetMapping("create")
     public String renderCreateActivityForm(
             Model model,
-            @RequestParam(required = true) Integer dimensionId) {
+            @RequestParam Integer dimensionId) {
+
+        if (dimensionId == null) {
+            return "redirect:../error";
+        }
 
         // set the title of the page according to the name of the dimension selected
         model.addAttribute("title",
@@ -143,22 +151,26 @@ public class ActivityController {
                 "sample",
                 sampleRepository.findByDimensionId(dimensionId));
 
+        // set the flag to display the logout link on the nav
         model.addAttribute("isSessionPresent", true);
 
         return "activity/create";
     }
 
-    // Process the form for the user to add their activity for the selected
-    // dimension
+    // Process the form for the user to add their activity for the selected dimension
     @PostMapping("create")
     public String processCreateActivityForm(
             @ModelAttribute
             @Valid Activity newActivity,
             Errors errors, Model model,
-            @RequestParam(required = true) Integer dimensionId,
+            @RequestParam Integer dimensionId,
             HttpServletRequest request) {
         // Spring Boot will put fields in newActivity into an Activity object
         // from the Activity class when model binding occurs
+
+        if (dimensionId == null) {
+            return "redirect:../error";
+        }
 
         // if there are any errors...go back to the form
         if (errors.hasErrors()) {
@@ -187,10 +199,11 @@ public class ActivityController {
 
             // if user not found, return error page
             if (user == null) {
-                model.addAttribute("title",
-                        "An error occurred.");
-                model.addAttribute("isSessionPresent", false);
-                return "error";
+//                model.addAttribute("title",
+//                        "An error occurred.");
+//                model.addAttribute("isSessionPresent", false);
+//                return "error";
+                return "redirect:../error";
             }
 
             // get the user's userId
@@ -224,10 +237,14 @@ public class ActivityController {
     // Verifies that the user is attempting to delete their own existing activity
     @GetMapping("delete")
     public String processDeleteActivity(
-            @RequestParam(required = true) Integer activityId,
-            @RequestParam(required = true) Integer dimensionId,
+            @RequestParam Integer activityId,
+            @RequestParam Integer dimensionId,
             Model model,
             HttpServletRequest request) {
+
+        if (dimensionId == null || activityId == null) {
+            return "redirect:../error";
+        }
 
         // verify that the user is attempting to delete their own activity
         // before deleting it
@@ -253,7 +270,9 @@ public class ActivityController {
         // if we get here, validation didn't pass, return error page
 //        model.addAttribute("title",
 //                "An error occurred.");
-        return "error";
+//        // set the flag to display the logout link on the nav
+//        model.addAttribute("isSessionPresent", true);
+        return "redirect:../error";
     }
 
     //  Render the form for the user to edit their activity for the selected
@@ -261,9 +280,13 @@ public class ActivityController {
     @GetMapping("edit")
     public String renderEditActivityForm(
             Model model,
-            @RequestParam(required = true) Integer dimensionId,
-            @RequestParam(required = true) Integer activityId,
+            @RequestParam Integer dimensionId,
+            @RequestParam Integer activityId,
             HttpServletRequest request) {
+
+        if (dimensionId == null || activityId == null) {
+            return "redirect:../error";
+        }
 
         // make sure the activity exists for the activityId
         Optional<Activity> optionalActivity =
@@ -291,9 +314,9 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, return error page
-        model.addAttribute("title",
-                "An error occurred.");
-        return "error";
+//        model.addAttribute("title",
+//                "An error occurred.");
+        return "redirect:../error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -304,20 +327,24 @@ public class ActivityController {
             @ModelAttribute
             @Valid Activity activity,
             Errors errors, Model model,
-            @RequestParam(required = true) Integer activityId,
-            @RequestParam(required = true) Integer dimensionId,
+            @RequestParam Integer activityId,
+            @RequestParam Integer dimensionId,
             HttpServletRequest request) {
+
+        if (dimensionId == null || activityId == null) {
+            return "redirect:../error";
+        }
 
         // if there are any errors...go back to the form
         if (errors.hasErrors()) {
+
             model.addAttribute("title",
                     "Edit my Activity for dimension : " +
                        dimensionRepository.findById(dimensionId).get().getName());
             model.addAttribute("activity", activity);
             model.addAttribute("activityId", activityId);
             model.addAttribute("dimensionId", dimensionId);
-            model.addAttribute("title",
-                    "An error occurred.");
+
             model.addAttribute("isSessionPresent", true);
             return "activity/edit";
         }
@@ -347,8 +374,9 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, return error page
-        model.addAttribute("title", "An error occurred.");
-        return "error";
+//        model.addAttribute("title", "An error occurred.");
+//        return "error";
+        return "redirect:../error";
     }
 
 }

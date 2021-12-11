@@ -33,17 +33,26 @@ public class AuthenticationController {
     private static final String userSessionKey = "user";
 
     public User getUserFromSession(HttpSession session) {
+        // if no session present, return null
+        if (session == null) {
+            return null;
+        }
+
         Integer userId = (Integer) session.getAttribute(userSessionKey);
+        // if no user ID is in the session, return null
         if (userId == null) {
             return null;
         }
 
+        // find the user in the repository
         Optional<User> user = userRepository.findById(userId);
 
+        // if no user with that userId, return null
         if (user.isEmpty()) {
             return null;
         }
 
+        // return the user
         return user.get();
     }
 
@@ -185,7 +194,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
-            //model.addAttribute("isSessionPresent", false);
+            model.addAttribute("isSessionPresent", false);
             return "login";
         }
 
@@ -197,8 +206,8 @@ public class AuthenticationController {
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid",
                     "The given username does not exist");
-            //model.addAttribute("title", "Log In");
-            //model.addAttribute("isSessionPresent", false);
+            model.addAttribute("title", "Log In");
+            model.addAttribute("isSessionPresent", false);
             return "login";
         }
 
@@ -211,23 +220,22 @@ public class AuthenticationController {
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid",
                     "Invalid password");
-//            model.addAttribute("title", "Log In");
+            model.addAttribute("title", "Log In");
+            model.addAttribute("isSessionPresent", false);
             return "login";
         }
-
         if (errors.hasErrors()) {
              model.addAttribute("title", "Log In");
-             //model.addAttribute("isSessionPresent", false);
+             model.addAttribute("isSessionPresent", false);
              return "login";
         }
-
         // At this point, we know the given user exists and that the submitted
-        // password is correct. So we create a new session for the user.
+        // password is correct.
+        // So we create a new session for the user.
         setUserInSession(request.getSession(), theUser);
 
+        // user is logged in.  redirect the user to the dimension index page
         model.addAttribute("isSessionPresent", true);
-
-        // user is logged in.  redirect the user to the dimension page
         return "redirect:dimension";
     }
 
