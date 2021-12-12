@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
     private static final List<String> allowedList = Arrays.asList(
-            "/login", "/logout", "register", "/styles", "/image", "/error");
+            "/login", "/logout", "/register", "/styles", "/image", "/error");
 
     private static boolean checkAllowedList(String path) {
         // if the home page is requested, user doesn't need to be logged in
