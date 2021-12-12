@@ -182,7 +182,7 @@ public class ActivityController {
         if (errors.hasErrors()) {
 
             model.addAttribute("title",
-                    "Add an Activity to dimension : " +
+                    "Add an Activity for dimension : " +
                             dimensionRepository.findById(dimensionId).get().getName());
             model.addAttribute("activity", newActivity);
             model.addAttribute("dimensionId", dimensionId);
