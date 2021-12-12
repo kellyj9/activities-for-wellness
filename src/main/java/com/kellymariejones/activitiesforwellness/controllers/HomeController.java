@@ -296,6 +296,9 @@ public class HomeController {
         return "index";
     }
 
-
+    @GetMapping("/error")
+    public String displayErrorPage(Model model) {
+        return "error";
+    }
 
 }

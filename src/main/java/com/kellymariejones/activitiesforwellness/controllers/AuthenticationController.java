@@ -224,10 +224,4 @@ public class AuthenticationController {
         return "redirect:";
     }
 
-    @GetMapping("/error")
-    public String displayErrorPage(Model model, HttpServletRequest request) {
-        model.addAttribute("title", "Error");
-        return "error";
-    }
-
 }
