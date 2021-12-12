@@ -73,7 +73,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null) {
-            return "error";
+            return "redirect:error";
         }
 
         // get the name of the selected dimension
@@ -90,7 +90,7 @@ public class ActivityController {
 
         // if user not found, return error page
         if (user == null) {
-            return "error";
+            return "redirect:error";
         }
 
         // get the user's activities by user id
@@ -135,7 +135,7 @@ public class ActivityController {
             @RequestParam Integer dimensionId) {
 
         if (dimensionId == null) {
-            return "error";
+            return "redirect:error";
         }
 
         // set the title of the page according to the name of the dimension selected
@@ -281,7 +281,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "error";
+            return "redirect:error";
         }
 
         // make sure the activity exists for the activityId
@@ -311,7 +311,7 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, return error page
-        return "error";
+        return "redirect:error";
     }
 
     // Process the form for the user to edit their activity for the selected
