@@ -63,7 +63,7 @@ h5, h6 {
 .dimension-block {
     text-align: center;
     padding-top: 15px;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
 }
 
 .dimension-block-item {
@@ -80,16 +80,7 @@ mark {
 
 .p-justify {
     text-align: justify;
-    text-justify: inter-word;
 }
-
-/*
-.main-link {
-    font-size: 18px;
-    font-weight: bold;
-    color: #14183b;
-}
-*/
 
 .button-link {
     font-size: 18px;
@@ -156,7 +147,7 @@ mark {
    padding-right: 15px;
    margin-left: auto;
    margin-right: auto;
-   margin-top: 20px;
+   margin-top: 25px;
    margin-bottom: 20px;
    text-align: center;
 }

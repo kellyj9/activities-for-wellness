@@ -82,7 +82,7 @@ public class ActivityController {
 
         // add the page title
         model.addAttribute("title",
-                dimensionName + " Dimension - My Activities");
+                "My Activity List for dimension : " + dimensionName );
 
         // retrieve the logged-in user's activities list
 
@@ -107,16 +107,22 @@ public class ActivityController {
 
         // set the title of the page
 
-        // when activities were not found
+        String activity_list_heading;
+
+        // if activities were not found
         if (result.isEmpty()) {
-            model.addAttribute("activity_list_heading",
-                    "No activities found.");
+            activity_list_heading =
+                    "No activities found yet for the " + dimensionName +
+                            " dimension... Add an activity!";
         }
         // activities were found
         else {
-            model.addAttribute("activity_list_heading",
-                    "My List of Activities.");
+            activity_list_heading =
+                    "My List of Activities for the " + dimensionName + " dimension. ";
+
         }
+        model.addAttribute("activity_list_heading",
+                activity_list_heading);
 
         // set the flag to display the logout link on the nav
         model.addAttribute("isSessionPresent", true);
