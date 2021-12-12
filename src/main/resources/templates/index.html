@@ -14,70 +14,66 @@
          class="img-float" />
 
     <p class="p-justify">
-        This website presents eight dimension of wellness and
-        provides a way for you to create activity lists to improve
-        your health and wellbeing in each dimension.
+        Activities for Wellness encourages you to create lists of activities that
+        improve and maintain your health and wellbeing in eight dimensions of wellness.
      </p>
 
     <h6>
         What is Wellness?
     </h6>
-    <p>
-        Wellness can be envisioned as:
-    </p>
-
-    <p class="p-justify" style="margin-left:40px;">
-        <cite>
-            <mark>
-            "...not the absence of disease, illness, and stress,
-            but as the presence of a positive purpose in life, satisfying work
-            and play, joyful relationships, a healthy body and living
-            environment, and happiness..."
-            </mark>
-            <br>
-            (Dunn, 1961, as adapted by
-            the Substance Abuse and Mental Health Services Administration
-            [SAMHSA/CMHS], 2010).
-        </cite>
+    <p class="p-justify">
+        Wellness is more than a state of feeling well.
+        Wellness is actively living a lifestyle that leads to optimal health and wellbeing.
+        You can optimize your wellness despite the presence of illness or stress.
+        With the concept of wellness, a person is seen from different dimensions
+        to create a holistic perspective.
     </p>
 
     <h6>
         What are the Dimensions of Wellness?
     </h6>
-    <p class="p-justify">
-        The Substance Abuse and Mental Health Services Administration
-        identifies eight basic dimensions of wellness to focus on to
-        optimize health (SAMHSA, 2017).
-    </p>
+    <p>
+        Through our activities, we can address our needs in different
+        dimensions of wellness.
+    <p>
 
-    <p class="center">
+    <div class="dimensions-heading">
         The dimensions of wellness include:
-    </p>
+    </div>
 
-    <p class="dimension-block">
+    <div class="dimension-block">
         <th:block th:each="dimension_item : ${dimension}">
             <span
                     th:text="${dimension_item.name}"
                     class="dimension-block-item">
             </span>
         </th:block>
-    <div>
-
-    <p>
-        Through our activities, we can address our needs in each dimension.
-        Our activities can be planned according to factors such as our goals,
-        beliefs, values, culture, personality, and life experiences.
-    </p>
-    <h6>
-        In which of the dimensions of wellness do you feel strongest?
-        Which dimensions would you like to work on?
-    </h6>
-
-    <div class="center">
-        <a th:href="'/dimension/'" class="main-link">Get Started</a>
     </div>
 
-    <div th:replace="fragments :: references-footer"></div>
+    <p class="p-justify">
+        Focusing too much or too little in one dimension can cause us to feel imbalanced.
+        Our activities in one dimension can influence our wellness in other dimensions.
+        In order to optimize our wellness, we pursue activities in all dimensions of
+        wellness.
+    </p>
+    <p class="p-justify">
+        Our activities for wellness can be planned according to factors such as our goals,
+        beliefs, values, culture, personality, and life experiences.
+    </p>
+
+    <h6>
+        In which of the dimensions of wellness do you feel strongest?  Which
+        of the dimensions of wellness will you focus on first?
+    </h6>
+
+    <div class="button-orange">
+        <a th:href="'/dimension/'" class="button-link">
+            Get Started - Create an Activity List
+        </a>
+    </div>
 
 </div>
+
+<footer th:replace="fragments :: footer"></footer>
 </body>
+</html>
