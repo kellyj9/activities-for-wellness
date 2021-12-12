@@ -2,8 +2,10 @@ package com.kellymariejones.activitiesforwellness.controllers;
 
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.data.SampleRepository;
+import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Dimension;
 import com.kellymariejones.activitiesforwellness.models.Sample;
+import com.kellymariejones.activitiesforwellness.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -20,6 +23,39 @@ public class HomeController {
 
     @Autowired
     private SampleRepository sampleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private static final String userSessionKey = "user";
+
+    // Looks for data with the key user in the session.
+    // If it finds one, it attempts to retrieve the corresponding User object
+    // from the database. If no user ID is in the session,
+    // or if there is no user with the given ID, null is returned.
+    public User getUserFromSession(HttpSession session) {
+        // if no session present, return null
+        if (session == null) {
+            return null;
+        }
+
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+        // if no user ID is in the session, return null
+        if (userId == null) {
+            return null;
+        }
+
+        // find the user in the repository
+        Optional<User> user = userRepository.findById(userId);
+
+        // if no user with that userId, return null
+        if (user.isEmpty()) {
+            return null;
+        }
+
+        // return the user
+        return user.get();
+    }
 
     @GetMapping
     public String getIndex (Model model, HttpServletRequest request) {
@@ -253,15 +289,9 @@ public class HomeController {
         // add all dimensions in the dimensionRepository to the model
         model.addAttribute("dimension", result);
 
-        // set a flag to determine whether to display a login or a logout link
-        boolean isSessionPresent = false;   // assume session not present
-        // get the current session. (and if session not present, don't create a session)
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            // session present
-            isSessionPresent = true;
-        }
-        model.addAttribute("isSessionPresent", isSessionPresent);
+        // set a flag used to display a login or logout link on nav
+        model.addAttribute("isSessionPresent",
+                getUserFromSession(request.getSession(false)) != null);
 
         return "index";
     }

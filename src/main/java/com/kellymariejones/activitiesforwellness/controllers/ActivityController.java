@@ -36,7 +36,7 @@ public class ActivityController {
 
     private static final String userSessionKey = "user";
 
-    // Looks for data with the key user in the user’s session.
+    // Looks for data with the key user in the session.
     // If it finds one, it attempts to retrieve the corresponding User object
     // from the database. If no user ID is in the session,
     // or if there is no user with the given ID, null is returned.
@@ -73,7 +73,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null) {
-            return "redirect:../error";
+            return "error";
         }
 
         // get the name of the selected dimension
@@ -90,10 +90,7 @@ public class ActivityController {
 
         // if user not found, return error page
         if (user == null) {
-//            model.addAttribute("title",
-//                    "An error occurred.");
-//            model.addAttribute("isSessionPresent", false);
-            return "redirect:../error";
+            return "error";
         }
 
         // get the user's activities by user id
@@ -138,7 +135,7 @@ public class ActivityController {
             @RequestParam Integer dimensionId) {
 
         if (dimensionId == null) {
-            return "redirect:../error";
+            return "error";
         }
 
         // set the title of the page according to the name of the dimension selected
@@ -175,7 +172,7 @@ public class ActivityController {
         // from the Activity class when model binding occurs
 
         if (dimensionId == null) {
-            return "redirect:../error";
+            return "redirect:error";
         }
 
         // if there are any errors...go back to the form
@@ -205,11 +202,7 @@ public class ActivityController {
 
             // if user not found, return error page
             if (user == null) {
-//                model.addAttribute("title",
-//                        "An error occurred.");
-//                model.addAttribute("isSessionPresent", false);
-//                return "error";
-                return "redirect:../error";
+                return "redirect:error";
             }
 
             // get the user's userId
@@ -249,7 +242,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "redirect:../error";
+            return "redirect:error";
         }
 
         // verify that the user is attempting to delete their own activity
@@ -263,8 +256,9 @@ public class ActivityController {
         if (optionalActivity.isPresent()) {
 
             Activity activity = (Activity) optionalActivity.get();
-            // check that the user logged is deleting an activity that is in their own list
-            if (activity.getUser() == getUserFromSession(request.getSession(false))) {
+            // check that the user is deleting an activity that is in their own list
+            if (activity.getUser() ==
+                    getUserFromSession(request.getSession(false))) {
 
                 // delete the selected activity from the database
                 activityRepository.deleteById(activityId);
@@ -274,11 +268,7 @@ public class ActivityController {
             }
         }
         // if we get here, validation didn't pass, return error page
-//        model.addAttribute("title",
-//                "An error occurred.");
-//        // set the flag to display the logout link on the nav
-//        model.addAttribute("isSessionPresent", true);
-        return "redirect:../error";
+        return "redirect:error";
     }
 
     //  Render the form for the user to edit their activity for the selected
@@ -291,7 +281,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "redirect:../error";
+            return "error";
         }
 
         // make sure the activity exists for the activityId
@@ -304,7 +294,8 @@ public class ActivityController {
             // get the activity from the database
             Activity activity = (Activity) optionalActivity.get();
 
-            if (activity.getUser() == getUserFromSession(request.getSession(false))) {
+            if (activity.getUser() ==
+                    getUserFromSession(request.getSession(false))) {
                 // add the activity, activityId, dimensionId, and title to the model
                 model.addAttribute("activity", activity);
                 model.addAttribute("activityId", activityId);
@@ -320,9 +311,7 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, return error page
-//        model.addAttribute("title",
-//                "An error occurred.");
-        return "redirect:../error";
+        return "error";
     }
 
     // Process the form for the user to edit their activity for the selected
@@ -338,7 +327,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "redirect:../error";
+            return "redirect:error";
         }
 
         // if there are any errors...go back to the form
@@ -354,6 +343,7 @@ public class ActivityController {
             model.addAttribute("isSessionPresent", true);
             return "activity/edit";
         }
+
         // verify the activity exists for the activityId
         Optional<Activity> optionalActivity =
                 activityRepository.findById(activityId);
@@ -364,7 +354,7 @@ public class ActivityController {
         if (optionalActivity.isPresent()) {
             // get the activity for the database
             Activity activityTmp = (Activity) optionalActivity.get();
-            // next check that the user logged is editing an activity that
+            // next check that the user is editing an activity that
             // is in their own list
             if (activityTmp.getUser() ==
                     getUserFromSession(request.getSession(false))) {
@@ -380,9 +370,7 @@ public class ActivityController {
             }
         }
         // if we get here, the validation didn't pass, return error page
-//        model.addAttribute("title", "An error occurred.");
-//        return "error";
-        return "redirect:../error";
+        return "redirect:error";
     }
 
 }
