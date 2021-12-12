@@ -18,7 +18,7 @@
         <div th:each="dimension_item : ${dimension}" class="list-group-item item-outline">
 
             <div class="dimension-tab">
-                <a th:href="'/activity/index?dimensionId=' + ${dimension_item.id}"
+                <a th:href="@{/activity/index(dimensionId=${dimension_item.id})}"
                       th:text="${dimension_item.name}"
                       class="list-group-item">
                 </a>

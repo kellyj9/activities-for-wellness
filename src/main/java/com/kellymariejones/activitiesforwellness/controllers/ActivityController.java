@@ -107,12 +107,12 @@ public class ActivityController {
 
         // set the title of the page
 
-        // when activities were not found...
+        // when activities were not found
         if (result.isEmpty()) {
             model.addAttribute("activity_list_heading",
                     "No activities found.");
         }
-        // activities were found...
+        // activities were found
         else {
             model.addAttribute("activity_list_heading",
                     "My List of Activities.");
