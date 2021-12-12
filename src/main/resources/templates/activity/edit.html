@@ -6,8 +6,8 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-    <form method="POST" th:action="'edit?activityId=' +
-    ${activityId} + '&dimensionId=' + ${dimensionId}">
+    <form method="POST"
+              th:action="@{edit(activityId=${activityId},dimensionId=${dimensionId})}">
 
         <div class="mb-3">
             <label>Edit your activity description:

@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
     private static final List<String> allowedList = Arrays.asList(
-            "/logout", "/styles", "/image");
+            "/login", "/logout", "register", "/styles", "/image", "/error");
 
     private static boolean checkAllowedList(String path) {
         // if the home page is requested, user doesn't need to be logged in
@@ -37,7 +37,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
             }
         }
 
-        // otherwise, the user needs to log in
+        // otherwise, the user needs to be logged in
         return false;
     }
 
@@ -46,10 +46,13 @@ public class AuthenticationFilter implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws IOException {
 
-        // prevent pages in our application from being cached
+       //  prevent pages in our application from being cached
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
         response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
         response.setHeader("Expires", "0"); // Proxies.
+
+        // get the session, but don't create one if not already present
+        HttpSession session = request.getSession(false);
 
         // don't require sign-in for whitelisted pages
         if (checkAllowedList(request.getRequestURI())) {
@@ -57,40 +60,25 @@ public class AuthenticationFilter implements HandlerInterceptor {
             return true;
         }
 
-        // get the session, but don't create one if not already present
-        HttpSession session = request.getSession(false);
-
         // if there is a session present...
         if (session != null) {
 
-            // if error page requested, automatically invalidate the session
-            if (request.getRequestURI().startsWith("/error")) {
-                session.invalidate();
+            // get the user
+            User user = authenticationController.getUserFromSession(session);
+
+            // if the user is logged in
+            if (user != null) {
+                // allow the request to proceed
+                return true;
             }
             else {
-                // get the user
-                User user = authenticationController.getUserFromSession(session);
-
-                // if the user is logged in
-                if (user != null) {
-                    // allow the request to proceed
-                    return true;
-                }
+                session.invalidate();
             }
+
         }
 
-        // the user is NOT logged in now
-
-        // allow these pages
-        if (request.getRequestURI().equals("/error")  ||
-                request.getRequestURI().startsWith("/login") ||
-                request.getRequestURI().startsWith("/register")) {
-            return true;
-        }
-
-        // otherwise, the user needs to log in, redirect to the login page
+        // the user needs to log in, so redirect to the login page
         response.sendRedirect("/login");
-
         return false;
     }
 

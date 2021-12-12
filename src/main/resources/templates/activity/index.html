@@ -7,7 +7,7 @@
 <div class="container">
 
     <div class="button-orange">
-        <a th:href="'/activity/create?dimensionId=' + ${dimensionId}"
+        <a th:href="@{/activity/create(dimensionId=${dimensionId})}"
              th:text="'Add an Activity'"
              class="button-link">
         </a>
@@ -18,13 +18,11 @@
     <table class="table table-striped">
         <tr th:each="activity_item : ${activity}">
             <td class="shrink">
-                <a th:href="'/activity/delete?activityId=' +
-                    ${activity_item.id} + '&dimensionId=' + ${dimensionId}"
+                <a th:href="@{/activity/delete(activityId=${activity_item.id},dimensionId=${dimensionId})}"
                     th:text="'Delete'"></a>
             </td>
             <td class="shrink">
-                <a th:href="'/activity/edit?activityId=' +
-                    ${activity_item.id} + '&dimensionId=' + ${dimensionId}"
+                <a th:href="@{/activity/edit(activityId=${activity_item.id},dimensionId=${dimensionId})}"
                    th:text="'Edit'"></a>
             </td>
             <td th:text="${activity_item.description}" class="expand"></td>
