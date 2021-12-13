@@ -140,7 +140,7 @@ public class ActivityController {
 
         // set the title of the page according to the name of the dimension selected
         model.addAttribute("title",
-                "Add an Activity to dimension : " +
+                "Add an Activity for dimension : " +
                         dimensionRepository.findById(dimensionId).get().getName());
 
         // add a new activity object to the model along with the dimensionId
