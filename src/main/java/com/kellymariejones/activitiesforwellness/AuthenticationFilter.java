@@ -71,6 +71,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
                 // allow the request to proceed
                 return true;
             }
+            // otherwise, invalidate the session
             else {
                 session.invalidate();
             }
