@@ -2,8 +2,6 @@
 
 A web application promoting wellness through creation of activities lists for different dimensions of wellness
 
-Built using Spring Boot, a framework used to build Java web applications that implement the MVC pattern.
-
 ## Purpose
 
 The purpose of Activities for Wellness is to promote making the right choices for health and wellbeing by allowing users to users to create activities lists for different dimensions of wellness (i.e. physical, intellectual, emotional, social, spiritual, etc.)
