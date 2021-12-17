@@ -7,7 +7,7 @@
 <div class="container">
 
     <form method="POST"
-              th:action="@{edit(activityId=${activityId},dimensionId=${dimensionId})}">
+              th:action="@{'/activity/edit/{dimensionId}/{activityId}'(dimensionId=${dimensionId},activityId=${activityId})}">
 
         <div class="mb-3">
             <label>Edit your activity description:
@@ -19,7 +19,7 @@
         <p class="error" th:errors="${activity.description}"></p>
 
         <div>
-            <input type="submit" value="Edit my Activity" class="btn btn-success" />
+            <input type="submit" value="Edit my Activity" class="btn btn-edit" />
         </div>
 
     </form>
