@@ -191,6 +191,13 @@ mark {
     color: #ffffff;
 }
 
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+    border-radius: 0.2rem;
+    width: 3.75rem;
+}
+
 /* .btn-edit styles */
 
 .btn-edit {
@@ -198,7 +205,6 @@ mark {
     font-weight: 600;
     background-color: #9ec5fe;
     border-color: #0a58ca;
-    width: 60px;
 }
 
 .btn-edit:hover {
@@ -287,15 +293,15 @@ mark {
     color: #14183b;
     font-weight: 600;
     background-color: #de795f;
-    border-color: #de765f;
-    box-shadow: 0 0 0 .25rem rgba(255, 210, 179,0);
+    border-color: #f7e6a8;
+    box-shadow: 0 0 0 .25rem rgba(247,230,168,0);
 }
 .btn-add:active+.btn-add,.btn-check:checked+.btn-add,.btn-add.active,.btn-add:active,.show>.btn-add.dropdown-toggle {
     color: #14183b;
     font-weight: 600;
     background-color: #de795f;
-    border-color: #de765f;
+    border-color: #f7e6a8;
 }
 .btn-check:active+.btn-add:focus,.btn-check:checked+.btn-add:focus,.btn-add.active:focus,.btn-add:active:focus,.show>.btn-add.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .25rem rgba(255, 210, 179,0);
+    box-shadow: 0 0 0 .25rem rgba(247,230,168,0);
 }
