@@ -16,37 +16,24 @@
     <h6 th:text="${activity_list_heading}"></h6>
 
     <table class="table table-striped">
+
         <tr th:each="activity_item : ${activity}">
             <td class="shrink">
                 <form th:action="@{'/activity/delete/{dimensionId}/{activityId}'(dimensionId=${dimensionId},activityId=${activity_item.id})}" th:method="POST">
                     <input type="hidden" name ="_method" value="DELETE" />
                     <button type="submit" class="btn btn-delete btn-small">Delete</button>
                 </form>
-<!--
-                <a th:href="@{/activity/delete/{activityId}(activityId=${activity_item.id})}"
-                    th:text="'Delete'"></a>
--->
             </td>
-            <td class="shrink">
 
+            <td class="shrink">
                 <a class="btn btn-edit btn-small"
                    th:href="@{'/activity/edit/{dimensionId}/{activityId}'(dimensionId=${dimensionId},activityId=${activity_item.id})}">
                     Edit
                 </a>
-
-              <!-- WORKS BUT ADDS ?
-               <form th:action="@{'/activity/edit/{dimensionId}/{activityId}'(dimensionId=${dimensionId},activityId=${activity_item.id})}" th:method="GET">
-                    <button type="submit">Edit</button>
-                </form>
-                -->
-
-<!--
-                <a th:href="@{/activity/edit(activityId=${activity_item.id},dimensionId=${dimensionId})}"
-                   th:text="'Edit'"></a>
-  -->
             </td>
             <td th:text="${activity_item.description}" class="expand"></td>
         </tr>
+
     </table>
 
 </div>

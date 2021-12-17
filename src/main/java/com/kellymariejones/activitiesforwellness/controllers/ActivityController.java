@@ -244,8 +244,6 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (activityId == null) {
-            //return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
-            //throw new
             return "redirect:/error";
         }
 
@@ -267,18 +265,14 @@ public class ActivityController {
                 // delete the selected activity from the database
                 activityRepository.deleteById(activityId);
 
-                //return new ResponseEntity<>("OK.", HttpStatus.OK);
-               //return "redirect:index?dimensionId=" + dimensionId;
                 return "redirect:../../index?dimensionId=" + dimensionId;
             }
             else {
                 return "redirect:/error";
-                //return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
             }
         }
         // if we get here, validation didn't pass
         return "redirect:/error";
-        //return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
     }
 
     //  Render the form for the user to edit their activity for the selected
