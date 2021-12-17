@@ -7,12 +7,15 @@ import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
 import com.kellymariejones.activitiesforwellness.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -73,7 +76,7 @@ public class ActivityController {
             HttpServletRequest request) {
 
         if (dimensionId == null) {
-            return "redirect:error";
+            return "redirect:/error";
         }
 
         // get the name of the selected dimension
@@ -90,7 +93,7 @@ public class ActivityController {
 
         // if user not found, return error page
         if (user == null) {
-            return "redirect:error";
+            return "redirect:/error";
         }
 
         // get the user's activities by user id
@@ -172,7 +175,7 @@ public class ActivityController {
         // from the Activity class when model binding occurs
 
         if (dimensionId == null) {
-            return "redirect:error";
+            return "redirect:/error";
         }
 
         // if there are any errors...go back to the form
@@ -202,7 +205,7 @@ public class ActivityController {
 
             // if user not found, return error page
             if (user == null) {
-                return "redirect:error";
+                return "redirect:/error";
             }
 
             // get the user's userId
@@ -234,15 +237,16 @@ public class ActivityController {
 
     // Delete the selected activity from the user's activity list.
     // Verifies that the user is attempting to delete their own existing activity
-    @GetMapping("delete")
-    public String processDeleteActivity(
-            @RequestParam Integer activityId,
-            @RequestParam Integer dimensionId,
-            Model model,
+    @DeleteMapping("delete/{dimensionId}/{activityId}")
+    public String deleteActivity(
+            @PathVariable Integer dimensionId,
+            @PathVariable Integer activityId,
             HttpServletRequest request) {
 
-        if (dimensionId == null || activityId == null) {
-            return "redirect:error";
+        if (activityId == null) {
+            //return new ResponseEntity<>("Bad request.", HttpStatus.BAD_REQUEST);
+            //throw new
+            return "redirect:/error";
         }
 
         // verify that the user is attempting to delete their own activity
@@ -263,25 +267,31 @@ public class ActivityController {
                 // delete the selected activity from the database
                 activityRepository.deleteById(activityId);
 
-                // redirect user to their activity list
-                return "redirect:index?dimensionId=" + dimensionId;
+                //return new ResponseEntity<>("OK.", HttpStatus.OK);
+               //return "redirect:index?dimensionId=" + dimensionId;
+                return "redirect:../../index?dimensionId=" + dimensionId;
+            }
+            else {
+                return "redirect:/error";
+                //return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
             }
         }
-        // if we get here, validation didn't pass, return error page
-        return "redirect:error";
+        // if we get here, validation didn't pass
+        return "redirect:/error";
+        //return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
     }
 
     //  Render the form for the user to edit their activity for the selected
     // dimension
-    @GetMapping("edit")
+    @GetMapping("edit/{dimensionId}/{activityId}")
     public String renderEditActivityForm(
+            @PathVariable Integer dimensionId,
+            @PathVariable Integer activityId,
             Model model,
-            @RequestParam Integer dimensionId,
-            @RequestParam Integer activityId,
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "redirect:error";
+            return "redirect:/error";
         }
 
         // make sure the activity exists for the activityId
@@ -307,27 +317,27 @@ public class ActivityController {
 
                 // set the flag to display the logout link on the nav
                 model.addAttribute("isSessionPresent", true);
-                return "activity/edit";
+                return "/activity/edit";
             }
         }
         // if we get here, the validation didn't pass, return error page
-        return "redirect:error";
+        return "redirect:/error";
     }
 
     // Process the form for the user to edit their activity for the selected
     // dimension.
     // Verifies that the user is attempting to edit their own existing activity.
-    @PostMapping("edit")
+    @PostMapping("edit/{dimensionId}/{activityId}")
     public String processEditActivityForm(
+            @PathVariable Integer dimensionId,
+            @PathVariable Integer activityId,
             @ModelAttribute
             @Valid Activity activity,
             Errors errors, Model model,
-            @RequestParam Integer activityId,
-            @RequestParam Integer dimensionId,
             HttpServletRequest request) {
 
         if (dimensionId == null || activityId == null) {
-            return "redirect:error";
+            return "redirect:/error";
         }
 
         // if there are any errors...go back to the form
@@ -341,14 +351,14 @@ public class ActivityController {
             model.addAttribute("dimensionId", dimensionId);
 
             model.addAttribute("isSessionPresent", true);
-            return "activity/edit";
+            return "/activity/edit";
         }
 
         // verify the activity exists for the activityId
         Optional<Activity> optionalActivity =
                 activityRepository.findById(activityId);
 
-        // verify the activity exists and the user is trying to edit their own acitivty
+        // verify the activity exists and the user is trying to edit their own activity
 
         // if the activity exists...
         if (optionalActivity.isPresent()) {
@@ -366,11 +376,11 @@ public class ActivityController {
                 activityRepository.save(activityTmp);
 
                 // redirect user to their activity list
-                return "redirect:index?dimensionId=" + dimensionId;
+                return "redirect:../../index?dimensionId=" + dimensionId;
             }
         }
         // if we get here, the validation didn't pass, return error page
-        return "redirect:error";
+        return "redirect:/error";
     }
 
 }
