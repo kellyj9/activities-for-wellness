@@ -82,6 +82,7 @@ public class ActivityController {
         // get the name of the selected dimension
         String dimensionName =
                 dimensionRepository.findById(dimensionId).get().getName();
+        model.addAttribute("dimensionName", dimensionName);
 
         // add the page title
         model.addAttribute("title",
