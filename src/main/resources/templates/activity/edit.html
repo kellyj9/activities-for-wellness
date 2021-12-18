@@ -20,6 +20,12 @@
 
         <div>
             <input type="submit" value="Edit my Activity" class="btn btn-edit" />
+
+            <a class="btn btn-outline-secondary"
+               th:href="@{/activity/index(dimensionId=${dimensionId})}">
+                Cancel
+            </a>
+
         </div>
 
     </form>

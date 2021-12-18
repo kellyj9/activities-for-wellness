@@ -22,7 +22,8 @@ public class DimensionController {
         Iterable<Dimension> result = dimensionRepository.findAll();
 
         // add the title of the page to the model
-        model.addAttribute("title", "Create a List");
+        model.addAttribute("title",
+                "Create an Activity List");
         // set the flag to display the logout link on the nav
 
         model.addAttribute("isSessionPresent", true);
