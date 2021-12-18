@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <td class="shrink">
-                            <input type="checkbox" th:data-thing="'dimension' + ${dimension.id}" onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'));" th:name="'dimension' + ${dimension.id}" th:id="'dimension' + ${dimension.id}" checked th:disabled="${#lists.size(dimension.activity)} ==0"/>
+                            <input type="checkbox" th:data-thing="'dimension' + ${dimension.id}" onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'));" th:name="'dimension' + ${dimension.id}" th:id="'dimension' + ${dimension.id}" th:checked="${#lists.size(dimension.activity)} != 0" th:disabled="${#lists.size(dimension.activity)} == 0"/>
                             <label th:for="'dimension' + ${dimension.id}"> Select All</label>
                         </td>
                         <td class="expand" th:text="${dimension.name}"

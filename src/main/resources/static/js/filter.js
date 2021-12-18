@@ -10,10 +10,10 @@ function toggle(source, checkboxesId) {
 }
 
 function toggleAll(source, checkboxesId) {
-    var dimensionsCheckbox = document.getElementById(`${source}`);
+    var allCheckbox = document.getElementById(`${source}`);
     var checkboxes = document.querySelectorAll('[id^="dimension"]');
 
-    if (dimensionsCheckbox.checked) {
+    if (allCheckbox.checked) {
         selectAll(checkboxes);
     }
     else {
@@ -24,7 +24,7 @@ function toggleAll(source, checkboxesId) {
 function selectAll(checkboxes) {
     var items = checkboxes;
     for (var i = 0; i < items.length; i++) {
-        if (items[i].type == 'checkbox')
+        if (items[i].type == 'checkbox' && !(items[i].disabled))
             items[i].checked = true;
     }
 }
