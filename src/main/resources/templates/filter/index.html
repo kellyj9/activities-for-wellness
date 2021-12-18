@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<div th:replace="fragments :: page-title"></div>
+<div class="container">
+
+    <input type="checkbox" th:data-this="'allDimensions'" th:data-all="'activity'" onclick="toggleAll(this.getAttribute('data-this'), this.getAttribute('data-all'));" th:name="'allDimensions'" th:id="'allDimensions'" checked th:disabled="${#lists.size(dimensions)} ==0"/>
+    <label th:for="'allDimensions'"> Select All Activities</label>
+    <br /><br >
+    <form method="POST" action="">
+        <th:block th:each="dimension : ${dimensions}">
+            <table class="table table-striped">
+
+                <thead>
+                    <tr>
+                        <td class="shrink">
+                            <input type="checkbox" th:data-thing="'dimension' + ${dimension.id}" onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'));" th:name="'dimension' + ${dimension.id}" th:id="'dimension' + ${dimension.id}" checked th:disabled="${#lists.size(dimension.activity)} ==0"/>
+                            <label th:for="'dimension' + ${dimension.id}"> Select All</label>
+                        </td>
+                        <td class="expand" th:text="${dimension.name}"
+                            style="font-weight:bold">
+                        </td>
+                    </tr>
+                </thead>
+
+                <th:block th:each="activity : ${allActivities}">
+                    <tr th:if="${activity.dimension.id} == ${dimension.id}">
+                        <td>
+                            <input type="checkbox" th:class="'dimension' + ${dimension.id}" th:name="'dimension' + ${dimension.id}" th:id="'dimensionactivity' + ${activity.id}" checked />
+                            <label th:for="'activity' + ${activity.id}">Select</label>
+                        </td>
+                        <td  th:text="${activity.description}" class="expand"></td>
+                    </tr>
+                </th:block>
+
+            </table>
+        </th:block>
+
+    </form>
+
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>
