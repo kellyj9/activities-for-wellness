@@ -20,6 +20,13 @@ footer {
     height: 25px;
 }
 
+.nav-breadcrumb {
+    --bs-breadcrumb-divider: "\203A";   /* Bootstrap mod */
+    background-color:transparent;
+    padding-left: 10px;
+    padding-top: 0px;
+}
+
 .container {
     padding-bottom: 40px;
 }
@@ -95,6 +102,9 @@ mark {
 }
 
 .dimension-tab {
+    border-style: solid;
+    border-color: #c25f38;
+    border-width: thin;
     border-top-left-radius: 5px;
     border-top-right-radius: 25px;
     width: fit-content;
@@ -130,6 +140,9 @@ mark {
 }
 
 .button-orange {
+   border-style: solid;
+   border-color: #c25f38;
+   border-width: thin;
    border-radius: 24px;
    width: fit-content;
    background-color: #e6a08a;
