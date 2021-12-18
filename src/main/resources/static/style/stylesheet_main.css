@@ -20,6 +20,13 @@ footer {
     height: 25px;
 }
 
+.nav-breadcrumb {
+    --bs-breadcrumb-divider: "\203A";   /* Bootstrap mod */
+    background-color:transparent;
+    padding-left: 10px;
+    padding-top: 0px;
+}
+
 .container {
     padding-bottom: 40px;
 }
