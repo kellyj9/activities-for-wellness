@@ -323,3 +323,11 @@ mark {
     /* remove Bootstrap box-shadow */
     box-shadow: 0 0 0 0rem rgba(194,95.56,.5);
 }
+
+.show {
+  display: table-row;
+}
+
+.hide {
+  display: none;
+}

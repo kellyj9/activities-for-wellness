@@ -4,6 +4,7 @@ import com.kellymariejones.activitiesforwellness.data.ActivityRepository;
 import com.kellymariejones.activitiesforwellness.data.DimensionRepository;
 import com.kellymariejones.activitiesforwellness.data.UserRepository;
 import com.kellymariejones.activitiesforwellness.models.Activity;
+import com.kellymariejones.activitiesforwellness.models.Dimension;
 import com.kellymariejones.activitiesforwellness.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,28 +80,58 @@ public class FilterController {
 
         // get the user's activities by user id
         Integer userId = user.getId();
-        List<Activity> result =
+        List<Activity> activities =
                 activityRepository.findByUserId(userId);
 
-        model.addAttribute("allActivities", result);
+        model.addAttribute("allActivities", activities);
 
         // set the title of the page
 
         String filter_list_heading;
 
         // if activities were not found
-        if (result.isEmpty()) {
+        if (activities.isEmpty()) {
             filter_list_heading =
                     "No activity lists were created yet.... Create an Activity List!";
         }
         // activities were found
         else {
-            filter_list_heading = "My List of Activities";
+            filter_list_heading = "My Lists of Activities";
 
-            model.addAttribute("dimensions",
-                    dimensionRepository.findAll());
+            List<Dimension> dimensionsWithActivities = new ArrayList<>();
+            List<Dimension> dimensionsWithoutActivities = new ArrayList<>();
+            List<Dimension> dimensionsAll = (List<Dimension>) dimensionRepository.findAll();
+            int counter = 0;
+
+            // based on the user's activities, find the dimensions with and without activities
+            for (int i = 0; i < dimensionsAll.size(); i++) {
+                for (int j = 0; j < activities.size(); j++) {
+                    if (dimensionsAll.get(i).equals(activities.get(j).getDimension())) {
+                        counter++;
+                        break;  // break out of inner loop
+                    }
+                }
+                if (counter == 0) { // the current dimension has at least one activity for the user
+                    dimensionsWithoutActivities.add(dimensionsAll.get(i));
+                } else { // the current dimension doesn't have any activities for the user
+                    dimensionsWithActivities.add(dimensionsAll.get(i));
+                }
+                counter = 0; // reset counter;
+            }
+
+            // TO DO: sort the items
+
+
+            model.addAttribute("dimensionsWithActivities", dimensionsWithActivities);
+            model.addAttribute("dimensionsWithoutActivities",
+                    dimensionsWithoutActivities);
 
         }
+
+//            model.addAttribute("dimensions",
+//                    dimensionRepository.findAll());
+
+
         model.addAttribute("filter_list_heading",
                 filter_list_heading);
 
