@@ -328,11 +328,11 @@ mark {
   display: table-row;
 }
 
-.hide, .tdhide, .tablehide, .unfilterhide {
+.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
   display: none;
 }
 
-.tdshow, .unfiltershow {
+.tdshow, .unfiltershow, .filtershow {
     display: table-cell;
 }
 

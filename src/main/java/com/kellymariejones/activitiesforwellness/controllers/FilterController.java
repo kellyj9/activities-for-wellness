@@ -87,17 +87,15 @@ public class FilterController {
 
         // set the title of the page
 
-        String filter_list_heading;
+        String list_heading ="";
 
         // if activities were not found
         if (activities.isEmpty()) {
-            filter_list_heading =
-                    "No activity lists were created yet.... Create an Activity List!";
+            list_heading =
+                    "No activity lists found yet.... Create an Activity List!";
         }
         // activities were found
         else {
-            filter_list_heading = "My Lists of Activities";
-
             List<Dimension> dimensionsWithActivities = new ArrayList<>();
             List<Dimension> dimensionsWithoutActivities = new ArrayList<>();
             List<Dimension> dimensionsAll = (List<Dimension>) dimensionRepository.findAll();
@@ -119,21 +117,21 @@ public class FilterController {
                 counter = 0; // reset counter;
             }
 
-            // TO DO: sort the items
+            // TO DO: sort the dimensions and activities by id first !
 
 
             model.addAttribute("dimensionsWithActivities", dimensionsWithActivities);
-            model.addAttribute("dimensionsWithoutActivities",
-                    dimensionsWithoutActivities);
+
+            // if there are dimensions without activities...
+            if (!dimensionsWithoutActivities.isEmpty()) {
+                model.addAttribute("dimensionsWithoutActivities",
+                            dimensionsWithoutActivities);
+                list_heading = "The following dimensions have no activities created.";
+            }
 
         }
 
-//            model.addAttribute("dimensions",
-//                    dimensionRepository.findAll());
-
-
-        model.addAttribute("filter_list_heading",
-                filter_list_heading);
+        model.addAttribute("list_heading", list_heading);
 
         // set the flag to display the logout link on the nav
         model.addAttribute("isSessionPresent", true);

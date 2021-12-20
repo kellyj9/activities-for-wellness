@@ -7,9 +7,6 @@ function toggle(source, checkboxesClassName, checkboxSelectAllId) {
     var checkboxes = document.getElementsByClassName(`${checkboxesClassName}`);
     if (dimensionCheckbox.checked) {
         selectAll(checkboxes);
-//        if (selectAllCheckbox.type == 'checkbox' && !selectAllCheckbox.checked) {
-//            selectAllCheckbox.checked = true;
-//        }
     }
     else {
         UnSelectAll(checkboxes);
@@ -95,41 +92,30 @@ function filterSelection() {
         } // end if
     } // end for
 
-
-
-
     // get elements to remove from view
+    var a, b;
+    var filterable_td = document.querySelectorAll('[class*="tdshow"]');
+    for (a = 0; a < filterable_td.length; a++) {
+        filterable_td[a].classList.remove('tdshow');
+        filterable_td[a].classList.add('tdhide');
+    }
 
-//    var filterable_td = document.querySelectorAll('[class*="tdshow"]');
-//    for (j = 0; j < filterable_td.length; j++) {
-//        filterable_td[j].classList.remove('tdshow');
-//        filterable_td[j].classList.add('tdhide');
-//    }
-//
-//   var filterable_table = document.querySelectorAll('[class*="tableshow"]');
-//   for (k = 0; k < filterable_table.length; k++) {
-//        filterable_table[k].classList.remove('tableshow');
-//        filterable_table[k].classList.add('tablehide');
-//   }
+   var filterable_table = document.querySelectorAll('[class*="tableshow"]');
+   for (b = 0; b < filterable_table.length; b++) {
+        filterable_table[b].classList.remove('tableshow');
+        filterable_table[b].classList.add('tablehide');
+   }
 
+    // show the button that removes the filter
+   var unfilter_button = document.getElementById('unfilter');
+   unfilter_button.classList.remove('unfilterhide');
+   unfilter_button.classList.add('unfiltershow');
+
+   // hide the button that activates the filter
+  var filter_button = document.getElementById('filter');
+  filter_button.classList.remove('filtershow');
+  filter_button.classList.add('filterhide');
 }
-
-
-//        // if child table header
-////            f ((x[i+1].className == "filter1 tr show") && (counter == 0 )){
-////               counter++;
-////       }
-//        // if a table row
-//        if (!(x[i].className == "filter1 tr show")) {
-//            //counter++;
-//            x[i].className = "filter1 tr hide";
-//            if (checkboxes[i].checked) {
-//                x[i].className = "filter1 tr show";
-//                //counter++;
-//           }
-//       }
-//    }
-//}
 
 function unfilterSelection() {
     var x, i;
@@ -137,10 +123,6 @@ function unfilterSelection() {
     var checkboxes = document.querySelectorAll('[class^="dimension"]');
     x = document.getElementsByClassName("filter1");
     for (i = 0; i < x.length; i++) {
-//        // show any hidden table headers
-//        if ((!(x[i].className == "filter1 th show")) && (!(x[i].className == "filter1 th hide"))) {
-//            x[i].className = "filter1 th show";
-//        }
         // show any hidden table headers
         if (x[i].className == "filter1 th hide") {
             x[i].className = "filter1 th show";
@@ -150,13 +132,36 @@ function unfilterSelection() {
             x[i].className = "filter1 tr show";
         }
     } // end for
+
+    // get elements to add back to view
+    var a, b;
+    var filterable_td = document.querySelectorAll('[class*="tdhide"]');
+    for (a = 0; a < filterable_td.length; a++) {
+        filterable_td[a].classList.remove('tdhide');
+        filterable_td[a].classList.add('tdshow');
+    }
+
+   var filterable_table = document.querySelectorAll('[class*="tablehide"]');
+   for (b = 0; b < filterable_table.length; b++) {
+        filterable_table[b].classList.remove('tablehide');
+        filterable_table[b].classList.add('tableshow');
+   }
+
+       // hide the button that removes the filter
+      var unfilter_button = document.getElementById('unfilter');
+      unfilter_button.classList.remove('unfiltershow');
+      unfilter_button.classList.add('unfilterhide');
+
+      // show the button that activates the filter
+     var filter_button = document.getElementById('filter');
+     filter_button.classList.remove('filterhide');
+     filter_button.classList.add('filtershow');
 }
 
 // unselects a checkbox if other checkboxes are unselected
 // allCheckbox in the element id of the top level checkbox
 // dimensionCheckbox is the element id of the next level checkbox
 // activityCheckbox is an element id for a third level checkbox
-
 function setSelectAll(allCheckbox, dimensionCheckbox, activityCheckbox) {
     x_allCheckbox = document.getElementById(`${allCheckbox}`);
     y_dimensionCheckbox = document.getElementById(`${dimensionCheckbox}`);

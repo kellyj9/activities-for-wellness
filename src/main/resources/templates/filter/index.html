@@ -6,12 +6,12 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-    <table>
+    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}">
         <tr>
-            <td th:class="'shrink tdshow'">
+            <td th:class="'shrink filtershow'" id="filter">
                 <button onclick="filterSelection();"> Filter By Selected Actvities</button>
             </td>
-            <td th:class="'expand unfiltershow'">
+            <td th:class="'expand unfilterhide'" id="unfilter">
                 <button onclick="unfilterSelection();"> Remove Filter</button>
             </td>
         </tr>
@@ -31,6 +31,7 @@
             </td>
         </tr>
     </table>
+
     <form method="POST" action="">
         <th:block th:each="dimension : ${dimensionsWithActivities}">
             <table class="table table-striped" style="border-collapse: collapse;">
@@ -86,7 +87,7 @@
         <table th:class="'tableshow table table-striped'">
             <thead>
             <tr>
-                <th>The following dimensions have no activities created.</th>
+                <th th:text="${list_heading}"></th>
             </tr>
             </thead>
             <tr th:each="dimensionWithoutActivity : ${dimensionsWithoutActivities}">
