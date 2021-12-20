@@ -6,7 +6,7 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}">
+    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" style="border-spacing:0; margin:0px;">
         <tr>
             <td th:class="'shrink filtershow'" id="filter">
                 <button onclick="filterSelection();"> Filter By Selected Actvities</button>
@@ -27,18 +27,18 @@
                        th:id="'allDimensions'"
                        th:checked="'false'"
                 />
-                <label th:for="'allDimensions'"> Select All Activities</label>
+                <label th:for="'allDimensions'" style="font-weight:bold"> Select All Activities</label>
                 <!--END Select All for all dimensions and activities -->
             </td>
         </tr>
     </table>
 
-    <form method="POST" action="">
+    <form method="POST" action="" style="margin:0px;">
         <th:block th:each="dimension : ${dimensionsWithActivities}">
-            <table class="table table-striped" style="border-collapse: collapse;">
+            <table class="table table-striped" style="border-collapse: collapse; border-spacing:0; margin:0px;">
 
-                <!--START Select All for dimension(s) -->
-                <thead>
+                <!--START Select All for dimension -->
+                <thead class="table-primary">
                     <tr th:class="'filter1 th show'">
                         <td th:class="'shrink tdshow'" style="white-space: nowrap;">
                             <input type="checkbox"
@@ -50,7 +50,7 @@
                                    th:checked="'false'"
                                    th:disabled="'false'"
                                    th:class="'dimensionchk selectall' + ${dimension.id}"/>
-                            <label th:for="'dimension' + ${dimension.id}"> Select All</label>
+                            <label th:for="'dimension' + ${dimension.id}" style="font-weight:bold"> Select All</label>
                         </td>
                         <td th:text="${dimension.name}"
                             style="font-weight:bold"
@@ -58,7 +58,7 @@
                         </td>
                     </tr>
                 </thead>
-                <!--END Select All for dimension(s) -->
+                <!--END Select All for dimension -->
 
                 <!-- START Select activities -->
                 <th:block th:each="activity : ${allActivities}">
@@ -85,7 +85,7 @@
         </th:block>
 
         <!-- Next, print the dimensions without activities -->
-        <table th:class="'tableshow table table-striped'">
+        <table th:class="'tableshow table table-striped'" style="margin-top:20px;">
             <thead>
             <tr>
                 <th th:text="${list_heading}"></th>
