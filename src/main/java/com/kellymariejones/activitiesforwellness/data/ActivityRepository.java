@@ -12,4 +12,6 @@ public interface ActivityRepository
 
         List<Activity> findByDimensionIdAndUserId(
                 Integer dimension_id, Integer user_id);
+
+        List<Activity> findByUserId(Integer user_id);
 }

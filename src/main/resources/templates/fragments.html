@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
 <head th:fragment="head">
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
     <title th:text="${title} == null ?
             'Activities for Wellness' :
              'Activities for Wellness : ' + ${title}">
@@ -18,12 +18,13 @@
             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
             crossorigin="anonymous">
     </script>
+    <script type="text/javascript" th:src="@{/js/filter.js}"></script>
 </head>
 
 <body>
 
     <nav th:fragment="navigation"
-         class="navbar navbar-expand-sm navbar-medium"
+         class="navbar navbar-expand-md navbar-medium"
          aria-label="navbar">
             <div class="container-fluid">
             <a th:href="@{/}" class="navbar-brand">Activities for Wellness</a>
@@ -44,7 +45,12 @@
                    </li>
                     <li class="nav-item">
                         <a th:href="@{/dimension}" class="nav-link">
-                           Create a List
+                           Create an Activity List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/filter}" class="nav-link">
+                            Filter my Activity Lists
                         </a>
                     </li>
                     <li th:if="${isSessionPresent} != true" class="nav-item">
@@ -84,7 +90,12 @@
                     </li>
                     <li class="nav-item">
                         <a th:href="@{/dimension}" class="nav-link">
-                            Create a List
+                            Create an Activity List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/filter}" class="nav-link">
+                            Filter my Activity Lists
                         </a>
                     </li>
                     <li class="nav-item">

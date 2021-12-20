@@ -86,7 +86,7 @@ public class ActivityController {
 
         // add the page title
         model.addAttribute("title",
-                "My Activity List for dimension : " + dimensionName );
+                "Create an Activity List for dimension : " + dimensionName );
 
         // retrieve the logged-in user's activities list
 
@@ -307,7 +307,7 @@ public class ActivityController {
                 model.addAttribute("dimensionId", dimensionId);
                 model.addAttribute(
                         "title",
-                        "Edit my Activity for dimension : " +
+                        "Edit an Activity for dimension : " +
                         dimensionRepository.findById(dimensionId).get().getName());
 
                 // set the flag to display the logout link on the nav

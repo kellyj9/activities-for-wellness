@@ -323,3 +323,19 @@ mark {
     /* remove Bootstrap box-shadow */
     box-shadow: 0 0 0 0rem rgba(194,95.56,.5);
 }
+
+.show {
+  display: table-row;
+}
+
+.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
+  display: none;
+}
+
+.tdshow, .unfiltershow, .filtershow {
+    display: table-cell;
+}
+
+.tableshow {
+    display: table;
+}
