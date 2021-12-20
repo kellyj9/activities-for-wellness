@@ -324,6 +324,10 @@ mark {
     box-shadow: 0 0 0 0rem rgba(194,95.56,.5);
 }
 
+.thead-filter {
+    background-color: #91c8ed;
+}
+
 .show {
   display: table-row;
 }
