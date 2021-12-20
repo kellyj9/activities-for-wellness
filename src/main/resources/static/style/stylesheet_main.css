@@ -328,10 +328,14 @@ mark {
   display: table-row;
 }
 
-.hide, .td-hide {
+.hide, .tdhide, .tablehide, .unfilterhide {
   display: none;
 }
 
-.td-show {
+.tdshow, .unfiltershow {
     display: table-cell;
+}
+
+.tableshow {
+    display: table;
 }

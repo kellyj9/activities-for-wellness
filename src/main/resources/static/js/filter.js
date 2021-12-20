@@ -94,6 +94,24 @@ function filterSelection() {
 
         } // end if
     } // end for
+
+
+
+
+    // get elements to remove from view
+
+//    var filterable_td = document.querySelectorAll('[class*="tdshow"]');
+//    for (j = 0; j < filterable_td.length; j++) {
+//        filterable_td[j].classList.remove('tdshow');
+//        filterable_td[j].classList.add('tdhide');
+//    }
+//
+//   var filterable_table = document.querySelectorAll('[class*="tableshow"]');
+//   for (k = 0; k < filterable_table.length; k++) {
+//        filterable_table[k].classList.remove('tableshow');
+//        filterable_table[k].classList.add('tablehide');
+//   }
+
 }
 
 

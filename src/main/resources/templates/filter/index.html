@@ -7,17 +7,17 @@
 <div class="container">
 
     <table>
-        <tr >
-            <td th:class="'shrink td-show'">
+        <tr>
+            <td th:class="'shrink tdshow'">
                 <button onclick="filterSelection();"> Filter By Selected Actvities</button>
             </td>
-            <td th:class="'expand td-show'">
+            <td th:class="'expand unfiltershow'">
                 <button onclick="unfilterSelection();"> Remove Filter</button>
             </td>
         </tr>
         <tr>
-            <td th:class="'td-show'" style="padding-top:15px; padding-bottom:15px;">
-                <!--START Select All for all dimensions -->
+            <td th:class="'tdshow'" style="padding-top:15px; padding-bottom:15px;">
+                <!--START Select All for all dimensions and activities -->
                 <input type="checkbox"
                        th:data-this="'allDimensions'"
                        th:data-all="'activity'"
@@ -27,7 +27,7 @@
                        th:checked="'false'"
                 />
                 <label th:for="'allDimensions'"> Select All Activities</label>
-                <!--END Select All for all dimensions -->
+                <!--END Select All for all dimensions and activities -->
             </td>
         </tr>
     </table>
@@ -38,7 +38,7 @@
                 <!--START Select All for dimension(s) -->
                 <thead>
                     <tr th:class="'filter1 th show'">
-                        <td th:class="'shrink td-show'" style="white-space: nowrap;">
+                        <td th:class="'shrink tdshow'" style="white-space: nowrap;">
                             <input type="checkbox"
                                    th:data-thing="'dimension' + ${dimension.id}"
                                    th:data-selectallid1="'allDimensions'"
@@ -62,7 +62,7 @@
                 <th:block th:each="activity : ${allActivities}">
                     <tr th:class="'filter1 tr show'"
                          th:if="${activity.dimension.id} == ${dimension.id}">
-                        <td th:class="'shrink td-show'">
+                        <td th:class="'shrink tdshow'">
                             <input type="checkbox"
                                    th:data-selectallid="'allDimensions'"
                                    th:data-selectid="'dimension' + ${dimension.id}"
@@ -83,7 +83,7 @@
         </th:block>
 
         <!-- Next, print the dimensions without activities -->
-        <table th:class="'table table-striped'">
+        <table th:class="'tableshow table table-striped'">
             <thead>
             <tr>
                 <th>The following dimensions have no activities created.</th>
