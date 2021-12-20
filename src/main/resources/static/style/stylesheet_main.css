@@ -289,7 +289,7 @@ mark {
 
 /* .btn-add */
 
-.btn-add {
+.btn-add, .btn-filter, .btn-unfilter {
     color: #14183b;
     font-weight: 600;
     background-color: #e6a08a;
