@@ -48,6 +48,11 @@
                            Create an Activity List
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a th:href="@{/filter}" class="nav-link">
+                            Filter my Lists
+                        </a>
+                    </li>
                     <li th:if="${isSessionPresent} != true" class="nav-item">
                         <a th:href="@{/login}" class="nav-link">
                             Login
@@ -86,6 +91,11 @@
                     <li class="nav-item">
                         <a th:href="@{/dimension}" class="nav-link">
                             Create an Activity List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/filter}" class="nav-link">
+                            Filter my Lists
                         </a>
                     </li>
                     <li class="nav-item">

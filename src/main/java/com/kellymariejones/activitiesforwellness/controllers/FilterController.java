@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -65,7 +64,7 @@ public class FilterController {
 
     // Displays all of the activities for a user and allows for filtering
     @GetMapping
-    public String renderFilterActivitiesForm(Model model,
+    public String renderFilterActivities(Model model,
                                                 HttpServletRequest request) {
             model.addAttribute("title",
                 "Filter my Activity Lists");
