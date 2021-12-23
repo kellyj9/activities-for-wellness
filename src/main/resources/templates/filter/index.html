@@ -9,7 +9,7 @@
     <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" style="border-spacing:0; margin:0px;">
         <tr>
             <td th:class="'shrink filtershow'" id="filter">
-                <button type="button" class="btn btn-filter" onclick="filterSelection();"> Filter By Selected Actvities</button>
+                <button type="button" class="btn btn-filter" onclick="filterSelection();"> Filter By Selected Activities</button>
             </td>
             <td th:class="'expand unfilterhide'" id="unfilter"
                     style="padding-bottom:15px;">
@@ -35,7 +35,7 @@
 
     <form method="POST" action="" style="margin:0px;">
         <th:block th:each="dimension : ${dimensionsWithActivities}">
-            <table class="table table-striped" style="border-collapse: collapse; border-spacing:0; margin:0px;">
+            <table class="table table-sm" style="border-spacing:0; margin:0px;">
 
                 <!--START Select All for dimension -->
                 <thead class="thead-filter">
@@ -50,7 +50,7 @@
                                    th:checked="'false'"
                                    th:disabled="'false'"
                                    th:class="'dimensionchk selectall' + ${dimension.id}"/>
-                            <label th:for="'dimension' + ${dimension.id}" style="font-weight:bold"> Select All</label>
+                            <label th:for="'dimension' + ${dimension.id}" style="font-weight:600"> Select All</label>
                         </td>
                         <td th:text="${dimension.name}"
                             style="font-weight:bold"
@@ -84,8 +84,8 @@
             </table>
         </th:block>
 
-        <!-- Next, print the dimensions without activities -->
-        <table th:class="'tableshow table table-striped'" style="margin-top:20px;">
+        <!-- Print the dimensions without activities -->
+        <table th:class="'tableshow table table-sm'" style="margin-top:20px;">
             <thead>
             <tr>
                 <th th:text="${list_heading}"></th>

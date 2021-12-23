@@ -343,3 +343,9 @@ mark {
 .tableshow {
     display: table;
 }
+
+/* Bootstrap mod */
+.table-sm>:not(caption)>*>*
+{
+    padding:.25rem .75rem;
+}
