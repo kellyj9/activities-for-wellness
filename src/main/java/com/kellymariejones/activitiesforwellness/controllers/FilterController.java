@@ -125,7 +125,7 @@ public class FilterController {
             if (!dimensionsWithoutActivities.isEmpty()) {
                 model.addAttribute("dimensionsWithoutActivities",
                             dimensionsWithoutActivities);
-                list_heading = "The following dimensions have no activities created.";
+                list_heading = "These dimensions have no activities yet:";
             }
 
         }
