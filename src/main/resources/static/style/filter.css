@@ -1,0 +1,19 @@
+.thead-filter {
+    background-color: #91c8ed;
+}
+
+.show {
+  display: table-row;
+}
+
+.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
+  display: none;
+}
+
+.tdshow, .unfiltershow, .filtershow {
+    display: table-cell;
+}
+
+.tableshow {
+    display: table;
+}
