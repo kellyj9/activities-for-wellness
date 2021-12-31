@@ -1,3 +1,12 @@
+.table-filters {
+    margin: 0px 0px 15px 0px;
+}
+
+.table-filterable {
+    border-spacing: 0px;
+    margin: 0px;
+}
+
 .thead-filter {
     background-color: #91c8ed;
 }
@@ -10,10 +19,25 @@
   display: none;
 }
 
-.tdshow, .unfiltershow, .filtershow {
+.filtershow {
+    display: table-cell;
+}
+
+.tdshow {
     display: table-cell;
 }
 
 .tableshow {
     display: table;
+}
+
+.unfiltershow {
+    display: table-cell;
+}
+
+.btn-filter, .btn-unfilter {
+    color: #14183b;
+    font-weight: 600;
+    background-color: #e6a08a;
+    border-color: #c25f38;
 }

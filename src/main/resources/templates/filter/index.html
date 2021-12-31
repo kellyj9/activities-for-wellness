@@ -6,18 +6,17 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" style="border-spacing:0; margin:0px;">
+    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" class="table-filters">
         <tr>
             <td th:class="'shrink filtershow'" id="filter">
                 <button type="button" class="btn btn-filter" onclick="filterSelection();"> Filter By Selected Activities</button>
             </td>
-            <td th:class="'expand unfilterhide'" id="unfilter"
-                    style="padding-bottom:15px;">
+            <td th:class="'expand unfilterhide'" id="unfilter">
                 <button type="button" class="btn btn-unfilter" onclick="unfilterSelection();"> Remove Filter</button>
             </td>
         </tr>
         <tr>
-            <td th:class="'tdshow'" style="padding-top:15px; padding-bottom:15px;">
+            <td th:class="'tdshow'">
                 <!--START Select All for all dimensions and activities -->
                 <input type="checkbox"
                        th:data-this="'allDimensions'"
@@ -33,9 +32,11 @@
         </tr>
     </table>
 
+
+
     <form method="POST" action="" style="margin:0px;">
         <th:block th:each="dimension : ${dimensionsWithActivities}">
-            <table class="table table-sm" style="border-spacing:0; margin:0px;">
+            <table class="table table-sm table-filterable">
 
                 <!--START Select All for dimension -->
                 <thead class="thead-filter">
