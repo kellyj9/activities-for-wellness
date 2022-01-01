@@ -6,18 +6,27 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
-    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" class="table-filters">
+    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}"
+           class="table-filters">
         <tr>
             <td th:class="'shrink filtershow'" id="filter">
-                <button type="button" class="btn btn-filter" onclick="filterSelection();"> Filter By Selected Activities</button>
+                <button type="button"
+                        class="btn btn-filter"
+                        onclick="filterSelection('dimension', 'filter1', 'filter1 th show', 'filter1 th hide', 'filter1 tr show', 'filter1 tr hide', 'tdshow', 'tdhide', 'tableshow', 'tablehide', 'unfilter', 'unfiltershow', 'unfilterhide', 'filter', 'filtershow', 'filterhide');">
+                    Filter By Selected Activities
+                </button>
             </td>
             <td th:class="'expand unfilterhide'" id="unfilter">
-                <button type="button" class="btn btn-unfilter" onclick="unfilterSelection();"> Remove Filter</button>
+                <button type="button"
+                        class="btn btn-unfilter" onclick="unfilterSelection();">
+                    Remove Filter
+                </button>
             </td>
         </tr>
     </table>
 
-    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}" class="table-filters">
+    <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}"
+           class="table-filters">
         <tr>
             <td th:class="'tdshow'">
                 <!--START Select All for all dimensions and activities -->
@@ -29,75 +38,79 @@
                        th:id="'allDimensions'"
                        th:checked="'false'"
                 />
-                <label th:for="'allDimensions'" class="label-bold"> Select All Activities</label>
+                <label th:for="'allDimensions'" class="label-bold">
+                    Select All Activities
+                </label>
                 <!--END Select All for all dimensions and activities -->
             </td>
         </tr>
     </table>
 
-        <th:block th:each="dimension : ${dimensionsWithActivities}">
-            <table class="table table-sm table-filterable">
+    <th:block th:each="dimension : ${dimensionsWithActivities}">
+    <table class="table table-sm table-filterable">
 
-                <!--START Select All for dimension -->
-                <thead class="thead-filter">
-                    <tr th:class="'filter1 th show'">
-                        <td th:class="'shrink td-select-all tdshow'">
-                            <input type="checkbox"
-                                   th:data-thing="'dimension' + ${dimension.id}"
-                                   th:data-selectallid1="'allDimensions'"
-                                   onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'), this.getAttribute('data-selectallid1'));"
-                                   th:name="'dimension' + ${dimension.id}"
-                                   th:id="'dimension' + ${dimension.id}"
-                                   th:checked="'false'"
-                                   th:disabled="'false'"
-                                   th:class="'dimensionchk selectall' + ${dimension.id}"/>
-                            <label th:for="'dimension' + ${dimension.id}" class="label-semi-bold"> Select All</label>
-                        </td>
-                        <td th:text="${dimension.name}"
-                            th:class="'expand td-dimension-name'">
-                        </td>
-                    </tr>
-                </thead>
-                <!--END Select All for dimension -->
-
-                <!-- START Select activities -->
-                <th:block th:each="activity : ${allActivities}">
-                    <tr th:class="'filter1 tr show'"
-                         th:if="${activity.dimension.id} == ${dimension.id}">
-                        <td th:class="'shrink tdshow'">
-                            <input type="checkbox"
-                                   th:data-selectallid="'allDimensions'"
-                                   th:data-selectid="'dimension' + ${dimension.id}"
-                                   th:data-thisid="'dimensionactivity' + ${activity.id}"
-                                   onclick="setSelectAll(this.getAttribute('data-selectallid'), this.getAttribute('data-selectid'), this.getAttribute('data-thisid'))"
-                                   th:class="'dimension' + ${dimension.id}"
-                                   th:name="'dimensionactivity' + ${dimension.id}"
-                                   th:id="'dimensionactivity' + ${activity.id}"
-                                   th:checked="'false'" />
-                            <label th:for="'dimensionactivity' + ${activity.id}"> Select</label>
-                        </td>
-                        <td th:text="${activity.description}" th:class="'expand'"></td>
-                    </tr>
-                </th:block>
-                <!-- END Select activities -->
-
-            </table>
-        </th:block>
-
-        <!-- Print the dimensions without activities -->
-        <table th:class="'tableshow table table-sm table-without-activities'">
-            <thead>
-            <tr>
-                <th th:text="${list_heading}"></th>
-            </tr>
-            </thead>
-            <tr th:each="dimensionWithoutActivity : ${dimensionsWithoutActivities}">
-                <td
-                    th:text="${dimensionWithoutActivity.name}"
-                    class="td-dimension-name">
+        <!--START Select All for dimension -->
+        <thead class="thead-filter">
+            <tr th:class="'filter1 th show'">
+                <td th:class="'shrink td-select-all tdshow'">
+                    <input type="checkbox"
+                           th:data-thing="'dimension' + ${dimension.id}"
+                           th:data-selectallid1="'allDimensions'"
+                           onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'), this.getAttribute('data-selectallid1'));"
+                           th:name="'dimension' + ${dimension.id}"
+                           th:id="'dimension' + ${dimension.id}"
+                           th:checked="'false'"
+                           th:disabled="'false'"
+                           th:class="'dimensionchk selectall' + ${dimension.id}"/>
+                    <label th:for="'dimension' + ${dimension.id}"
+                           class="label-semi-bold"> Select All</label>
+                </td>
+                <td th:text="${dimension.name}"
+                    th:class="'expand td-dimension-name'">
                 </td>
             </tr>
-        </table>
+        </thead>
+        <!--END Select All for dimension -->
+
+        <!-- START Select activities -->
+        <th:block th:each="activity : ${allActivities}">
+        <tr th:class="'filter1 tr show'"
+             th:if="${activity.dimension.id} == ${dimension.id}">
+            <td th:class="'shrink tdshow'">
+                <input type="checkbox"
+                       th:data-selectallid="'allDimensions'"
+                       th:data-selectid="'dimension' + ${dimension.id}"
+                       th:data-thisid="'dimensionactivity' + ${activity.id}"
+                       onclick="setSelectAll(this.getAttribute('data-selectallid'), this.getAttribute('data-selectid'), this.getAttribute('data-thisid'));"
+                       th:class="'dimension' + ${dimension.id}"
+                       th:name="'dimensionactivity' + ${activity.id}"
+                       th:id="'dimensionactivity' + ${activity.id}"
+                       th:checked="'false'" />
+                <label th:for="'dimensionactivity' + ${activity.id}">
+                    Select</label>
+            </td>
+            <td th:text="${activity.description}" th:class="'expand'">
+            </td>
+        </tr>
+        </th:block>
+        <!-- END Select activities -->
+
+    </table>
+    </th:block>
+
+    <!-- Print the dimensions without activities -->
+    <table th:class="'tableshow table table-sm table-without-activities'">
+        <thead>
+        <tr>
+            <th th:text="${list_heading}"></th>
+        </tr>
+        </thead>
+        <tr th:each="dimensionWithoutActivity : ${dimensionsWithoutActivities}">
+            <td th:text="${dimensionWithoutActivity.name}"
+                class="td-dimension-name">
+            </td>
+        </tr>
+    </table>
 
 </div>
 
