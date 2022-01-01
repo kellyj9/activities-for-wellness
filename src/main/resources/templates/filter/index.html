@@ -32,14 +32,12 @@
             <td class="tdshow">
                 <!--START Select All for all dimensions and activities -->
                 <input type="checkbox"
-                       th:data-this="'allDimensions'"
-                       th:data-all="'activity'"
-                       onclick="toggleAll(this.getAttribute('data-this'), this.getAttribute('data-all'));"
+                       onclick="toggleAll('allDimensions', 'dimension');"
                        name="allDimensions"
                        id="allDimensions"
                        th:checked="'false'"
                 />
-                <label th:for="'allDimensions'" class="label-bold">
+                <label for="allDimensions" class="label-bold">
                     Select All Activities
                 </label>
                 <!--END Select All for all dimensions and activities -->
@@ -55,9 +53,9 @@
             <tr class="filter1 th show">
                 <td class="shrink td-select-all tdshow">
                     <input type="checkbox"
-                           th:data-thing="'dimension' + ${dimension.id}"
-                           th:data-selectallid1="'allDimensions'"
-                           onclick="toggle(this.getAttribute('data-thing'), this.getAttribute('data-thing'), this.getAttribute('data-selectallid1'));"
+                           th:data-thisid="'dimension' + ${dimension.id}"
+                           th:data-thisname="'dimension' + ${dimension.id}"
+                           onclick="toggle(this.getAttribute('data-thisid'), this.getAttribute('data-thisname'), 'allDimensions');"
                            th:name="'dimension' + ${dimension.id}"
                            th:id="'dimension' + ${dimension.id}"
                            th:checked="'false'"

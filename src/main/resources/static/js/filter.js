@@ -1,39 +1,57 @@
-// source is the element id
-// checkboxesClassName is the element(s) classname
-// checkboxSelectAllId is the id of the top level checkbox
-function toggle(source, checkboxesClassName, checkboxSelectAllId) {
-    var selectAllCheckbox = document.getElementById(`${checkboxSelectAllId}`);
-    var dimensionCheckbox = document.getElementById(`${source}`);
-    var checkboxes = document.getElementsByClassName(`${checkboxesClassName}`);
-    if (dimensionCheckbox.checked) {
-        selectAll(checkboxes);
-    }
-    else {
-        UnSelectAll(checkboxes);
-        // unselect the top level checkbox
-        if (selectAllCheckbox.type == 'checkbox' && selectAllCheckbox.checked) {
-            selectAllCheckbox.checked = false;
-        }
-    }
-}
-
-
-// source is the element id
-// checkboxesClassName is the element(s) attribute value with wild card
-function toggleAll(source, checkboxesId) {
+// Toggles the checkboxes for all of the dimensions and activities depending on
+// whether the checkbox to select all activities was selected or unselected.
+// Parameters:
+// source is the id of the top level checkbox that selects (or unselects) all
+// dimensions and activities.
+// checkboxesIdStartsWith is a string for the part of the id that the
+// checkboxes to toggle have in common.
+function toggleAll(source, checkboxesIdStartsWith) {
     var allCheckbox = document.getElementById(`${source}`);
-    var checkboxes = document.querySelectorAll('[id^="dimension"]');
+    var checkboxes = document.querySelectorAll(`[id^=${checkboxesIdStartsWith}]`);
 
     if (allCheckbox.checked) {
         selectAll(checkboxes);
     }
     else {
-        UnSelectAll(checkboxes);
+        unSelectAll(checkboxes);
     }
+
 }
 
 
-// checkboxes is the element(s)
+// Toggles the checkboxes for all of the dimension's activities depending on
+// whether the checkbox to select all of the dimension's activities
+// was selected or unselected.
+// Parameters:
+// source is the id of the Select All checkbox for a dimension.
+// checkboxesClass is the class name of the dimension's activity checkboxes
+// to toggle.
+// checkboxSelectAllId is the id of the top level checkbox that selects
+// (or unselects) all dimensions and activities.
+function toggle(source, checkboxesClass, checkboxSelectAllId) {
+    var dimensionCheckbox = document.getElementById(`${source}`);
+    var checkboxes = document.getElementsByClassName(`${checkboxesClass}`);
+    var selectAllCheckbox = document.getElementById(`${checkboxSelectAllId}`);
+
+    if (dimensionCheckbox.checked) {
+        selectAll(checkboxes);
+    }
+    else {
+        unSelectAll(checkboxes);
+
+        // also unselect the top level checkbox if already checked
+        if (selectAllCheckbox.type == 'checkbox' && selectAllCheckbox.checked) {
+            selectAllCheckbox.checked = false;
+        }
+
+    }
+
+}
+
+
+// Sets the checkboxes 'checked' attribute to true
+// Parameter:
+// checkboxes is the list of checkbox elements to set as checked
 function selectAll(checkboxes) {
     var items = checkboxes;
     for (var i = 0; i < items.length; i++) {
@@ -43,8 +61,10 @@ function selectAll(checkboxes) {
 }
 
 
-// checkboxes is the element(s)
-function UnSelectAll(checkboxes) {
+// Sets the checkboxes 'checked' attribute to false
+// Parameter:
+// checkboxes is the list of checkbox elements to set as NOT checked
+function unSelectAll(checkboxes) {
     var items = checkboxes;
     for (var i = 0; i < items.length; i++) {
         if (items[i].type == 'checkbox')
