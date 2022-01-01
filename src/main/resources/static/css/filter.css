@@ -1,0 +1,55 @@
+.table-filters {
+    margin: 0px 0px 15px 0px;
+}
+
+.table-filterable {
+    border-spacing: 0px;
+    margin: 0px;
+}
+
+.thead-filter {
+    background-color: #91c8ed;
+}
+
+.show {
+  display: table-row;
+}
+
+.filtershow, .tdshow, .unfiltershow {
+    display: table-cell;
+}
+
+.tableshow {
+    display: table;
+}
+
+.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
+  display: none;
+}
+
+.btn-filter, .btn-unfilter {
+    color: #14183b;
+    font-weight: 600;
+    background-color: #e6a08a;
+    border-color: #c25f38;
+}
+
+.label-bold {
+    font-weight: bold;
+}
+
+.label-semi-bold {
+    font-weight: 600;
+}
+
+.td-dimension-name {
+    font-weight: bold;
+}
+
+.td-select-all {
+    white-space: nowrap;
+}
+
+.table-without-activities {
+    margin-top: 20px;
+}

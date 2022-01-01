@@ -289,7 +289,7 @@ mark {
 
 /* .btn-add */
 
-.btn-add, .btn-filter, .btn-unfilter {
+.btn-add {
     color: #14183b;
     font-weight: 600;
     background-color: #e6a08a;
@@ -322,26 +322,6 @@ mark {
 .btn-check:active+.btn-add:focus,.btn-check:checked+.btn-add:focus,.btn-add.active:focus,.btn-add:active:focus,.show>.btn-add.dropdown-toggle:focus {
     /* remove Bootstrap box-shadow */
     box-shadow: 0 0 0 0rem rgba(194,95.56,.5);
-}
-
-.thead-filter {
-    background-color: #91c8ed;
-}
-
-.show {
-  display: table-row;
-}
-
-.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
-  display: none;
-}
-
-.tdshow, .unfiltershow, .filtershow {
-    display: table-cell;
-}
-
-.tableshow {
-    display: table;
 }
 
 /* Bootstrap mod */
