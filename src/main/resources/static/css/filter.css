@@ -15,15 +15,7 @@
   display: table-row;
 }
 
-.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
-  display: none;
-}
-
-.filtershow {
-    display: table-cell;
-}
-
-.tdshow {
+.filtershow, .tdshow, .unfiltershow {
     display: table-cell;
 }
 
@@ -31,8 +23,8 @@
     display: table;
 }
 
-.unfiltershow {
-    display: table-cell;
+.hide, .tdhide, .tablehide, .unfilterhide, .filterhide {
+  display: none;
 }
 
 .btn-filter, .btn-unfilter {

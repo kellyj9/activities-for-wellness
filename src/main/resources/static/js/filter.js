@@ -83,9 +83,9 @@ function unSelectAll(checkboxes) {
 // associated with the dimension names and activity descriptions.
 // rowsToShowOrHide is the class name contained in the element (which is a table
 // heading or table row) to show or hide for a dimension name or activity description.
-// thShow is the class name of the table header for the dimension name when it
+// thShow is the class name of the table header row for the dimension name when it
 // is set to be shown.
-// thHide is the class name of the table header for the dimension name when it
+// thHide is the class name of the table header row for the dimension name when it
 // is to set to be hidden.
 // trShow is the class name of the table header for the activity description when it
 // is set to be shown.
@@ -159,7 +159,7 @@ function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, th
         filterable_td[a].classList.add(`${tdHide}`);
     }
 
-   // hide all the elements on the page with classname tableShow
+   // hide all elements on the page with class name tableShow
    var filterable_table = document.querySelectorAll(`[class*=${tableShow}]`);
    for (b = 0; b < filterable_table.length; b++) {
         filterable_table[b].classList.remove(`${tableShow}`);
@@ -175,6 +175,7 @@ function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, th
   var filter_button = document.getElementById(`${filter}`);
   filter_button.classList.remove(`${filterShow}`);
   filter_button.classList.add(`${filterHide}`);
+
 }
 
 
@@ -185,9 +186,9 @@ function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, th
 // associated with the dimension names and activity descriptions.
 // rowsToShow is the class name contained in the element (which is a table heading
 // or table row) to show for a dimension name or activity description.
-// thShow is the class name of the table header for the dimension name when it
+// thShow is the class name of the table header row for the dimension name when it
 // is set to be shown.
-// thHide is the class name of the table header for the dimension name when it
+// thHide is the class name of the table header row for the dimension name when it
 // is to set to be hidden.
 // trShow is the class name of the table header for the activity description when it
 // is set to be shown.
@@ -206,28 +207,28 @@ function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, th
 // filterShow is the class name of the button used to filter when it is set to be shown.
 // filterHide is the class name of the button used to filter when it is set to be hidden.
 function unfilterSelection(checkboxesClassStartsWith, rowsToShow, thShow, thHide, trShow, trHide, tdShow, tdHide, tableShow, tableHide, unfilter, unfilterShow, unfilterHide, filter, filterShow, filterHide) {
-    // get elements where the class name starts with...
     var checkboxes = document.querySelectorAll(`[class^=${checkboxesClassStartsWith}]`);
     var rows = document.getElementsByClassName(`${rowsToShow}`);
+
     for (var i = 0; i < rows.length; i++) {
-        // show any hidden table headers
+        // show table header rows that were hidden
         if (rows[i].className == thHide) {
             rows[i].className = thShow;
         }
-        // show any hidden rows
+        // show rows that were hidden
         else if (rows[i].className == trHide) {
             rows[i].className = trShow;
         }
     } // end for
 
-    // add elements to add back to view
-
+    // show cells that were hidden
     var filterable_td = document.querySelectorAll(`[class*=${tdHide}]`);
     for (var a = 0; a < filterable_td.length; a++) {
         filterable_td[a].classList.remove(`${tdHide}`);
         filterable_td[a].classList.add(`${tdShow}`);
     }
 
+    // show tables that were hidden
    var filterable_table = document.querySelectorAll(`[class*=${tableHide}]`);
    for (var b = 0; b < filterable_table.length; b++) {
         filterable_table[b].classList.remove(`${tableHide}`);
@@ -243,22 +244,33 @@ function unfilterSelection(checkboxesClassStartsWith, rowsToShow, thShow, thHide
      var filter_button = document.getElementById(`${filter}`);
      filter_button.classList.remove(`${filterHide}`);
      filter_button.classList.add(`${filterShow}`);
+
 }
 
 
-// unselects a checkbox if other checkboxes are unselected
-// allCheckbox in the element id of the top level checkbox
-// dimensionCheckbox is the element id of the next level checkbox
-// activityCheckbox is an element id for a third level checkbox
-function setSelectAll(allCheckbox, dimensionCheckbox, activityCheckbox) {
-    x_allCheckbox = document.getElementById(`${allCheckbox}`);
-    y_dimensionCheckbox = document.getElementById(`${dimensionCheckbox}`);
-    z_activityCheckbox = document.getElementById(`${activityCheckbox}`);
+// If an activity checkbox is unselected, unselects the the top level
+// checkbox that is used to select all dimensions and activities and
+// also unselects the dimension level checkbox
+// Parameters:
+// sourceId is the element id for the activity level checkbox
+// allCheckboxId is the id of the top level checkbox that selects (or unselects) all
+// dimensions and activities.
+// dimensionCheckboxId is the element id of the next level checkbox
+function setSelectAllCheckboxes(sourceId, allCheckboxId, dimensionCheckboxId) {
+    activityCheckbox = document.getElementById(`${sourceId}`);
+    allCheckbox = document.getElementById(`${allCheckboxId}`);
+    dimensionCheckbox = document.getElementById(`${dimensionCheckboxId}`);
 
-    if (z_activityCheckbox.type == 'checkbox' && y_dimensionCheckbox.type == 'checkbox' && x_allCheckbox.type == 'checkbox' && !z_activityCheckbox.checked && y_dimensionCheckbox.checked) {
-        y_dimensionCheckbox.checked = false;
-        if (x_allCheckbox.checked) {
-            x_allCheckbox.checked = false;
+    // verify the elements are checkboxes and
+    // if the activity checkbox was unselected but the dimension level checkbox was
+    // selected, then unselect the dimension level checkbox and
+    // (if checked) unselect the top level Select All checkbox that selects all
+    // activities and dimensions
+    if (activityCheckbox.type == 'checkbox' && dimensionCheckbox.type == 'checkbox' && allCheckbox.type == 'checkbox' && !activityCheckbox.checked && dimensionCheckbox.checked) {
+        dimensionCheckbox.checked = false;
+        if (allCheckbox.checked) {
+            allCheckbox.checked = false;
         }
     }
+
 }

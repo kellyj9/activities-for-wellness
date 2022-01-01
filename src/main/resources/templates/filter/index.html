@@ -6,6 +6,7 @@
 <div th:replace="fragments :: page-title"></div>
 <div class="container">
 
+    <!--START Display a button to filter or unfilter activities -->
     <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}"
            class="table-filters">
         <tr>
@@ -25,12 +26,13 @@
             </td>
         </tr>
     </table>
+    <!--END Display a button to filter or unfilter activities -->
 
+    <!--START Select All for all dimensions and activities -->
     <table th:unless="${#lists.isEmpty(dimensionsWithActivities)}"
            class="table-filters">
         <tr>
             <td class="tdshow">
-                <!--START Select All for all dimensions and activities -->
                 <input type="checkbox"
                        onclick="toggleAll('allDimensions', 'dimension');"
                        name="allDimensions"
@@ -40,15 +42,15 @@
                 <label for="allDimensions" class="label-bold">
                     Select All Activities
                 </label>
-                <!--END Select All for all dimensions and activities -->
             </td>
         </tr>
     </table>
+    <!--END Select All for all dimensions and activities -->
 
     <th:block th:each="dimension : ${dimensionsWithActivities}">
     <table class="table table-sm table-filterable">
 
-        <!--START Select All for dimension -->
+        <!--START Select All for dimensions -->
         <thead class="thead-filter">
             <tr class="filter1 th show">
                 <td class="shrink td-select-all tdshow">
@@ -69,7 +71,7 @@
                 </td>
             </tr>
         </thead>
-        <!--END Select All for dimension -->
+        <!--END Select All for dimensions -->
 
         <!-- START Select activities -->
         <th:block th:each="activity : ${allActivities}">
@@ -77,10 +79,9 @@
              th:if="${activity.dimension.id} == ${dimension.id}">
             <td class="shrink tdshow">
                 <input type="checkbox"
-                       th:data-selectallid="'allDimensions'"
-                       th:data-selectid="'dimension' + ${dimension.id}"
-                       th:data-thisid="'dimensionactivity' + ${activity.id}"
-                       onclick="setSelectAll(this.getAttribute('data-selectallid'), this.getAttribute('data-selectid'), this.getAttribute('data-thisid'));"
+                       th:data-dimensioncheckboxid="'dimension' + ${dimension.id}"
+                       th:data-thisactivityid="'dimensionactivity' + ${activity.id}"
+                       onclick="setSelectAllCheckboxes(this.getAttribute('data-thisactivityid'), 'allDimensions', this.getAttribute('data-dimensioncheckboxid'));"
                        th:class="'dimension' + ${dimension.id}"
                        th:name="'dimensionactivity' + ${activity.id}"
                        th:id="'dimensionactivity' + ${activity.id}"
@@ -88,8 +89,7 @@
                 <label th:for="'dimensionactivity' + ${activity.id}">
                     Select</label>
             </td>
-            <td th:text="${activity.description}" class="expand">
-            </td>
+            <td th:text="${activity.description}" class="expand"></td>
         </tr>
         </th:block>
         <!-- END Select activities -->
@@ -97,7 +97,7 @@
     </table>
     </th:block>
 
-    <!-- Print the dimensions without activities -->
+    <!-- START Print the dimensions without activities -->
     <table class="tableshow table table-sm table-without-activities">
         <thead>
         <tr>
@@ -110,6 +110,7 @@
             </td>
         </tr>
     </table>
+    <!-- END Print the dimensions without activities -->
 
 </div>
 
