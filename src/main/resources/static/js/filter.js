@@ -17,6 +17,7 @@ function toggle(source, checkboxesClassName, checkboxSelectAllId) {
     }
 }
 
+
 // source is the element id
 // checkboxesClassName is the element(s) attribute value with wild card
 function toggleAll(source, checkboxesId) {
@@ -31,6 +32,7 @@ function toggleAll(source, checkboxesId) {
     }
 }
 
+
 // checkboxes is the element(s)
 function selectAll(checkboxes) {
     var items = checkboxes;
@@ -39,6 +41,7 @@ function selectAll(checkboxes) {
             items[i].checked = true;
     }
 }
+
 
 // checkboxes is the element(s)
 function UnSelectAll(checkboxes) {
@@ -51,32 +54,35 @@ function UnSelectAll(checkboxes) {
 
 
 // Hides elements on the page based on checkboxes not selected.
-// NOTE: The checkboxes for the dimensions and activities must have a
-// class name that starts with the string in param
-// checkboxesClassNameStartsWith.
-// checkboxClassStartsWith refers to the class name of the checkboxes
+// Hides the button that activates the filter and
+// shows the button to remove the filter.
+// Note: The checkboxes for the dimensions and activities must have a class
+// name that starts with the string in param checkboxesClassNameStartsWith.
+// Parameters:
+// checkboxClassStartsWith is the class name of the checkboxes
 // associated with the dimension names and activity descriptions.
-// rowsToShowOrHide is the class name contained in the element
-// (a table heading or table row) to show or hide for a dimension name or
-// activity description.
+// rowsToShowOrHide is the class name contained in the element (which is a table
+// heading or table row) to show or hide for a dimension name or activity description.
 // thShow is the class name of the table header for the dimension name when it
-// is set to show on the form.
+// is set to be shown.
 // thHide is the class name of the table header for the dimension name when it
-// is to be hidden on the form.
+// is to set to be hidden.
 // trShow is the class name of the table header for the activity description when it
-// is set to show on the form.
+// is set to be shown.
 // trHide is the class name of the table header for the activity description when it
-// is to be hidden on the form.
-// tdShow is the class name for a td to be hidden
-// tdHide will be the class name for the td to be hidden
-// tableShow is the class name for a table to be hidden
-// tableHide will be the class name for the table to be hidden
-// unfilter is the id of the button used to unfilter
-// unfilterShow is the class name to add to the button used to unfilter
-// unfilterHide is the class name to remove from the button used to filter
-// filter is the id of the button used to filter
-// filterShow is the class name to remove from from the button used to filter
-// filterHide is the class name to add to the button used to filter
+// is set to be hidden.
+// tdShow is the class name for the td when it is set to be shown.
+// tdHide is the class name for the td when it is set to be hidden.
+// tableShow is the class name for the table when it is set to be shown.
+// tableHide is the class name for the table when it is set to be hidden.
+// unfilter is the id of the button used to unfilter.
+// unfilterShow is the class name of the button used to unfilter when it is set to be
+// shown.
+// unfilterHide is the class name of the button used to unfilter when it is set to be
+// hidden.
+// filter is the id of the button used to filter.
+// filterShow is the class name of the button used to filter when it is set to be shown.
+// filterHide is the class name of the button used to filter when it is set to be hidden.
 function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, thHide, trShow, trHide, tdShow, tdHide, tableShow, tableHide, unfilter, unfilterShow, unfilterHide, filter, filterShow, filterHide) {
 
     // get elements where the class name starts with...
@@ -152,46 +158,73 @@ function filterSelection(checkboxesClassStartsWith, rowsToShowOrHide, thShow, th
 }
 
 
-function unfilterSelection() {
-    var x, i;
+// Shows the elements on the page that were hidden and
+// hides the button that removes the filter.
+// Parameters:
+// checkboxClassStartsWith is the class name of the checkboxes
+// associated with the dimension names and activity descriptions.
+// rowsToShow is the class name contained in the element (which is a table heading
+// or table row) to show for a dimension name or activity description.
+// thShow is the class name of the table header for the dimension name when it
+// is set to be shown.
+// thHide is the class name of the table header for the dimension name when it
+// is to set to be hidden.
+// trShow is the class name of the table header for the activity description when it
+// is set to be shown.
+// trHide is the class name of the table header for the activity description when it
+// is set to be hidden.
+// tdShow is the class name for the td when it is set to be shown.
+// tdHide is the class name for the td when it is set to be hidden.
+// tableShow is the class name for the table when it is set to be shown.
+// tableHide is the class name for the table when it is set to be hidden.
+// unfilter is the id of the button used to unfilter.
+// unfilterShow is the class name of the button used to unfilter when it is set to be
+// shown.
+// unfilterHide is the class name of the button used to unfilter when it is set to be
+// hidden.
+// filter is the id of the button used to filter.
+// filterShow is the class name of the button used to filter when it is set to be shown.
+// filterHide is the class name of the button used to filter when it is set to be hidden.
+function unfilterSelection(checkboxesClassStartsWith, rowsToShow, thShow, thHide, trShow, trHide, tdShow, tdHide, tableShow, tableHide, unfilter, unfilterShow, unfilterHide, filter, filterShow, filterHide) {
     // get elements where the class name starts with...
-    var checkboxes = document.querySelectorAll('[class^="dimension"]');
-    x = document.getElementsByClassName("filter1");
-    for (i = 0; i < x.length; i++) {
+    var checkboxes = document.querySelectorAll(`[class^=${checkboxesClassStartsWith}]`);
+    var rows = document.getElementsByClassName(`${rowsToShow}`);
+    for (var i = 0; i < rows.length; i++) {
         // show any hidden table headers
-        if (x[i].className == "filter1 th hide") {
-            x[i].className = "filter1 th show";
+        if (rows[i].className == thHide) {
+            rows[i].className = thShow;
         }
         // show any hidden rows
-        else if (x[i].className == "filter1 tr hide") {
-            x[i].className = "filter1 tr show";
+        else if (rows[i].className == trHide) {
+            rows[i].className = trShow;
         }
     } // end for
 
-    // get elements to add back to view
-    var a, b;
-    var filterable_td = document.querySelectorAll('[class*="tdhide"]');
-    for (a = 0; a < filterable_td.length; a++) {
-        filterable_td[a].classList.remove('tdhide');
-        filterable_td[a].classList.add('tdshow');
+    // add elements to add back to view
+
+    var filterable_td = document.querySelectorAll(`[class*=${tdHide}]`);
+    for (var a = 0; a < filterable_td.length; a++) {
+        filterable_td[a].classList.remove(`${tdHide}`);
+        filterable_td[a].classList.add(`${tdShow}`);
     }
 
-   var filterable_table = document.querySelectorAll('[class*="tablehide"]');
-   for (b = 0; b < filterable_table.length; b++) {
-        filterable_table[b].classList.remove('tablehide');
-        filterable_table[b].classList.add('tableshow');
+   var filterable_table = document.querySelectorAll(`[class*=${tableHide}]`);
+   for (var b = 0; b < filterable_table.length; b++) {
+        filterable_table[b].classList.remove(`${tableHide}`);
+        filterable_table[b].classList.add(`${tableShow}`);
    }
 
        // hide the button that removes the filter
-      var unfilter_button = document.getElementById('unfilter');
-      unfilter_button.classList.remove('unfiltershow');
-      unfilter_button.classList.add('unfilterhide');
+      var unfilter_button = document.getElementById(`${unfilter}`);
+      unfilter_button.classList.remove(`${unfilterShow}`);
+      unfilter_button.classList.add(`${unfilterHide}`);
 
       // show the button that activates the filter
-     var filter_button = document.getElementById('filter');
-     filter_button.classList.remove('filterhide');
-     filter_button.classList.add('filtershow');
+     var filter_button = document.getElementById(`${filter}`);
+     filter_button.classList.remove(`${filterHide}`);
+     filter_button.classList.add(`${filterShow}`);
 }
+
 
 // unselects a checkbox if other checkboxes are unselected
 // allCheckbox in the element id of the top level checkbox
