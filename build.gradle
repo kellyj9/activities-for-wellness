@@ -1,3 +1,12 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.google.cloud.tools:appengine-gradle-plugin:2.4.2'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.6.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -8,14 +17,18 @@ group = 'com.kellymariejones'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+apply plugin: 'com.google.cloud.tools.appengine'
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	implementation platform('com.google.cloud:libraries-bom:20.6.0')
+	implementation 'com.google.cloud:google-cloud-secretmanager'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.4'
 	implementation 'mysql:mysql-connector-java'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.security:spring-security-crypto'
